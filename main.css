@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+:root {
+    --accent: 88 101 242;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -269,7 +273,7 @@ textarea:focus {
 
 .contact-modal-title i {
     font-size: 24px;
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 .contact-close-btn {
@@ -316,7 +320,7 @@ textarea:focus {
 
 .form-label i {
     font-size: 12px;
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 .form-input,
@@ -334,9 +338,9 @@ textarea:focus {
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: rgba(88, 101, 242, 0.5);
+    border-color: rgb(var(--accent) / 0.5);
     background: rgba(10, 10, 10, 0.8);
-    box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
+    box-shadow: 0 0 0 3px rgb(var(--accent) / 0.1);
 }
 
 .form-input::placeholder,
@@ -386,9 +390,9 @@ textarea:focus {
 }
 
 .form-submit-btn {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(88, 101, 242, 0.08));
-    border: 1px solid rgba(88, 101, 242, 0.3);
-    color: #5865f2;
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.15), rgb(var(--accent) / 0.08));
+    border: 1px solid rgb(var(--accent) / 0.3);
+    color: rgb(var(--accent));
     padding: 16px 32px;
     border-radius: 12px;
     font-size: 16px;
@@ -402,10 +406,10 @@ textarea:focus {
 }
 
 .form-submit-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.25), rgba(88, 101, 242, 0.15));
-    border-color: rgba(88, 101, 242, 0.5);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.25), rgb(var(--accent) / 0.15));
+    border-color: rgb(var(--accent) / 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(88, 101, 242, 0.3);
+    box-shadow: 0 8px 24px rgb(var(--accent) / 0.3);
 }
 
 .form-submit-btn:disabled {
@@ -419,8 +423,8 @@ textarea:focus {
 .form-submit-btn .spinner {
     width: 16px;
     height: 16px;
-    border: 2px solid rgba(88, 101, 242, 0.2);
-    border-top-color: #5865f2;
+    border: 2px solid rgb(var(--accent) / 0.2);
+    border-top-color: rgb(var(--accent));
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -575,7 +579,7 @@ body.focus-outlines button:focus,
 body.focus-outlines input:focus,
 body.focus-outlines textarea:focus,
 body.focus-outlines select:focus {
-    outline: 2px solid #5865f2 !important;
+    outline: 2px solid rgb(var(--accent)) !important;
     outline-offset: 3px;
 }
 
@@ -1075,7 +1079,7 @@ body.focus-outlines select:focus {
 
 .skills-section-title i {
     font-size: 20px;
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 .languages-grid {
@@ -1193,21 +1197,21 @@ body.focus-outlines select:focus {
     font-size: 32px;
     width: 60px;
     height: 60px;
-    background: rgba(88, 101, 242, 0.12);
-    border: 2px solid rgba(88, 101, 242, 0.3);
+    background: rgb(var(--accent) / 0.12);
+    border: 2px solid rgb(var(--accent) / 0.3);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #5865f2;
+    color: rgb(var(--accent));
     transition: all 0.3s ease;
 }
 
 .about-card:hover .about-icon {
     transform: scale(1.05) rotate(5deg);
-    background: rgba(88, 101, 242, 0.18);
-    border-color: rgba(88, 101, 242, 0.5);
+    background: rgb(var(--accent) / 0.18);
+    border-color: rgb(var(--accent) / 0.5);
 }
 
 .about-content {
@@ -1231,13 +1235,13 @@ body.focus-outlines select:focus {
 }
 
 .skills-final-card {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.1) 0%, rgba(15, 15, 15, 0.8) 100%);
-    border-color: rgba(88, 101, 242, 0.25);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.1) 0%, rgba(15, 15, 15, 0.8) 100%);
+    border-color: rgb(var(--accent) / 0.25);
     margin-top: 24px;
 }
 
 .skills-final-card::before {
-    background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgb(var(--accent) / 0.3), transparent);
 }
 
 .final-card-content {
@@ -1250,21 +1254,21 @@ body.focus-outlines select:focus {
     font-size: 36px;
     width: 72px;
     height: 72px;
-    background: rgba(88, 101, 242, 0.15);
-    border: 2px solid rgba(88, 101, 242, 0.4);
+    background: rgb(var(--accent) / 0.15);
+    border: 2px solid rgb(var(--accent) / 0.4);
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #5865f2;
+    color: rgb(var(--accent));
     transition: all 0.3s ease;
 }
 
 .skills-final-card:hover .final-icon {
     transform: scale(1.05) rotate(-8deg);
-    background: rgba(88, 101, 242, 0.25);
-    border-color: rgba(88, 101, 242, 0.6);
+    background: rgb(var(--accent) / 0.25);
+    border-color: rgb(var(--accent) / 0.6);
 }
 
 .final-text {
@@ -1592,7 +1596,7 @@ body.focus-outlines select:focus {
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    color: #5865f2;
+    color: rgb(var(--accent));
     animation: music-pulse 2s ease-in-out infinite;
 }
 
@@ -1635,14 +1639,14 @@ body.focus-outlines select:focus {
     height: 80px;
     border-radius: 8px;
     object-fit: cover;
-    border: 2px solid rgba(88, 101, 242, 0.3);
+    border: 2px solid rgb(var(--accent) / 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
 
 .music-album-art:hover {
-    border-color: rgba(88, 101, 242, 0.6);
-    box-shadow: 0 5px 16px rgba(88, 101, 242, 0.25);
+    border-color: rgb(var(--accent) / 0.6);
+    box-shadow: 0 5px 16px rgb(var(--accent) / 0.25);
 }
 
 .music-track-info {
@@ -1714,7 +1718,7 @@ body.focus-outlines select:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(88, 101, 242, 0.1);
+    background: rgb(var(--accent) / 0.1);
     border-radius: 50%;
     opacity: 0;
     transform: scale(0.5);
@@ -1723,8 +1727,8 @@ body.focus-outlines select:focus {
 
 .music-control:hover {
     transform: translateY(-2px) scale(1.05);
-    border-color: rgba(88, 101, 242, 0.4);
-    box-shadow: 0 6px 16px rgba(88, 101, 242, 0.2);
+    border-color: rgb(var(--accent) / 0.4);
+    box-shadow: 0 6px 16px rgb(var(--accent) / 0.2);
 }
 
 .music-control:hover::before {
@@ -1740,14 +1744,14 @@ body.focus-outlines select:focus {
     width: 40px;
     height: 40px;
     font-size: 15px;
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(88, 101, 242, 0.08));
-    border-color: rgba(88, 101, 242, 0.3);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.15), rgb(var(--accent) / 0.08));
+    border-color: rgb(var(--accent) / 0.3);
 }
 
 .music-control.play-pause:hover {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.25), rgba(88, 101, 242, 0.15));
-    border-color: rgba(88, 101, 242, 0.5);
-    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.25), rgb(var(--accent) / 0.15));
+    border-color: rgb(var(--accent) / 0.5);
+    box-shadow: 0 8px 20px rgb(var(--accent) / 0.3);
 }
 
 .music-progress-container {
@@ -1775,7 +1779,7 @@ body.focus-outlines select:focus {
 
 .music-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #5865f2, #7289da);
+    background: linear-gradient(90deg, rgb(var(--accent)), color-mix(in srgb, rgb(var(--accent)) 80%, white));
     border-radius: 2.5px;
     position: relative;
     transition: width 0.1s linear;
@@ -1809,7 +1813,7 @@ body.focus-outlines select:focus {
 
 .music-volume-container input[type="range"] {
     flex: 1;
-    accent-color: #5865f2;
+    accent-color: rgb(var(--accent));
 }
 
 .music-time {
@@ -1936,8 +1940,8 @@ body.focus-outlines select:focus {
 *************************************************************************/
 
 .contact-item.donate-item {
-    border-color: rgba(88, 101, 242, 0.3);
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.08) 0%, rgba(15, 15, 15, 0.8) 100%);
+    border-color: rgb(var(--accent) / 0.3);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.08) 0%, rgba(15, 15, 15, 0.8) 100%);
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1950,17 +1954,17 @@ body.focus-outlines select:focus {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgb(var(--accent) / 0.2), transparent);
 }
 
 .contact-item.donate-item:hover {
     transform: translateY(-6px);
-    border-color: rgba(88, 101, 242, 0.25);
+    border-color: rgb(var(--accent) / 0.25);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .donate-icon {
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 /************************************************************************
@@ -2015,8 +2019,8 @@ body.focus-outlines select:focus {
 }
 
 .invite-card.server-invite {
-    border-color: rgba(88, 101, 242, 0.3);
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.08) 0%, rgba(10, 10, 10, 0.9) 100%);
+    border-color: rgb(var(--accent) / 0.3);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.08) 0%, rgba(10, 10, 10, 0.9) 100%);
 }
 
 .invite-card.bot-invite {
@@ -2111,9 +2115,9 @@ body.focus-outlines select:focus {
 }
 
 .join-btn {
-    background: rgba(88, 101, 242, 0.15);
-    border: 1px solid rgba(88, 101, 242, 0.3);
-    color: #5865f2;
+    background: rgb(var(--accent) / 0.15);
+    border: 1px solid rgb(var(--accent) / 0.3);
+    color: rgb(var(--accent));
     padding: 8px 16px;
     border-radius: 12px;
     font-size: 13px;
@@ -2132,8 +2136,8 @@ body.focus-outlines select:focus {
 }
 
 .join-btn:hover {
-    background: rgba(88, 101, 242, 0.25);
-    border-color: rgba(88, 101, 242, 0.5);
+    background: rgb(var(--accent) / 0.25);
+    border-color: rgb(var(--accent) / 0.5);
     transform: translateY(-1px);
 }
 
@@ -2979,6 +2983,7 @@ body.focus-outlines select:focus {
 
 .contact-grid {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
     animation: contactfade 0.8s ease-out 0.2s both;
 }
@@ -3002,6 +3007,19 @@ body.focus-outlines select:focus {
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#contact .content {
+    max-width: 640px;
+    text-align: left;
+}
+
+#contact .header {
+    text-align: center;
+}
+
+.contact-item.donate-item {
+    grid-column: 1 / -1;
 }
 
 .contact-item::before {
@@ -3042,6 +3060,9 @@ body.focus-outlines select:focus {
     font-size: 18px;
     color: #ffffff;
     font-weight: 600;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
 }
 
 .external-redirect-overlay {
@@ -3092,7 +3113,7 @@ body.focus-outlines select:focus {
 }
 
 .external-redirect-title i {
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 .external-redirect-close {
@@ -3152,7 +3173,7 @@ body.focus-outlines select:focus {
 }
 
 .external-redirect-checkbox input {
-    accent-color: #5865f2;
+    accent-color: rgb(var(--accent));
 }
 
 .external-redirect-actions {
@@ -3182,14 +3203,14 @@ body.focus-outlines select:focus {
 }
 
 .external-redirect-btn.primary {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.35), rgba(88, 101, 242, 0.2));
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.35), rgb(var(--accent) / 0.2));
     color: #ffffff;
-    border-color: rgba(88, 101, 242, 0.45);
+    border-color: rgb(var(--accent) / 0.45);
 }
 
 .external-redirect-btn.primary:hover {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.5), rgba(88, 101, 242, 0.3));
-    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.35);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.5), rgb(var(--accent) / 0.3));
+    box-shadow: 0 8px 20px rgb(var(--accent) / 0.35);
     transform: translateY(-1px);
 }
 
@@ -3266,7 +3287,7 @@ body.focus-outlines select:focus {
 }
 
 .settings-title i {
-    color: #5865f2;
+    color: rgb(var(--accent));
 }
 
 .settings-close {
@@ -3370,8 +3391,8 @@ body.focus-outlines select:focus {
 }
 
 .settings-switch input:checked + .settings-slider {
-    background: rgba(88, 101, 242, 0.45);
-    border-color: rgba(88, 101, 242, 0.5);
+    background: rgb(var(--accent) / 0.45);
+    border-color: rgb(var(--accent) / 0.5);
 }
 
 .settings-switch input:checked + .settings-slider::before {
@@ -3380,10 +3401,56 @@ body.focus-outlines select:focus {
 
 .settings-range {
     width: 160px;
-    accent-color: #5865f2;
+    accent-color: rgb(var(--accent));
+}
+
+@media (max-width: 768px) {
+    .settings-toggle {
+        left: 14px;
+        bottom: 14px;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        opacity: 0.8;
+    }
+
+    .settings-modal {
+        width: 94%;
+        max-width: 520px;
+        padding: 20px;
+        max-height: 86vh;
+        overflow-y: auto;
+    }
+
+    .settings-header {
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+    }
+
+    .settings-section {
+        gap: 10px;
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+    }
 }
 
 @media (max-width: 480px) {
+    .settings-overlay {
+        align-items: flex-start;
+        padding: 16px 0;
+    }
+
+    .settings-modal {
+        width: calc(100% - 24px);
+        padding: 18px;
+        border-radius: 16px;
+        max-height: 90vh;
+    }
+
+    .settings-title {
+        font-size: 16px;
+    }
+
     .settings-item {
         align-items: flex-start;
         flex-direction: column;
@@ -3519,7 +3586,7 @@ body.focus-outlines select:focus {
 
 .accent-pink { background: rgba(255, 70, 165, 0.15); border-color: rgba(255, 70, 165, 0.3); }
 .accent-cyan { background: rgba(70, 200, 255, 0.15); border-color: rgba(70, 200, 255, 0.3); }
-.accent-blue { background: rgba(88, 101, 242, 0.18); border-color: rgba(88, 101, 242, 0.35); }
+.accent-blue { background: rgb(var(--accent) / 0.18); border-color: rgb(var(--accent) / 0.35); }
 .accent-purple { background: rgba(170, 110, 255, 0.18); border-color: rgba(170, 110, 255, 0.35); }
 .accent-green { background: rgba(67, 181, 129, 0.18); border-color: rgba(67, 181, 129, 0.35); }
 .accent-orange { background: rgba(255, 170, 80, 0.18); border-color: rgba(255, 170, 80, 0.35); }
@@ -3894,6 +3961,7 @@ body.focus-outlines select:focus {
 
     .tagline {
         font-size: 16px;
+        line-height: 1.45;
     }
 
     .content {
@@ -3902,6 +3970,11 @@ body.focus-outlines select:focus {
 
     .container {
         padding: 100px 15px 60px;
+    }
+
+    #contact .content {
+        max-width: 520px;
+        text-align: center;
     }
 
     .info-grid {
@@ -3938,7 +4011,39 @@ body.focus-outlines select:focus {
     }
 
     .contact-grid {
+        grid-template-columns: 1fr;
         gap: 12px;
+    }
+
+    .header {
+        margin-bottom: 28px;
+    }
+
+    .social-links-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project-tag {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .discord-card,
+    .project-card,
+    .contact-item,
+    .contact-now-btn,
+    .social-card {
+        border-radius: 16px;
+    }
+
+    .social-link {
+        padding: 12px;
+        gap: 0;
+        min-height: 48px;
+    }
+
+    .social-link span {
+        display: none;
     }
 
     .modal-content {
@@ -4035,7 +4140,7 @@ body.focus-outlines select:focus {
     }
 
     .name {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
     }
 
     .container {
@@ -4046,6 +4151,11 @@ body.focus-outlines select:focus {
     .content {
         max-width: calc(100vw - 20px);
         padding: 0 5px;
+    }
+
+    #contact .content {
+        max-width: calc(100vw - 20px);
+        text-align: center;
     }
 
     .discord-card, .contact-item, .info-item {
@@ -4074,8 +4184,26 @@ body.focus-outlines select:focus {
     }
 
     .contact-grid {
+        grid-template-columns: 1fr;
         gap: 10px;
         margin-bottom: 20px; 
+    }
+
+    .tagline {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .social-links-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .social-link {
+        min-height: 42px;
+    }
+
+    .contact-now-btn span {
+        font-size: 16px;
     }
 
     .modal-content {
@@ -4206,14 +4334,62 @@ body.focus-outlines select:focus {
     }
 }
 
+/* Footer */
+.site-footer {
+    width: 100%;
+    padding: 18px 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9a9a9a;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.footer-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.footer-content i {
+    color: rgb(var(--accent));
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 14px 12px 22px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 12px 10px 20px;
+        font-size: 10px;
+    }
+
+    .footer-content {
+        padding: 8px 12px;
+        gap: 6px;
+    }
+}
+
 /* Modern Discord Card Design */
 .invite-card-modern {
     display: flex;
     align-items: center;
     gap: 24px;
     padding: 24px;
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.1) 0%, rgba(88, 101, 242, 0.05) 100%);
-    border: 1px solid rgba(88, 101, 242, 0.2);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.1) 0%, rgb(var(--accent) / 0.05) 100%);
+    border: 1px solid rgb(var(--accent) / 0.2);
     border-radius: 16px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -4221,8 +4397,8 @@ body.focus-outlines select:focus {
 }
 
 .invite-card-modern:hover {
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.15) 0%, rgba(88, 101, 242, 0.1) 100%);
-    border-color: rgba(88, 101, 242, 0.4);
+    background: linear-gradient(135deg, rgb(var(--accent) / 0.15) 0%, rgb(var(--accent) / 0.1) 100%);
+    border-color: rgb(var(--accent) / 0.4);
     transform: translateX(4px);
 }
 
@@ -4314,14 +4490,14 @@ body.focus-outlines select:focus {
     justify-content: center;
     width: 60px;
     height: 60px;
-    background: rgba(88, 101, 242, 0.2);
+    background: rgb(var(--accent) / 0.2);
     border-radius: 12px;
     flex-shrink: 0;
 }
 
 .invite-icon-modern i {
     font-size: 32px;
-    color: #5865F2;
+    color: rgb(var(--accent));
 }
 
 .invite-details-modern {
@@ -4350,7 +4526,7 @@ body.focus-outlines select:focus {
 
 .join-btn-modern {
     padding: 10px 24px;
-    background: linear-gradient(135deg, #5865F2 0%, #7289DA 100%);
+    background: linear-gradient(135deg, rgb(var(--accent)) 0%, color-mix(in srgb, rgb(var(--accent)) 80%, white) 100%);
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -4363,9 +4539,9 @@ body.focus-outlines select:focus {
 }
 
 .join-btn-modern:hover {
-    background: linear-gradient(135deg, #7289DA 0%, #5865F2 100%);
+    background: linear-gradient(135deg, color-mix(in srgb, rgb(var(--accent)) 80%, white) 0%, rgb(var(--accent)) 100%);
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    box-shadow: 0 4px 15px rgb(var(--accent) / 0.4);
 }
 
 .join-btn-modern:active {
