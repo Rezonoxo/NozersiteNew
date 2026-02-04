@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Nozer - Personal Portfolio">
+<meta name="keywords" content="portfolio, developer, designer, Nozer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nozer">
+<meta property="og:description" content="Personal portfolio of Nozer">
+<meta property="og:url" content="https://nozer.site/">
+<meta property="og:image" content="https://i.pinimg.com/1200x/80/f0/19/80f01908e898e4c2a29f86f91474cb27.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Portfolio screenshot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nozer">
+<meta name="twitter:description" content="Personal portfolio">
+<meta name="twitter:image" content="https://i.pinimg.com/1200x/80/f0/19/80f01908e898e4c2a29f86f91474cb27.jpg">
+<meta name="twitter:image:alt" content="Portfolio preview">
+<meta name="twitter:site" content="@nozer">
+<meta name="twitter:creator" content="@nozer">
+<title>Nozer</title>
+<link rel="icon" href="icons/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="customCursor"></div>
+    <div id="wakeup-overlay" class="wakeup-overlay">
+        <div class="wakeup-content">
+            <div class="pulse-dot"></div>
+            <div class="wake-text">click</div>
+        </div>
+    </div>
+
+    <div class="starfield" id="starfield"></div>
+    <nav class="fixed-nav">
+        <div class="nav-container">
+            <button class="nav-link active" onclick="showpage('home')">home</button>
+            <button class="nav-link" onclick="showpage('projects')">projects</button>
+            <button class="nav-link" onclick="showpage('skills')">skills</button>
+            <button class="nav-link" onclick="showpage('contact')">contact</button>
+        </div>
+    </nav>
+
+    <div id="home" class="container">
+        <div class="content">
+            <div class="header">
+                <h1 class="name">nozer.site</h1>
+                <p class="tagline">Hey, I'm: <span id="changing-name" class="animated-name">Nozer</span></p>
+            </div>
+
+            <!-- Discord Profile Card -->
+            <div class="discord-card" id="discord-profile-card">
+                <div class="profile-row">
+                    <div class="avatar-container">
+                        <img class="avatar" id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
+                        <div class="status-indicator offline" id="discord-status"></div>
+                    </div>
+                    <div class="user-details">
+                        <div class="username" id="discord-username">Ładowanie...</div>
+                        <div class="status-text" id="discord-status-text">Sprawdzanie statusu...</div>
+                    </div>
+                </div>
+                <div class="activities-container" id="discord-activities">
+                    <div style="text-align: center; color: #888; padding: 20px;">Ładowanie aktywności...</div>
+                </div>
+            </div>
+
+            <div class="discord-card">
+                <div class="invite-card-modern server-invite server-cyan">
+                    <div class="invite-icon-modern">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="invite-details-modern">
+                        <div class="invite-name">Server 1</div>
+                        <div class="invite-description">Opis pierwszego serwera Discord.</div>
+                    </div>
+                    <div class="invite-action-modern">
+                        <button class="join-btn-modern" onclick="window.open('https://discord.gg/server1', '_blank')">JOIN SERVER</button>
+                    </div>
+                </div>
+
+                <div class="invite-card-modern server-invite server-green">
+                    <div class="invite-icon-modern">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="invite-details-modern">
+                        <div class="invite-name">Server 2</div>
+                        <div class="invite-description">Opis drugiego serwera Discord.</div>
+                    </div>
+                    <div class="invite-action-modern">
+                        <button class="join-btn-modern" onclick="window.open('https://discord.gg/server2', '_blank')">VISIT SITE</button>
+                    </div>
+                </div>
+
+                <div class="invite-card-modern server-invite server-purple">
+                    <div class="invite-icon-modern">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="invite-details-modern">
+                        <div class="invite-name">Server 3</div>
+                        <div class="invite-description">Opis trzeciego serwera Discord.</div>
+                    </div>
+                    <div class="invite-action-modern">
+                        <button class="join-btn-modern" onclick="window.open('https://discord.gg/server3', '_blank')">VISIT SITE</button>
+                    </div>
+                </div>
+            </div>
+<div class="spotify-history-card">
+    <div class="history-header">
+        <div class="header-main">
+            <span class="history-tag">Spotify</span>
+            <h3 class="history-title">RECENTLY PLAYED</h3>
+        </div>
+        <div class="playing-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div id="spotify-list" class="history-list">
+        <div class="loading-text">INITIALIZING AUDIO STREAM...</div>
+    </div>
+</div>
+<style>
+    /* Główny kontener karty - teraz na pełną szerokość */
+    .spotify-history-card {
+        background: rgba(10, 10, 10, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 24px;
+        width: 100%; /* Wypełnia całą dostępną szerokość */
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 16px;
+    }
+
+    .spotify-history-card:hover {
+        border-color: rgba(255, 255, 255, 0.15);
+        background: rgba(15, 15, 15, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .history-tag {
+        font-size: 10px;
+        color: #58f284;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .history-title {
+        font-size: 20px;
+        color: #ffffff;
+        margin: 6px 0 0 0;
+        font-weight: 700;
+    }
+
+    .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .track-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-decoration: none;
+        padding: 10px 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        transition: all 0.2s ease;
+        border-radius: 10px;
+    }
+
+    .track-item:last-child {
+        border-bottom: none;
+    }
+
+    .track-item:hover {
+        padding-left: 8px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .album-art {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        background: #111;
+        border: 1px solid rgba(255,255,255,0.08);
+        object-fit: cover;
+    }
+
+    .track-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1; /* To sprawia, że info zajmuje całe wolne miejsce */
+        min-width: 0;
+    }
+
+    .track-name {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .track-artist {
+        color: #888;
+        font-size: 12px;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .status-badge {
+        font-size: 9px;
+        font-weight: 900;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.03);
+        color: #555;
+        letter-spacing: 0.5px;
+        flex-shrink: 0; /* Zapobiega zgniataniu badge'a */
+    }
+
+    .status-now {
+        color: #43b581;
+        background: rgba(67, 181, 129, 0.1);
+        box-shadow: 0 0 15px rgba(67, 181, 129, 0.1);
+    }
+
+    /* Animacja słupków */
+    .playing-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 18px;
+        opacity: 0.4;
+    }
+
+    .bar {
+        width: 3px;
+        background: #5865f2;
+        animation: grow 1s ease-in-out infinite;
+        animation-play-state: paused;
+    }
+
+    .bar:nth-child(2) { animation-delay: 0.2s; }
+    .bar:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes grow {
+        0%, 100% { height: 5px; }
+        50% { height: 18px; }
+    }
+
+    .spotify-history-card.is-playing .bar {
+        animation-play-state: running;
+    }
+
+    .spotify-history-card.is-playing .playing-bars {
+        opacity: 1;
+    }
+
+    .loading-text {
+        font-size: 11px;
+        color: #444;
+        letter-spacing: 1px;
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    /* Dopasowanie do Twojego kursora */
+    .spotify-history-card, .spotify-history-card * {
+        cursor: none !important;
+    }
+
+</style>
+<script>
+    async function updateRecentTracks() {
+        // --- KONFIGURACJA ---
+        const USERNAME = 'Nozercode'; // Podaj swoją nazwę na Last.fm
+        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // Mój klucz API
+        // --------------------
+
+        const URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
+
+        try {
+            const response = await fetch(URL);
+            const data = await response.json();
+
+            if (data.error) {
+                document.getElementById('spotify-list').innerHTML = `<div class="loading-text">API ERROR: ${data.message}</div>`;
+                return;
+            }
+
+            const tracks = data.recenttracks.track;
+            const listElement = document.getElementById('spotify-list');
+            const historyCard = document.querySelector('.spotify-history-card');
+            
+            if (!tracks || tracks.length === 0) {
+                listElement.innerHTML = '<div class="loading-text">NO DATA FOUND</div>';
+                return;
+            }
+
+            listElement.innerHTML = ''; // Czyścimy loader
+            let isNowPlaying = false;
+
+            tracks.forEach(track => {
+                const playingNow = track['@attr'] && track['@attr'].nowplaying;
+                if (playingNow) isNowPlaying = true;
+                // Wybieramy średni rozmiar obrazka
+                const imgUrl = track.image[2]['#text'] || 'https://via.placeholder.com/64/111/111?text=?';
+                const trackName = track.name || '';
+                const artistName = track.artist['#text'] || '';
+                
+                const trackHtml = `
+                    <a href="${track.url}" target="_blank" class="track-item" data-track="${encodeURIComponent(trackName)}" data-artist="${encodeURIComponent(artistName)}">
+                        <img src="${imgUrl}" class="album-art" alt="Album Art">
+                        <div class="track-info">
+                            <span class="track-name">${trackName}</span>
+                            <span class="track-artist">${artistName}</span>
+                        </div>
+                        <span class="status-badge ${playingNow ? 'status-now' : ''}">
+                            ${playingNow ? 'LISTENING' : 'PAST'}
+                        </span>
+                    </a>
+                `;
+                listElement.innerHTML += trackHtml;
+            });
+
+            if (historyCard) {
+                historyCard.classList.toggle('is-playing', isNowPlaying);
+            }
+
+        } catch (error) {
+            document.getElementById('spotify-list').innerHTML = '<div class="loading-text">NETWORK ERROR</div>';
+        }
+    }
+
+    // Pierwsze wywołanie
+    updateRecentTracks();
+    // Odświeżanie co 30 sekund
+    setInterval(updateRecentTracks, 30000);
+</script>
+            <div class="music-player-card">
+                <div class="music-player">
+                    <div class="music-header">
+                        <div class="music-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="music-type">Now Playing</div>
+                    </div>
+                    <div class="music-content">
+                        <div class="music-album-container" onclick="togglePlayPause()" style="cursor: pointer;">
+                            <img class="music-album-art" id="music-album-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
+                        </div>
+                        <div class="music-track-info">
+                            <div class="music-title" id="music-title">#habibati</div>
+                            <div class="music-artist" id="music-artist">Local Track</div>
+                        </div>
+                    </div>
+                    <div class="music-controls">
+                        <button class="music-control" onclick="previousTrack()">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="music-control play-pause" onclick="togglePlayPause()" id="play-pause-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="music-control" onclick="nextTrack()">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                        <div class="music-volume-container">
+                            <i class="fas fa-volume-up"></i>
+                            <input type="range" id="music-volume-range" min="0" max="100" value="60">
+                        </div>
+                    </div>
+                    <div class="music-progress-container">
+                        <div class="music-progress-bar">
+                            <div class="music-progress-fill" id="music-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="music-time">
+                        <span id="music-current-time">0:00</span>
+                        <span id="music-duration">0:00</span>
+                    </div>
+                    <audio id="music-audio"></audio>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">Poland</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Timezone</div>
+                    <div class="info-value">GMT+1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects" class="container hidden">
+        <div class="content projects-content">
+            <div class="header">
+                <h1 class="name">projects</h1>
+                <p class="tagline">A selection of my creations and collaborations</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-pink">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="project-title">lyute ai</div>
+                    </div>
+                    <p class="project-desc">
+                        The dedicated AI assistant for my shop, designed to handle inquiries, speed up support,
+                        and provide smarter customer interactions.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">TypeScript</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-cyan">
+                            <i class="fas fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="project-title">spotnif</div>
+                    </div>
+                    <p class="project-desc">
+                        A versatile tool that generates the Lanyard API for Spotify presence, designed as a
+                        sleek and dynamic visualizer.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-blue">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="project-title">imagify</div>
+                    </div>
+                    <p class="project-desc">
+                        A polished image editor built for creators who want quick, clean results with minimal effort.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-purple">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="project-title">seent</div>
+                    </div>
+                    <p class="project-desc">
+                        Community-powered Discord bot focused on reminders, announcements, and server utilities.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">discord.py</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-green">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="project-title">void discord bot</div>
+                    </div>
+                    <p class="project-desc">
+                        Multi-purpose Discord bot with moderation, logging, and community tools.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">discord.py</span>
+                        <span class="project-tag">SENAPI</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon accent-orange">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="project-title">lyute @bshop</div>
+                    </div>
+                    <p class="project-desc">
+                        A digital storefront for my community, support, and collaboration space.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">B2B</span>
+                        <span class="project-tag">Shop</span>
+                    </div>
+                    <div class="project-actions">
+                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
+                            Join <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="open-work">
+                <span class="status-dot"></span>
+                <span>open for work</span>
+            </div>
+
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h3>User Reviews</h3>
+                    <p>If you want to leave a review, join lyute @bshop</p>
+                </div>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"nice and fast. I really like it"</p>
+                        <div class="review-user">— say_starx_2</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"I like the work a lot"</p>
+                        <div class="review-user">— darkoapp</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skills" class="container hidden">
+        <div class="content">
+            <div class="header">
+                <h1 class="name">skills</h1>
+                <p class="tagline">Passionate developer & creative builder</p>
+            </div>
+
+            <div class="discord-card">
+                <div class="skills-section-title">
+                    <i class="fas fa-code"></i>
+                    <span>Programming Languages</span>
+                </div>
+                
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                        </div>
+                        <div class="language-name">Python</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                        </div>
+                        <div class="language-name">JavaScript</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua">
+                        </div>
+                        <div class="language-name">Lua</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                        </div>
+                        <div class="language-name">TypeScript</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" alt="Rust">
+                        </div>
+                        <div class="language-name">Rust</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby">
+                        </div>
+                        <div class="language-name">Ruby</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift">
+                        </div>
+                        <div class="language-name">Swift</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+                        </div>
+                        <div class="language-name">C#</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1086px-C_Programming_Language.svg.png" alt="C">
+                        </div>
+                        <div class="language-name">C</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discord-card">
+                <div class="skills-section-title">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Frameworks / Libraries</span>
+                </div>
+                
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                        </div>
+                        <div class="language-name">React</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js">
+                        </div>
+                        <div class="language-name">Next.js</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                        </div>
+                        <div class="language-name">Node.js</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discord-card">
+                <div class="skills-section-title">
+                    <i class="fas fa-tools"></i>
+                    <span>Tools / Platforms</span>
+                </div>
+                
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/1200px-GitHub_Invertocat_Logo.svg.png" alt="GitHub">
+                        </div>
+                        <div class="language-name">GitHub</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" alt="Vercel">
+                        </div>
+                        <div class="language-name">Vercel</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode">
+                        </div>
+                        <div class="language-name">VSCode</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
+                        </div>
+                        <div class="language-name">Cloudflare</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                        </div>
+                        <div class="language-name">Docker</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                        </div>
+                        <div class="language-name">PostgreSQL</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+                        </div>
+                        <div class="language-name">Firebase</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="icons/s.webp" alt="SENAPI">
+                        </div>
+                        <div class="language-name">SENAPI</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discord-card">
+                <div class="skills-section-title">
+                    <i class="fas fa-user"></i>
+                    <span>About Me</span>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>Who I Am</h3>
+                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name ‘Nozercode’ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>My Mission</h3>
+                        <p>I challenge myself every day to learn something new and create projects I can be proud of. I focus on creating inventive work that helps me grow professionally and attract clients who value creativity.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>Roblox Development</h3>
+                        <p>In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discord-card skills-final-card">
+                <div class="final-card-content">
+                    <div class="final-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="final-text">
+                        <h3>Always Learning, Always Growing</h3>
+                        <p>My journey is far from over. I'm constantly exploring new technologies, mastering new frameworks, and taking on challenging projects that expand my skillset.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="container hidden">
+        <div class="content">
+            <div class="header">
+                <h1 class="name">contact</h1>
+                <p class="tagline">Let's connect and create something extraordinary together</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="https://discord.com/users/690653953238499369" class="contact-item" target="_blank" rel="noopener noreferrer">
+                    <div class="contact-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Discord</div>
+                        <div class="contact-value">rezonoxo</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="contact-item" target="_blank" rel="noopener noreferrer">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value" id="email">d2lrdG9ya29ub3BrYS5ub3plckBnbWFpbC5jb20=</div>
+                    </div>
+                </a>
+
+                <a href="https://www.paypal.com/paypalme/rezonoxo" class="contact-item donate-item" target="_blank" rel="noopener noreferrer">
+                    <div class="contact-icon donate-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Support My Work</div>
+                        <div class="contact-value">Buy me a coffee</div>
+                    </div>
+                    <div class="donate-accent"></div>
+                </a>
+            </div>
+
+            <button class="contact-now-btn" onclick="openContactForm()">
+                <i class="fas fa-paper-plane"></i>
+                <span>Contact Now</span>
+            </button>
+
+            <div class="discord-card social-card">
+                <div class="social-links-container">
+                    <a href="https://youtube.com/@nozercode" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </a>
+                    <a href="https://tiktok.com/@nozercode" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-tiktok"></i>
+                        <span>TikTok</span>
+                    </a>
+                    <a href="https://github.com/rezonoxo" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://behance.net/nozercode" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-behance"></i>
+                        <span>Behance</span>
+                    </a>
+                    <a href="https://pinterest.com/nozercode" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-pinterest"></i>
+                        <span>Pinterest</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-overlay" class="contact-overlay">
+        <div class="contact-modal">
+            <div class="contact-modal-header">
+                <div class="contact-modal-title">
+                    <i class="fas fa-envelope"></i>
+                    Send a Message
+                </div>
+                <button class="contact-close-btn" onclick="closeContactForm()">&times;</button>
+            </div>
+
+            <form id="contact-form" class="contact-form" onsubmit="submitContactForm(event)">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i>
+                        Your Name
+                    </label>
+                    <input type="text" class="form-input" id="contact-name" placeholder="Enter your name" maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Your Email
+                    </label>
+                    <input type="email" class="form-input" id="contact-email" placeholder="Enter your email" maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-comment"></i>
+                        Your Message
+                    </label>
+                    <textarea class="form-textarea" id="contact-message" placeholder="Enter your message..." maxlength="1000" required></textarea>
+                    <div class="char-count"><span id="char-counter">0</span>/1000</div>
+                </div>
+
+                <div id="form-message-container"></div>
+
+                <button type="submit" class="form-submit-btn" id="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="external-redirect-overlay" class="external-redirect-overlay">
+        <div class="external-redirect-modal">
+            <div class="external-redirect-header">
+                <div class="external-redirect-title">
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                    External Redirect
+                </div>
+                <button class="external-redirect-close" type="button" onclick="cancelExternalRedirect()">&times;</button>
+            </div>
+            <div class="external-redirect-body">
+                <div class="external-redirect-text">Do you want to redirect to:</div>
+                <div class="external-redirect-url" id="external-redirect-url">https://example.com</div>
+            </div>
+            <div class="external-redirect-options">
+                <label class="external-redirect-checkbox">
+                    <input type="checkbox" id="external-redirect-dont-ask">
+                    <span>Don't ask again</span>
+                </label>
+            </div>
+            <div class="external-redirect-actions">
+                <button class="external-redirect-btn ghost" type="button" onclick="cancelExternalRedirect()">No</button>
+                <button class="external-redirect-btn primary" type="button" onclick="confirmExternalRedirect()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="settings-toggle" class="settings-toggle" type="button" aria-label="Open settings" onclick="openSettings()">
+        <i class="fas fa-sliders"></i>
+    </button>
+
+    <div id="settings-overlay" class="settings-overlay">
+        <div class="settings-modal">
+            <div class="settings-header">
+                <div class="settings-title">
+                    <i class="fas fa-sliders"></i>
+                    Settings
+                </div>
+                <button class="settings-close" type="button" onclick="closeSettings()">&times;</button>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Sound</div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Mute audio</div>
+                        <div class="settings-item-desc">Silence all sounds on the page</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-mute">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Volume</div>
+                        <div class="settings-item-desc">Adjust music level</div>
+                    </div>
+                    <input type="range" id="setting-volume" class="settings-range" min="0" max="100" value="60">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Experience</div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Custom cursor</div>
+                        <div class="settings-item-desc">Enable or disable the custom pointer</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-cursor">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Confirm external redirects</div>
+                        <div class="settings-item-desc">Show a popup before leaving the site</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-confirm-redirects">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Accessibility</div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Reduce motion</div>
+                        <div class="settings-item-desc">Minimize animations and effects</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-reduce-motion">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">High contrast</div>
+                        <div class="settings-item-desc">Increase readability of text and borders</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-high-contrast">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Larger text</div>
+                        <div class="settings-item-desc">Scale up key text sizes</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-large-text">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Focus outlines</div>
+                        <div class="settings-item-desc">Show clear focus rings for keyboard users</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-focus-outlines">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
