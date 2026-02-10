@@ -2266,6 +2266,30 @@ body.focus-outlines select:focus {
     }
 }
 
+@media (max-width: 680px) {
+    .discord-profile-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .discord-profile-identity {
+        width: 100%;
+    }
+
+    .discord-profile-actions {
+        width: 100%;
+    }
+
+    .discord-action {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .discord-presence-stack {
+        width: 100%;
+    }
+}
+
 @media (max-width: 480px) {
     .now-playing-card,
     .weather-card,
@@ -3004,6 +3028,151 @@ body.focus-outlines select:focus {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.discord-profile-card {
+    padding: 26px 28px;
+}
+
+.discord-profile-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.discord-profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.identity-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.identity-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.discord-profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.discord-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(88, 101, 242, 0.5);
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.25), rgba(10, 10, 10, 0.9));
+    color: #e8ecff;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.discord-action:hover {
+    transform: translateY(-2px);
+    border-color: rgba(88, 101, 242, 0.8);
+    box-shadow: 0 10px 24px rgba(88, 101, 242, 0.18);
+}
+
+.discord-presence-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.presence-tile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(12, 12, 12, 0.78);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.presence-tile::after {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 60%);
+    opacity: 0.7;
+}
+
+.presence-tile:hover {
+    transform: translateX(4px);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.presence-primary {
+    border-color: rgba(88, 101, 242, 0.45);
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.22), rgba(10, 10, 10, 0.85));
+    box-shadow: inset 0 0 24px rgba(88, 101, 242, 0.12);
+}
+
+.presence-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #cfd4ff;
+    flex-shrink: 0;
+}
+
+.presence-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.presence-label {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    color: #9a9a9a;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.presence-main {
+    font-size: 15px;
+    color: #f2f4ff;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.activity-placeholder {
+    text-align: center;
+    color: #888;
+    padding: 18px;
+    background: rgba(10, 10, 10, 0.5);
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
 .profile-row {

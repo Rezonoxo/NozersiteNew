@@ -59,19 +59,42 @@
             </div>
 
             <!-- Discord Profile Card -->
-            <div class="discord-card" id="discord-profile-card">
-                <div class="profile-row">
-                    <div class="avatar-container">
-                        <img class="avatar" id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
-                        <div class="status-indicator offline" id="discord-status"></div>
+            <div class="discord-card discord-profile-card" id="discord-profile-card">
+                <div class="discord-profile-top">
+                    <div class="discord-profile-identity">
+                        <div class="avatar-container">
+                            <img class="avatar" id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
+                            <div class="status-indicator offline" id="discord-status"></div>
+                        </div>
+                        <div class="identity-text">
+                            <div class="identity-line">
+                                <div class="username" id="discord-username">Loading...</div>
+                            </div>
+                            <div class="status-text" id="discord-status-text">Checking status...</div>
+                        </div>
                     </div>
-                    <div class="user-details">
-                        <div class="username" id="discord-username">Ładowanie...</div>
-                        <div class="status-text" id="discord-status-text">Sprawdzanie statusu...</div>
+                    <div class="discord-profile-actions">
+                        <button class="discord-action" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
+                            <i class="fab fa-discord"></i>
+                            Open profile
+                        </button>
                     </div>
                 </div>
+
+                <div class="discord-presence-stack">
+                    <div class="presence-tile presence-primary" id="discord-custom-tile">
+                        <div class="presence-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="presence-info">
+                            <div class="presence-label">CUSTOM STATUS</div>
+                            <div class="presence-main" id="discord-custom-text">Quietly crafting pixels and code</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="activities-container" id="discord-activities">
-                    <div style="text-align: center; color: #888; padding: 20px;">Ładowanie aktywności...</div>
+                    <div class="activity-placeholder">Loading activities...</div>
                 </div>
             </div>
 

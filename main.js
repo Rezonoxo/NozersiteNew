@@ -728,13 +728,20 @@ async function fetchDiscordProfile() {
         
         if (statusTextEl) {
             const statusTexts = {
-                'online': 'Online',
-                'idle': 'Zaraz wracam',
-                'dnd': 'Nie przeszkadzać',
-                'offline': 'Offline'
+                'online': 'Online on Discord',
+                'idle': 'Idle on Discord',
+                'dnd': 'Do Not Disturb',
+                'offline': 'Currently offline'
             };
-            statusTextEl.textContent = statusTexts[status] || 'Offline';
+            statusTextEl.textContent = statusTexts[status] || 'Currently offline';
         }
+
+        const customTextEl = document.getElementById('discord-custom-text');
+        const activityLabelEl = document.getElementById('discord-activity-label');
+        const activityTextEl = document.getElementById('discord-activity-text');
+        let customStatus = null;
+        let spotifyActivity = null;
+        let gameActivity = null;
         
         // Update activities
         const activitiesContainer = document.getElementById('discord-activities');
@@ -750,6 +757,20 @@ async function fetchDiscordProfile() {
             
             if (user.activities && user.activities.length > 0) {
                 user.activities.forEach(activity => {
+                    if (activity.type === 4 && activity.state) {
+                        customStatus = activity.state;
+                    }
+                    if (!spotifyActivity && activity.type === 2 && activity.name === 'Spotify') {
+                        spotifyActivity = activity;
+                    }
+                    if (!gameActivity && activity.type === 0) {
+                        gameActivity = activity;
+                    }
+
+                    if (activity.type === 4) {
+                        return;
+                    }
+
                     const activityCard = document.createElement('div');
                     activityCard.className = 'activity-card';
                     
@@ -827,23 +848,53 @@ async function fetchDiscordProfile() {
                             `;
                         }
                     }
-                    // Custom Status (type: 4)
-                    else if (activity.type === 4) {
-                        activityCard.innerHTML = `
-                            <div class="activity-header">
-                                <div class="activity-icon">
-                                    <i class="fas fa-comment"></i>
-                                </div>
-                                <div class="activity-type">CUSTOM STATUS</div>
-                            </div>
-                            <div class="activity-title">${activity.state || 'Brak statusu'}</div>
-                        `;
-                    }
                     
                     activitiesContainer.appendChild(activityCard);
                 });
             } else {
-                activitiesContainer.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Brak aktywności</div>';
+                activitiesContainer.innerHTML = '<div class="activity-placeholder">No activities right now</div>';
+            }
+
+            if (customTextEl) {
+                if (customStatus) {
+                    customTextEl.textContent = customStatus;
+                } else {
+                    const fallbacks = [
+                        'Quietly crafting pixels and code',
+                        'Building in silence, shipping in style',
+                        'Minimal chaos, maximal focus'
+                    ];
+                    customTextEl.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+                }
+            }
+
+            const summaryActivity = spotifyActivity || gameActivity;
+            if (activityLabelEl) {
+                const statusLabels = {
+                    'online': 'ONLINE',
+                    'idle': 'IDLE',
+                    'dnd': 'DO NOT DISTURB',
+                    'offline': 'OFFLINE'
+                };
+                activityLabelEl.textContent = `CURRENTLY ${statusLabels[status] || 'OFFLINE'}`;
+            }
+
+            if (activityTextEl) {
+                if (summaryActivity) {
+                    if (summaryActivity.type === 2 && summaryActivity.name === 'Spotify') {
+                        const trackName = summaryActivity.details || user.spotify?.song || 'Unknown Track';
+                        const artistName = summaryActivity.state || user.spotify?.artist || 'Unknown Artist';
+                        activityTextEl.textContent = `Listening to ${trackName} · ${artistName}`;
+                    } else if (summaryActivity.type === 0) {
+                        activityTextEl.textContent = summaryActivity.details
+                            ? `Playing ${summaryActivity.name} · ${summaryActivity.details}`
+                            : `Playing ${summaryActivity.name}`;
+                    } else {
+                        activityTextEl.textContent = summaryActivity.name || 'Active now';
+                    }
+                } else {
+                    activityTextEl.textContent = 'No active apps detected · Probably chilling';
+                }
             }
         }
         
@@ -860,6 +911,9 @@ function loadFallbackProfile() {
     const statusTextEl = document.getElementById('discord-status-text');
     const statusEl = document.getElementById('discord-status');
     const activitiesContainer = document.getElementById('discord-activities');
+    const customTextEl = document.getElementById('discord-custom-text');
+    const activityLabelEl = document.getElementById('discord-activity-label');
+    const activityTextEl = document.getElementById('discord-activity-text');
     
     // Avatar - użyj domyślnego lub spróbuj pobrać z Discord CDN
     if (avatar) {
@@ -879,15 +933,27 @@ function loadFallbackProfile() {
     }
     
     if (statusTextEl) {
-        statusTextEl.textContent = 'Offline (Lanyard nieaktywny)';
+        statusTextEl.textContent = 'Currently offline';
+    }
+
+    if (customTextEl) {
+        customTextEl.textContent = 'Minimal chaos, maximal focus';
+    }
+
+    if (activityLabelEl) {
+        activityLabelEl.textContent = 'CURRENTLY OFFLINE';
+    }
+
+    if (activityTextEl) {
+        activityTextEl.textContent = 'No active apps detected · Probably chilling';
     }
     
     // Aktywności - komunikat
     if (activitiesContainer) {
         activitiesContainer.innerHTML = `
-            <div style="text-align: center; color: #888; padding: 20px; background: rgba(10, 10, 10, 0.4); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                <p style="margin-bottom: 8px; color: #aaa; font-size: 13px;">Aby zobaczyć status i aktywności</p>
-                <p style="font-size: 11px; color: #666; margin-bottom: 12px;">dołącz do serwera Lanyard Discord</p>
+            <div class="activity-placeholder">
+                <p style="margin-bottom: 8px; color: #aaa; font-size: 13px;">Enable Discord presence via Lanyard</p>
+                <p style="font-size: 11px; color: #666; margin-bottom: 12px;">Join the Lanyard Discord server to display live status</p>
                 <a href="https://discord.gg/lanyard" target="_blank" style="color: #5865f2; text-decoration: none; font-size: 12px; font-weight: 500; display: inline-block; padding: 6px 12px; background: rgba(88, 101, 242, 0.1); border-radius: 6px; border: 1px solid rgba(88, 101, 242, 0.2); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(88, 101, 242, 0.2)'" onmouseout="this.style.background='rgba(88, 101, 242, 0.1)'">
                     discord.gg/lanyard
                 </a>
