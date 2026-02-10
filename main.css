@@ -2216,43 +2216,144 @@ body.focus-outlines select:focus {
 
 .favorites-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
 }
 
-.favorite-card {
-    background: var(--fav-cover, rgba(255, 255, 255, 0.06));
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 16px;
-    min-height: 120px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
+.favorite-item {
     position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
 }
 
-.favorite-card::before {
+.favorite-tile {
+    --fav-accent-rgb: var(--fav-accent, var(--accent));
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+    border-radius: 18px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.favorite-tile:hover {
+    transform: translateY(-6px);
+    border-color: rgb(var(--fav-accent-rgb) / 0.35);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.38), 0 0 0 1px rgb(var(--fav-accent-rgb) / 0.08);
+}
+
+.favorite-tile:focus-visible {
+    outline: 2px solid rgb(var(--fav-accent-rgb) / 0.85);
+    outline-offset: 3px;
+}
+
+.favorite-media {
+    position: relative;
+    height: 128px;
+    background: linear-gradient(135deg, rgb(var(--fav-accent-rgb) / 0.18), rgba(12, 12, 12, 0.92));
+}
+
+.favorite-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+    filter: saturate(1.08) contrast(1.05);
+}
+
+.favorite-media::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.favorite-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 1;
+    font-size: 11px;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: #ffffff;
+    border: 1px solid rgb(var(--fav-accent-rgb) / 0.35);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.favorite-meta {
+    padding: 14px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.favorite-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .favorite-name {
-    position: relative;
-    z-index: 1;
-    font-size: 14px;
-    font-weight: 600;
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 700;
     color: #ffffff;
+    line-height: 1.2;
 }
 
-.favorite-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+.favorite-link {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.25s ease, color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.favorite-tile:hover .favorite-link {
+    color: rgb(var(--fav-accent-rgb));
+    border-color: rgb(var(--fav-accent-rgb) / 0.35);
+    background: rgb(var(--fav-accent-rgb) / 0.08);
+    transform: translateY(-1px);
+}
+
+.favorite-desc {
+    margin: 0;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.35;
+}
+
+.favorite-desc code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.95em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .favorite-tile,
+    .favorite-link {
+        transition: none;
+    }
 }
 
 @media (max-width: 768px) {

@@ -33,6 +33,42 @@ const musicTracks = [
         artist: 'Eldzhey, Poshlaya Molly',
         file: 'audio/MT2.mp3',
         image: 'icons/cover2.jpg'
+    },
+    {
+        name: 'Ride or Die, Pt. 2',
+        artist: 'Sevdaliza, Tokischa & Villano Antillano',
+        file: 'audio/MT3.mp3',
+        image: 'icons/cover3.jpg'
+    },
+    {
+        name: 'Адская колыбельная',
+        artist: 'Poshlaya Molly',
+        file: 'audio/MT4.mp3',
+        image: 'icons/cover4.jpg'
+    },
+    {
+        name: 'Стрип клаб',
+        artist: 'Poshlaya Molly',
+        file: 'audio/MT5.mp3',
+        image: 'icons/cover5.jpg'
+    },
+    {
+        name: 'LOYALTY',
+        artist: 'Daniel Di Angelo',
+        file: 'audio/MT6.mp3',
+        image: 'icons/cover6.png'
+    },
+    {
+        name: 'Headlock',
+        artist: 'Imogen Heap',
+        file: 'audio/MT7.mp3',
+        image: 'icons/cover7.png'
+    },
+    {
+        name: '$WERVIN',
+        artist: 'purge!',
+        file: 'audio/MT8.mp3',
+        image: 'icons/cover8.png'
     }
 ];
 
