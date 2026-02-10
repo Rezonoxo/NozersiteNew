@@ -1918,6 +1918,373 @@ body.focus-outlines select:focus {
     }
 }
 
+/************************************************************************
+   HOME WIDGETS (NOW PLAYING / WEATHER / FAVORITES)
+*************************************************************************/
+
+.now-playing-card {
+    background: radial-gradient(circle at top left, rgba(120, 140, 255, 0.12), rgba(12, 12, 12, 0.95) 55%);
+    border-radius: 22px;
+    padding: 22px 24px;
+}
+
+.music-top {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.music-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+}
+
+.music-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.music-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.music-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.music-live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(var(--accent));
+    box-shadow: 0 0 12px rgb(var(--accent) / 0.8);
+    animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.25); opacity: 1; }
+}
+
+.music-album-art {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+}
+
+.music-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.music-artist {
+    font-size: 14px;
+}
+
+.music-controls {
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.music-control {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+}
+
+.music-control.play-pause {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+}
+
+.music-progress-container {
+    margin-top: 10px;
+    height: 5px;
+    border-radius: 4px;
+}
+
+.music-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 6px;
+}
+
+.music-volume-container {
+    margin-top: 10px;
+    gap: 12px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.music-volume-container input[type="range"] {
+    max-width: 220px;
+}
+
+.weather-card {
+    margin-bottom: 16px;
+    background: rgba(12, 12, 12, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 22px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.weather-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.weather-location {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.weather-subtitle {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.weather-updated {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.weather-day {
+    background: rgba(18, 18, 18, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.weather-day:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.weather-day.weather-today {
+    border-color: rgb(var(--accent) / 0.4);
+    box-shadow: 0 0 20px rgb(var(--accent) / 0.2);
+}
+
+.weather-day-label {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 10px;
+}
+
+.weather-icon {
+    font-size: 22px;
+    color: rgb(var(--accent));
+    margin-bottom: 10px;
+}
+
+.weather-temp {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.weather-range,
+.weather-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+}
+
+.favorites-card {
+    margin-bottom: 16px;
+    background: rgba(12, 12, 12, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 22px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.favorites-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.favorites-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.favorites-title i {
+    color: rgb(var(--accent));
+}
+
+.favorites-subtitle {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-left: 8px;
+}
+
+.favorites-toggle {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.favorites-toggle:hover {
+    border-color: rgb(var(--accent) / 0.4);
+    box-shadow: 0 8px 20px rgb(var(--accent) / 0.2);
+}
+
+.favorites-card.collapsed .favorites-body {
+    display: none;
+}
+
+.favorites-body {
+    margin-top: 18px;
+}
+
+.favorites-intro {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+}
+
+.favorites-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.fav-tab {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 13px;
+}
+
+.fav-tab.active,
+.fav-tab:hover {
+    color: #ffffff;
+    border-color: rgb(var(--accent) / 0.4);
+    background: rgb(var(--accent) / 0.12);
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+}
+
+.favorite-card {
+    background: var(--fav-cover, rgba(255, 255, 255, 0.06));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 120px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.favorite-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.favorite-name {
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.favorite-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+    .weather-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .music-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .now-playing-card,
+    .weather-card,
+    .favorites-card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .music-album-art {
+        width: 62px;
+        height: 62px;
+    }
+
+    .music-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }

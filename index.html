@@ -44,6 +44,7 @@
     <nav class="fixed-nav">
         <div class="nav-container">
             <button class="nav-link active" onclick="showpage('home')">home</button>
+            <button class="nav-link" onclick="showpage('about')">about</button>
             <button class="nav-link" onclick="showpage('projects')">projects</button>
             <button class="nav-link" onclick="showpage('skills')">skills</button>
             <button class="nav-link" onclick="showpage('contact')">contact</button>
@@ -365,36 +366,34 @@
     // Odświeżanie co 30 sekund
     setInterval(updateRecentTracks, 30000);
 </script>
-            <div class="music-player-card">
+            <div class="music-player-card now-playing-card">
                 <div class="music-player">
-                    <div class="music-header">
-                        <div class="music-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="music-type">Now Playing</div>
-                    </div>
-                    <div class="music-content">
-                        <div class="music-album-container" onclick="togglePlayPause()" style="cursor: pointer;">
-                            <img class="music-album-art" id="music-album-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
-                        </div>
-                        <div class="music-track-info">
-                            <div class="music-title" id="music-title">#habibati</div>
-                            <div class="music-artist" id="music-artist">Local Track</div>
-                        </div>
-                    </div>
-                    <div class="music-controls">
-                        <button class="music-control" onclick="previousTrack()">
-                            <i class="fas fa-step-backward"></i>
-                        </button>
-                        <button class="music-control play-pause" onclick="togglePlayPause()" id="play-pause-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button class="music-control" onclick="nextTrack()">
-                            <i class="fas fa-step-forward"></i>
-                        </button>
-                        <div class="music-volume-container">
-                            <i class="fas fa-volume-up"></i>
-                            <input type="range" id="music-volume-range" min="0" max="100" value="60">
+                    <div class="music-top">
+                        <div class="music-label">Now Playing</div>
+                        <div class="music-top-row">
+                            <div class="music-main">
+                                <div class="music-album-container" onclick="togglePlayPause()" style="cursor: pointer;">
+                                    <img class="music-album-art" id="music-album-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
+                                </div>
+                                <div class="music-track-info">
+                                    <div class="music-title-row">
+                                        <span class="music-live-dot"></span>
+                                        <div class="music-title" id="music-title">#habibati</div>
+                                    </div>
+                                    <div class="music-artist" id="music-artist">Local Track</div>
+                                </div>
+                            </div>
+                            <div class="music-controls">
+                                <button class="music-control" onclick="previousTrack()">
+                                    <i class="fas fa-step-backward"></i>
+                                </button>
+                                <button class="music-control play-pause" onclick="togglePlayPause()" id="play-pause-btn">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="music-control" onclick="nextTrack()">
+                                    <i class="fas fa-step-forward"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="music-progress-container">
@@ -406,7 +405,47 @@
                         <span id="music-current-time">0:00</span>
                         <span id="music-duration">0:00</span>
                     </div>
+                    <div class="music-volume-container">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" id="music-volume-range" min="0" max="100" value="60">
+                    </div>
                     <audio id="music-audio"></audio>
+                </div>
+            </div>
+
+            <div class="weather-card" id="weather-card">
+                <div class="weather-header">
+                    <div>
+                        <div class="weather-location">Rzeszów</div>
+                        <div class="weather-subtitle">3-day forecast</div>
+                    </div>
+                    <div class="weather-updated" id="weather-updated">Updating...</div>
+                </div>
+                <div class="weather-grid">
+                    <div class="weather-day weather-today">
+                        <div class="weather-day-label">Today</div>
+                        <div class="weather-icon" id="weather-icon-current">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="weather-temp" id="weather-temp-current">--°</div>
+                        <div class="weather-desc" id="weather-desc-current">--</div>
+                    </div>
+                    <div class="weather-day">
+                        <div class="weather-day-label" id="weather-day-1-label">Tomorrow</div>
+                        <div class="weather-icon" id="weather-day-1-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="weather-temp" id="weather-day-1-temp">--°</div>
+                        <div class="weather-range" id="weather-day-1-range">--° / --°</div>
+                    </div>
+                    <div class="weather-day">
+                        <div class="weather-day-label" id="weather-day-2-label">Day After</div>
+                        <div class="weather-icon" id="weather-day-2-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="weather-temp" id="weather-day-2-temp">--°</div>
+                        <div class="weather-range" id="weather-day-2-range">--° / --°</div>
+                    </div>
                 </div>
             </div>
 
@@ -418,6 +457,140 @@
                 <div class="info-item">
                     <div class="info-label">Timezone</div>
                     <div class="info-value">GMT+1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="container hidden">
+        <div class="content">
+            <div class="header">
+                <h1 class="name">about</h1>
+                <p class="tagline">Who I am and what I bring to every project</p>
+            </div>
+
+            <div class="discord-card">
+                <div class="skills-section-title">
+                    <i class="fas fa-user"></i>
+                    <span>About Me</span>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>Who I Am</h3>
+                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name ‘Nozercode’ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>My Mission</h3>
+                        <p>I challenge myself every day to learn something new and create projects I can be proud of. I focus on creating inventive work that helps me grow professionally and attract clients who value creativity.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="about-content">
+                        <h3>Roblox Development</h3>
+                        <p>In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="favorites-card collapsed" id="favorites-card">
+                <div class="favorites-header">
+                    <div class="favorites-title">
+                        <i class="fas fa-heart"></i>
+                        <span>Favorites</span>
+                        <span class="favorites-subtitle">Open me up</span>
+                    </div>
+                    <button class="favorites-toggle" type="button" aria-expanded="false">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Open</span>
+                    </button>
+                </div>
+                <div class="favorites-body">
+                    <p class="favorites-intro">A quick look at what I enjoy most.</p>
+                    <div class="favorites-tabs" role="tablist">
+                        <button class="fav-tab active" data-fav="games" type="button">Games</button>
+                        <button class="fav-tab" data-fav="movies" type="button">Movies</button>
+                        <button class="fav-tab" data-fav="idols" type="button">Idols</button>
+                        <button class="fav-tab" data-fav="color" type="button">Color</button>
+                        <button class="fav-tab" data-fav="season" type="button">Season</button>
+                    </div>
+                    <div class="favorites-grid">
+                        <div class="favorite-item" data-fav="games">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #1e1e2e, #3b82f6);">
+                                <span class="favorite-name">Roblox</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="games">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #2a1b1b, #ef4444);">
+                                <span class="favorite-name">Minecraft</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="games">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #1b2a24, #10b981);">
+                                <span class="favorite-name">Valorant</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="movies">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #1f1c2c, #928dab);">
+                                <span class="favorite-name">The Walking Dead</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="movies">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #141414, #ef4444);">
+                                <span class="favorite-name">Terrifier 3</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="movies">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #14151f, #60a5fa);">
+                                <span class="favorite-name">Wednesday</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="idols">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #231c29, #a855f7);">
+                                <span class="favorite-name">Travis Scott</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="idols">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #1f2937, #f97316);">
+                                <span class="favorite-name">The Weeknd</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="color">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #0f172a, #60a5fa);">
+                                <span class="favorite-name">Navy Blue</span>
+                            </div>
+                        </div>
+                        <div class="favorite-item" data-fav="season">
+                            <div class="favorite-card" style="--fav-cover: linear-gradient(135deg, #1f1b1b, #f59e0b);">
+                                <span class="favorite-name">Autumn</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discord-card skills-final-card">
+                <div class="final-card-content">
+                    <div class="final-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="final-text">
+                        <h3>Always Learning, Always Growing</h3>
+                        <p>My journey is far from over. I'm constantly exploring new technologies, mastering new frameworks, and taking on challenging projects that expand my skillset.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -605,21 +778,35 @@
         <div class="content">
             <div class="header">
                 <h1 class="name">skills</h1>
-                <p class="tagline">Passionate developer & creative builder</p>
+                <p class="tagline">Development and creative tools</p>
             </div>
 
             <div class="discord-card">
                 <div class="skills-section-title">
                     <i class="fas fa-code"></i>
-                    <span>Programming Languages</span>
+                    <span>Development</span>
                 </div>
                 
                 <div class="languages-grid">
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
                         </div>
-                        <div class="language-name">Python</div>
+                        <div class="language-name">HTML</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+                        </div>
+                        <div class="language-name">CSS</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+                        </div>
+                        <div class="language-name">JS</div>
                     </div>
 
                     <div class="language-card">
@@ -631,106 +818,27 @@
 
                     <div class="language-card">
                         <div class="language-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                        </div>
+                        <div class="language-name">Python</div>
+                    </div>
+
+                    <div class="language-card">
+                        <div class="language-icon">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua">
                         </div>
                         <div class="language-name">Lua</div>
                     </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
-                        </div>
-                        <div class="language-name">TypeScript</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" alt="Rust">
-                        </div>
-                        <div class="language-name">Rust</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby">
-                        </div>
-                        <div class="language-name">Ruby</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift">
-                        </div>
-                        <div class="language-name">Swift</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
-                        </div>
-                        <div class="language-name">C#</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1086px-C_Programming_Language.svg.png" alt="C">
-                        </div>
-                        <div class="language-name">C</div>
-                    </div>
                 </div>
             </div>
 
             <div class="discord-card">
                 <div class="skills-section-title">
-                    <i class="fas fa-layer-group"></i>
-                    <span>Frameworks / Libraries</span>
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Development Tools</span>
                 </div>
                 
                 <div class="languages-grid">
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-                        </div>
-                        <div class="language-name">React</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js">
-                        </div>
-                        <div class="language-name">Next.js</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-                        </div>
-                        <div class="language-name">Node.js</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="discord-card">
-                <div class="skills-section-title">
-                    <i class="fas fa-tools"></i>
-                    <span>Tools / Platforms</span>
-                </div>
-                
-                <div class="languages-grid">
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/1200px-GitHub_Invertocat_Logo.svg.png" alt="GitHub">
-                        </div>
-                        <div class="language-name">GitHub</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" alt="Vercel">
-                        </div>
-                        <div class="language-name">Vercel</div>
-                    </div>
-
                     <div class="language-card">
                         <div class="language-icon">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode">
@@ -740,89 +848,63 @@
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
+                            <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub">
                         </div>
-                        <div class="language-name">Cloudflare</div>
+                        <div class="language-name">GitHub</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
                         </div>
-                        <div class="language-name">Docker</div>
+                        <div class="language-name">MySQL</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                            <img src="https://cdn.simpleicons.org/modrinth/ffffff" alt="Modrinth">
                         </div>
-                        <div class="language-name">PostgreSQL</div>
+                        <div class="language-name">Modrinth</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+                            <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox Studio">
                         </div>
-                        <div class="language-name">Firebase</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="icons/s.webp" alt="SENAPI">
-                        </div>
-                        <div class="language-name">SENAPI</div>
+                        <div class="language-name">Roblox Studio</div>
                     </div>
                 </div>
             </div>
 
             <div class="discord-card">
                 <div class="skills-section-title">
-                    <i class="fas fa-user"></i>
-                    <span>About Me</span>
+                    <i class="fas fa-palette"></i>
+                    <span>Creative Tools</span>
                 </div>
+                
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.simpleicons.org/affinitydesigner/ffffff" alt="Affinity">
+                        </div>
+                        <div class="language-name">Affinity</div>
+                    </div>
 
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-user-circle"></i>
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.simpleicons.org/davinciresolve/ffffff" alt="DaVinci Resolve">
+                        </div>
+                        <div class="language-name">DaVinci Resolve</div>
                     </div>
-                    <div class="about-content">
-                        <h3>Who I Am</h3>
-                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name ‘Nozercode’ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
-                    </div>
-                </div>
 
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3>My Mission</h3>
-                        <p>I challenge myself every day to learn something new and create projects I can be proud of. I focus on creating inventive work that helps me grow professionally and attract clients who value creativity.</p>
+                    <div class="language-card">
+                        <div class="language-icon">
+                            <img src="https://cdn.simpleicons.org/blender/ffffff" alt="Blender">
+                        </div>
+                        <div class="language-name">Blender</div>
                     </div>
                 </div>
-
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3>Roblox Development</h3>
-                        <p>In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="discord-card skills-final-card">
-                <div class="final-card-content">
-                    <div class="final-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="final-text">
-                        <h3>Always Learning, Always Growing</h3>
-                        <p>My journey is far from over. I'm constantly exploring new technologies, mastering new frameworks, and taking on challenging projects that expand my skillset.</p>
-                    </div>
-                </div>
-            </div>
+            </div>            </div>
         </div>
     </div>
 

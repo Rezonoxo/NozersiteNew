@@ -418,6 +418,107 @@ function updateMusicProgress() {
     durationEl.textContent = formatMusicTime(duration);
 }
 
+function weatherCodeToInfo(code) {
+    if (code === 0) return { label: 'Clear', icon: 'fa-sun' };
+    if ([1, 2].includes(code)) return { label: 'Partly Cloudy', icon: 'fa-cloud-sun' };
+    if (code === 3) return { label: 'Overcast', icon: 'fa-cloud' };
+    if ([45, 48].includes(code)) return { label: 'Fog', icon: 'fa-smog' };
+    if ([51, 53, 55, 56, 57].includes(code)) return { label: 'Drizzle', icon: 'fa-cloud-rain' };
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { label: 'Rain', icon: 'fa-cloud-showers-heavy' };
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return { label: 'Snow', icon: 'fa-snowflake' };
+    if ([95, 96, 99].includes(code)) return { label: 'Thunder', icon: 'fa-bolt' };
+    return { label: 'Cloudy', icon: 'fa-cloud' };
+}
+
+function updateWeatherIcon(elementId, code) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const info = weatherCodeToInfo(code);
+    el.innerHTML = `<i class="fas ${info.icon}"></i>`;
+    return info.label;
+}
+
+function initWeatherWidget() {
+    const card = document.getElementById('weather-card');
+    if (!card) return;
+
+    const lat = 50.0413;
+    const lon = 21.999;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=3`;
+
+    async function fetchWeather() {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Weather API error');
+            const data = await response.json();
+
+            const currentTemp = Math.round(data.current.temperature_2m);
+            const currentCode = data.current.weather_code;
+            const currentLabel = updateWeatherIcon('weather-icon-current', currentCode);
+            const currentTempEl = document.getElementById('weather-temp-current');
+            const currentDescEl = document.getElementById('weather-desc-current');
+
+            if (currentTempEl) currentTempEl.textContent = `${currentTemp}°`;
+            if (currentDescEl) currentDescEl.textContent = currentLabel || '--';
+
+            for (let i = 1; i <= 2; i++) {
+                const dayCode = data.daily.weather_code[i];
+                updateWeatherIcon(`weather-day-${i}-icon`, dayCode);
+                const maxTemp = Math.round(data.daily.temperature_2m_max[i]);
+                const minTemp = Math.round(data.daily.temperature_2m_min[i]);
+                const tempEl = document.getElementById(`weather-day-${i}-temp`);
+                const rangeEl = document.getElementById(`weather-day-${i}-range`);
+                if (tempEl) tempEl.textContent = `${maxTemp}°`;
+                if (rangeEl) rangeEl.textContent = `${minTemp}° / ${maxTemp}°`;
+            }
+
+            const updatedEl = document.getElementById('weather-updated');
+            if (updatedEl && data.current && data.current.time) {
+                const time = new Date(data.current.time);
+                const label = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                updatedEl.textContent = `Updated ${label}`;
+            }
+        } catch (error) {
+            const updatedEl = document.getElementById('weather-updated');
+            if (updatedEl) updatedEl.textContent = 'Weather unavailable';
+        }
+    }
+
+    fetchWeather();
+    setInterval(fetchWeather, 30 * 60 * 1000);
+}
+
+function initFavoritesWidget() {
+    const card = document.getElementById('favorites-card');
+    if (!card) return;
+
+    const toggle = card.querySelector('.favorites-toggle');
+    const tabs = Array.from(card.querySelectorAll('.fav-tab'));
+    const items = Array.from(card.querySelectorAll('.favorite-item'));
+
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            card.classList.toggle('collapsed');
+            const expanded = !card.classList.contains('collapsed');
+            toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            toggle.querySelector('span').textContent = expanded ? 'Close' : 'Open';
+        });
+    }
+
+    function setActive(category) {
+        tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.fav === category));
+        items.forEach(item => {
+            item.style.display = item.dataset.fav === category ? 'block' : 'none';
+        });
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => setActive(tab.dataset.fav));
+    });
+
+    setActive('games');
+}
+
 function formatMusicTime(seconds) {
     if (isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
@@ -920,6 +1021,8 @@ document.addEventListener('DOMContentLoaded', function() {
     cursorsys.init();
     initNameChanger();
     initMusicPlayer();
+    initWeatherWidget();
+    initFavoritesWidget();
     checkIfReadyToWakeup();
     applySettings();
 
