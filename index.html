@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -156,25 +156,35 @@
     </div>
 </div>
 <style>
-    /* Główny kontener karty - teraz na pełną szerokość */
+    /* GĹ‚Ăłwny kontener karty - teraz na peĹ‚nÄ… szerokoĹ›Ä‡ */
     .spotify-history-card {
-        background: rgba(10, 10, 10, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: linear-gradient(155deg, rgba(9, 14, 11, 0.92) 0%, rgba(12, 18, 14, 0.82) 100%);
+        border: 1px solid rgba(30, 215, 96, 0.24);
         border-radius: 14px;
         padding: 24px;
-        width: 100%; /* Wypełnia całą dostępną szerokość */
+        width: 100%; /* WypeĹ‚nia caĹ‚Ä… dostÄ™pnÄ… szerokoĹ›Ä‡ */
         box-sizing: border-box;
         font-family: 'Inter', sans-serif;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
         margin-bottom: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .spotify-history-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 80% -20%, rgba(30, 215, 96, 0.28), transparent 46%);
+        pointer-events: none;
     }
 
     .spotify-history-card:hover {
-        border-color: rgba(255, 255, 255, 0.15);
-        background: rgba(15, 15, 15, 0.5);
-        transform: translateY(-2px);
+        border-color: rgba(30, 215, 96, 0.5);
+        background: linear-gradient(155deg, rgba(11, 18, 13, 0.96) 0%, rgba(15, 24, 18, 0.88) 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
     }
 
     .history-header {
@@ -237,7 +247,7 @@
     .track-info {
         display: flex;
         flex-direction: column;
-        flex: 1; /* To sprawia, że info zajmuje całe wolne miejsce */
+        flex: 1; /* To sprawia, ĹĽe info zajmuje caĹ‚e wolne miejsce */
         min-width: 0;
     }
 
@@ -276,7 +286,7 @@
         box-shadow: 0 0 15px rgba(67, 181, 129, 0.1);
     }
 
-    /* Animacja słupków */
+    /* Animacja sĹ‚upkĂłw */
     .playing-bars {
         display: flex;
         align-items: flex-end;
@@ -287,7 +297,7 @@
 
     .bar {
         width: 3px;
-        background: #5865f2;
+        background: #1ed760;
         animation: grow 1s ease-in-out infinite;
         animation-play-state: paused;
     }
@@ -316,17 +326,12 @@
         padding: 30px 0;
     }
 
-    /* Dopasowanie do Twojego kursora */
-    .spotify-history-card, .spotify-history-card * {
-        cursor: none !important;
-    }
-
 </style>
 <script>
     async function updateRecentTracks() {
         // --- KONFIGURACJA ---
-        const USERNAME = 'Nozercode'; // Podaj swoją nazwę na Last.fm
-        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // Mój klucz API
+        const USERNAME = 'Nozercode'; // Podaj swojÄ… nazwÄ™ na Last.fm
+        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // MĂłj klucz API
         // --------------------
 
         const URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
@@ -349,13 +354,13 @@
                 return;
             }
 
-            listElement.innerHTML = ''; // Czyścimy loader
+            listElement.innerHTML = ''; // CzyĹ›cimy loader
             let isNowPlaying = false;
 
             tracks.forEach(track => {
                 const playingNow = track['@attr'] && track['@attr'].nowplaying;
                 if (playingNow) isNowPlaying = true;
-                // Wybieramy średni rozmiar obrazka
+                // Wybieramy Ĺ›redni rozmiar obrazka
                 const imgUrl = track.image[2]['#text'] || 'https://via.placeholder.com/64/111/111?text=?';
                 const trackName = track.name || '';
                 const artistName = track.artist['#text'] || '';
@@ -384,9 +389,9 @@
         }
     }
 
-    // Pierwsze wywołanie
+    // Pierwsze wywoĹ‚anie
     updateRecentTracks();
-    // Odświeżanie co 30 sekund
+    // OdĹ›wieĹĽanie co 30 sekund
     setInterval(updateRecentTracks, 30000);
 </script>
             <div class="music-player-card now-playing-card">
@@ -439,7 +444,7 @@
             <div class="weather-card" id="weather-card">
                 <div class="weather-header">
                     <div>
-                        <div class="weather-location">Rzeszów</div>
+                        <div class="weather-location">RzeszĂłw</div>
                         <div class="weather-subtitle">3-day forecast</div>
                     </div>
                     <div class="weather-updated" id="weather-updated">Updating...</div>
@@ -450,7 +455,7 @@
                         <div class="weather-icon" id="weather-icon-current">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-temp-current">--°</div>
+                        <div class="weather-temp" id="weather-temp-current">--Â°</div>
                         <div class="weather-desc" id="weather-desc-current">--</div>
                     </div>
                     <div class="weather-day">
@@ -458,16 +463,16 @@
                         <div class="weather-icon" id="weather-day-1-icon">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-day-1-temp">--°</div>
-                        <div class="weather-range" id="weather-day-1-range">--° / --°</div>
+                        <div class="weather-temp" id="weather-day-1-temp">--Â°</div>
+                        <div class="weather-range" id="weather-day-1-range">--Â° / --Â°</div>
                     </div>
                     <div class="weather-day">
                         <div class="weather-day-label" id="weather-day-2-label">Day After</div>
                         <div class="weather-icon" id="weather-day-2-icon">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-day-2-temp">--°</div>
-                        <div class="weather-range" id="weather-day-2-range">--° / --°</div>
+                        <div class="weather-temp" id="weather-day-2-temp">--Â°</div>
+                        <div class="weather-range" id="weather-day-2-range">--Â° / --Â°</div>
                     </div>
                 </div>
             </div>
@@ -480,6 +485,10 @@
                 <div class="info-item">
                     <div class="info-label">Timezone</div>
                     <div class="info-value">GMT+1</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Site Views</div>
+                    <div class="info-value" id="home-view-count">--</div>
                 </div>
             </div>
         </div>
@@ -504,7 +513,7 @@
                     </div>
                     <div class="about-content">
                         <h3>Who I Am</h3>
-                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name ‘Nozercode’ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
+                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name â€Nozercodeâ€™ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
                     </div>
                 </div>
 
@@ -527,18 +536,32 @@
                         <p>In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
                     </div>
                 </div>
+
+                <div class="about-fact-card" id="about-fact-card">
+                    <div class="about-fact-top">
+                        <span class="about-fact-badge">Random Fact</span>
+                        <button class="about-fact-btn" id="about-fact-btn" type="button">
+                            <i class="fas fa-shuffle"></i>
+                            Shuffle
+                        </button>
+                    </div>
+                    <div class="about-fact-body">
+                        <p class="about-fact-text" id="about-fact-text">Click shuffle to reveal a fact about me.</p>
+                        <span class="about-fact-chip" id="about-fact-chip">About</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="favorites-card collapsed" id="favorites-card">
+            <div class="favorites-card" id="favorites-card">
                 <div class="favorites-header">
                     <div class="favorites-title">
                         <i class="fas fa-heart"></i>
                         <span>Favorites</span>
-                        <span class="favorites-subtitle">Open me up</span>
+                        <span class="favorites-subtitle">Now open</span>
                     </div>
                     <button class="favorites-toggle" type="button" aria-expanded="false">
                         <i class="fas fa-layer-group"></i>
-                        <span>Open</span>
+                        <span>Close</span>
                     </button>
                 </div>
                 <div class="favorites-body">
@@ -621,7 +644,7 @@
                                         <h4 class="favorite-name">Interstellar</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Space, time, and emotion — an unforgettable journey.</p>
+                                    <p class="favorite-desc">Space, time, and emotion â€” an unforgettable journey.</p>
                                 </div>
                             </a>
                         </div>
@@ -666,7 +689,7 @@
                                         <h4 class="favorite-name">Murder Drones</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Stylish sci‑fi animation with mystery and humor.</p>
+                                    <p class="favorite-desc">Stylish sciâ€‘fi animation with mystery and humor.</p>
                                 </div>
                             </a>
                         </div>
@@ -681,7 +704,7 @@
                                         <h4 class="favorite-name">Money Heist (La Casa de Papel)</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">High‑stakes heists, twists, and iconic characters.</p>
+                                    <p class="favorite-desc">Highâ€‘stakes heists, twists, and iconic characters.</p>
                                 </div>
                             </a>
                         </div>
@@ -696,7 +719,7 @@
                                         <h4 class="favorite-name">Orange</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Energy accent — <code>#f97316</code>.</p>
+                                    <p class="favorite-desc">Energy accent â€” <code>#f97316</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -711,7 +734,7 @@
                                         <h4 class="favorite-name">Blue</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Clean primary — <code>#3b82f6</code>.</p>
+                                    <p class="favorite-desc">Clean primary â€” <code>#3b82f6</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -726,7 +749,7 @@
                                         <h4 class="favorite-name">White</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Minimal contrast — <code>#ffffff</code>.</p>
+                                    <p class="favorite-desc">Minimal contrast â€” <code>#ffffff</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -768,6 +791,11 @@
             <div class="header">
                 <h1 class="name">projects</h1>
                 <p class="tagline">A selection of my creations and collaborations</p>
+            </div>
+
+            <div class="projects-intro">
+                <h2>Built to solve real problems</h2>
+                <p>Handpicked projects focused on practical value, stable performance, and clean user experience.</p>
             </div>
 
             <div class="projects-grid">
@@ -903,41 +931,30 @@
                 </div>
             </div>
 
-            <div class="open-work">
-                <span class="status-dot"></span>
-                <span>open for work</span>
-            </div>
+            <section class="behance-showcase" aria-label="Behance graphics">
+                <div class="behance-header">
+                    <h3>Graphic Portfolio</h3>
+                    <p>All of my graphic design work is published on Behance.</p>
+                </div>
+                <article class="behance-card behance-card-single">
+                    <div class="behance-card-top">
+                        <span class="behance-pill">Behance</span>
+                        <i class="fab fa-behance"></i>
+                    </div>
+                    <h4>nozercode on Behance</h4>
+                    <p>Branding, social media, visuals, and concept work are available in one place.</p>
+                    <a href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">View all projects <i class="fas fa-arrow-up-right-from-square"></i></a>
+                </article>
+            </section>
 
-            <div class="reviews-section">
-                <div class="reviews-header">
-                    <h3>User Reviews</h3>
-                    <p>If you want to leave a review, join lyute @bshop</p>
-                </div>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="review-text">"nice and fast. I really like it"</p>
-                        <div class="review-user">— say_starx_2</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="review-text">"I like the work a lot"</p>
-                        <div class="review-user">— darkoapp</div>
-                    </div>
-                </div>
+            <div class="open-work" id="work-status" data-open-label="OPEN" data-closed-label="CLOSED FOR WORK" aria-live="polite">
+                <span class="status-dot" id="work-status-dot"></span>
+                <span id="work-status-text">OPEN</span>
             </div>
+            <p class="open-work-note">
+                Working hours: Mon-Fri 15:00-19:00, Sat 09:00-19:00. This does not guarantee an instant reply,
+                but these windows have the highest chance of response.
+            </p>
         </div>
     </div>
 
@@ -1052,7 +1069,7 @@
                 <div class="languages-grid">
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/affinitydesigner/ffffff" alt="Affinity">
+                            <img src="icons/affinityicon.png" alt="Affinity">
                         </div>
                         <div class="language-name">Affinity</div>
                     </div>
@@ -1276,6 +1293,26 @@
                         <span class="settings-slider"></span>
                     </label>
                 </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Floating mini player</div>
+                        <div class="settings-item-desc">Show a compact player when the main one is out of view</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-floating-player">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Show partners section</div>
+                        <div class="settings-item-desc">Permanently show or hide partners on all pages except contact</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-show-partners">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
             </div>
 
             <div class="settings-section">
@@ -1324,6 +1361,116 @@
         </div>
     </div>
 
+    <div id="mini-music-player" class="mini-music-player" aria-label="Mini music player">
+        <div class="mini-player-header">
+            <span class="mini-player-label">Now Playing</span>
+            <div class="mini-player-header-actions">
+                <button id="mini-player-minimize" class="mini-player-header-btn" type="button" aria-label="Minimize mini player">
+                    <i class="fas fa-compress-alt"></i>
+                </button>
+                <button id="mini-player-close" class="mini-player-header-btn" type="button" aria-label="Disable mini player">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mini-player-main">
+            <img id="mini-player-art" class="mini-player-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
+            <div class="mini-player-meta">
+                <div id="mini-player-title" class="mini-player-title">#habibati</div>
+                <div id="mini-player-artist" class="mini-player-artist">Local Track</div>
+            </div>
+        </div>
+        <div class="mini-player-progress">
+            <div id="mini-player-progress-fill" class="mini-player-progress-fill"></div>
+        </div>
+        <div class="mini-player-volume">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="mini-player-volume-range" min="0" max="100" value="60" aria-label="Mini player volume">
+        </div>
+        <div class="mini-player-controls">
+            <button class="mini-player-control" type="button" onclick="previousTrack()" aria-label="Previous track">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button id="mini-player-play-btn" class="mini-player-control mini-player-play" type="button" onclick="togglePlayPause()" aria-label="Play or pause">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+    </div>
+
+    <section id="global-partners" class="global-partners-shell" aria-label="Partners">
+        <div class="partners-section">
+            <div class="partners-header">
+                <div class="partners-header-main">
+                    <h3>Partners</h3>
+                    <p class="partners-description">Trusted collaborators and brands I build with in development and visual work.</p>
+                </div>
+                <div class="partners-header-actions">
+                    <button class="partners-visibility-btn" id="partners-hide-btn" type="button" aria-controls="partners-carousel" aria-expanded="true">Hide section</button>
+                </div>
+            </div>
+            <div class="partners-carousel" id="partners-carousel">
+                <button class="partners-nav prev" id="partners-prev" type="button" aria-label="Previous partner">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="partners-viewport">
+                    <div class="partners-track" id="partners-track">
+                        <article class="partner-slide">
+                            <div class="partner-brand">
+                                <span class="partner-logo"><i class="fas fa-store"></i></span>
+                                <div class="partner-brand-meta">
+                                    <h4>Lyute BShop</h4>
+                                    <span>E-commerce Partner</span>
+                                </div>
+                            </div>
+                            <p class="partner-copy">Storefront integration, visuals, and conversion-focused UI.</p>
+                            <a class="partner-link" href="https://lyute.shop" target="_blank" rel="noopener noreferrer">Visit partner <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </article>
+                        <article class="partner-slide">
+                            <div class="partner-brand">
+                                <span class="partner-logo"><i class="fab fa-discord"></i></span>
+                                <div class="partner-brand-meta">
+                                    <h4>Discord Community</h4>
+                                    <span>Community Partner</span>
+                                </div>
+                            </div>
+                            <p class="partner-copy">Moderation design assets and custom community experiences.</p>
+                            <a class="partner-link" href="https://discord.gg/server1" target="_blank" rel="noopener noreferrer">Open invite <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </article>
+                        <article class="partner-slide">
+                            <div class="partner-brand">
+                                <span class="partner-logo"><i class="fas fa-cube"></i></span>
+                                <div class="partner-brand-meta">
+                                    <h4>Roblox Creators</h4>
+                                    <span>Game Development</span>
+                                </div>
+                            </div>
+                            <p class="partner-copy">Maps, systems, and models for Roblox-focused game teams.</p>
+                            <a class="partner-link" href="https://www.roblox.com/groups" target="_blank" rel="noopener noreferrer">See ecosystem <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </article>
+                        <article class="partner-slide">
+                            <div class="partner-brand">
+                                <span class="partner-logo"><i class="fas fa-palette"></i></span>
+                                <div class="partner-brand-meta">
+                                    <h4>Visual Clients</h4>
+                                    <span>Graphic Design</span>
+                                </div>
+                            </div>
+                            <p class="partner-copy">Branding packs and social media graphics tailored to niche audiences.</p>
+                            <a class="partner-link" href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">See portfolio <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </article>
+                    </div>
+                </div>
+                <button class="partners-nav next" id="partners-next" type="button" aria-label="Next partner">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="partners-dots" id="partners-dots" aria-label="Partner slides"></div>
+        </div>
+    </section>
+
     <footer class="site-footer">
         <div class="footer-content">
             <span>Made with</span>
@@ -1335,3 +1482,5 @@
     <script src="main.js"></script>
 </body>
 </html>
+
+

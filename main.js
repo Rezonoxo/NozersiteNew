@@ -13,7 +13,10 @@ const defaultSettings = {
     reduceMotion: false,
     highContrast: false,
     largeText: false,
-    focusOutlines: false
+    focusOutlines: false,
+    floatingPlayerEnabled: true,
+    miniPlayerCollapsed: false,
+    partnersVisible: true
 };
 
 let settings = loadSettings();
@@ -75,6 +78,11 @@ const musicTracks = [
 let currentMusicTrack = 0;
 let musicAudio = null;
 let isMusicPlaying = false;
+let miniMusicObserver = null;
+let isMainPlayerVisible = true;
+let aboutFactIndex = -1;
+let partnersCarouselState = null;
+let partnersSectionCollapsed = false;
 
 function loadSettings() {
     try {
@@ -97,8 +105,12 @@ function applyAudioSettings() {
     musicAudio.volume = settings.volume;
 
     const volumeRange = document.getElementById('music-volume-range');
+    const miniVolumeRange = document.getElementById('mini-player-volume-range');
     if (volumeRange) {
         volumeRange.value = Math.round(settings.volume * 100);
+    }
+    if (miniVolumeRange) {
+        miniVolumeRange.value = Math.round(settings.volume * 100);
     }
 }
 
@@ -107,6 +119,8 @@ function syncSettingsUI() {
     const volumeRange = document.getElementById('setting-volume');
     const cursorToggle = document.getElementById('setting-cursor');
     const confirmToggle = document.getElementById('setting-confirm-redirects');
+    const floatingPlayerToggle = document.getElementById('setting-floating-player');
+    const showPartnersToggle = document.getElementById('setting-show-partners');
     const reduceMotionToggle = document.getElementById('setting-reduce-motion');
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
@@ -116,6 +130,8 @@ function syncSettingsUI() {
     if (volumeRange) volumeRange.value = Math.round(settings.volume * 100);
     if (cursorToggle) cursorToggle.checked = settings.cursorEnabled;
     if (confirmToggle) confirmToggle.checked = settings.confirmExternal;
+    if (floatingPlayerToggle) floatingPlayerToggle.checked = settings.floatingPlayerEnabled;
+    if (showPartnersToggle) showPartnersToggle.checked = settings.partnersVisible;
     if (reduceMotionToggle) reduceMotionToggle.checked = settings.reduceMotion;
     if (highContrastToggle) highContrastToggle.checked = settings.highContrast;
     if (largeTextToggle) largeTextToggle.checked = settings.largeText;
@@ -126,7 +142,9 @@ function applySettings() {
     const body = document.body;
     if (!body) return;
 
-    body.classList.toggle('cursor-disabled', !settings.cursorEnabled);
+    const useCustomCursor = settings.cursorEnabled && !window.matchMedia('(pointer: coarse)').matches;
+    body.classList.toggle('custom-cursor-enabled', useCustomCursor);
+    body.classList.toggle('cursor-disabled', !useCustomCursor);
     body.classList.toggle('reduce-motion', settings.reduceMotion);
     body.classList.toggle('high-contrast', settings.highContrast);
     body.classList.toggle('large-text', settings.largeText);
@@ -140,6 +158,11 @@ function applySettings() {
 
     applyAudioSettings();
     syncSettingsUI();
+    updateMiniMusicPlayerVisibility();
+    updateGlobalPartnersVisibility();
+    if (partnersCarouselState?.refreshAutoplay) {
+        partnersCarouselState.refreshAutoplay();
+    }
 }
 
 function startStarfield() {
@@ -367,6 +390,8 @@ function initMusicPlayer() {
     if (!musicAudio) return;
     
     loadTrack(0);
+    initMiniMusicPlayer();
+    initMusicPlayerVisibilityObserver();
     
     const volumeRange = document.getElementById('music-volume-range');
     if (volumeRange) {
@@ -395,6 +420,7 @@ function loadTrack(trackIndex) {
     document.getElementById('music-title').textContent = track.name;
     document.getElementById('music-album-art').src = track.image;
     document.getElementById('music-artist').textContent = track.artist;
+    syncMiniMusicPlayerMeta();
     
     isMusicPlaying = false;
     updatePlayPauseButton();
@@ -416,11 +442,19 @@ function togglePlayPause() {
 
 function updatePlayPauseButton() {
     const btn = document.getElementById('play-pause-btn');
-    const icon = btn.querySelector('i');
-    if (isMusicPlaying) {
-        icon.className = 'fas fa-pause';
-    } else {
-        icon.className = 'fas fa-play';
+    if (btn) {
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = isMusicPlaying ? 'fas fa-pause' : 'fas fa-play';
+        }
+    }
+
+    const miniBtn = document.getElementById('mini-player-play-btn');
+    if (miniBtn) {
+        const miniIcon = miniBtn.querySelector('i');
+        if (miniIcon) {
+            miniIcon.className = isMusicPlaying ? 'fas fa-pause' : 'fas fa-play';
+        }
     }
 }
 
@@ -441,17 +475,165 @@ function updateMusicProgress() {
     const fill = document.getElementById('music-progress-fill');
     const currentTimeEl = document.getElementById('music-current-time');
     const durationEl = document.getElementById('music-duration');
+    const miniFill = document.getElementById('mini-player-progress-fill');
     
     const currentTime = musicAudio.currentTime || 0;
     const duration = musicAudio.duration || 0;
     
     if (duration > 0) {
         const percent = (currentTime / duration) * 100;
-        fill.style.width = percent + '%';
+        if (fill) fill.style.width = percent + '%';
+        if (miniFill) miniFill.style.width = percent + '%';
+    } else {
+        if (fill) fill.style.width = '0%';
+        if (miniFill) miniFill.style.width = '0%';
     }
     
-    currentTimeEl.textContent = formatMusicTime(currentTime);
-    durationEl.textContent = formatMusicTime(duration);
+    if (currentTimeEl) currentTimeEl.textContent = formatMusicTime(currentTime);
+    if (durationEl) durationEl.textContent = formatMusicTime(duration);
+}
+
+function syncMiniMusicPlayerMeta() {
+    const track = musicTracks[currentMusicTrack];
+    if (!track) return;
+
+    const titleEl = document.getElementById('mini-player-title');
+    const artistEl = document.getElementById('mini-player-artist');
+    const artEl = document.getElementById('mini-player-art');
+
+    if (titleEl) titleEl.textContent = track.name;
+    if (artistEl) artistEl.textContent = track.artist;
+    if (artEl) artEl.src = track.image;
+}
+
+function updateMiniMusicPlayerVisibility() {
+    const miniPlayer = document.getElementById('mini-music-player');
+    if (!miniPlayer) return;
+
+    const shouldShow = settings.floatingPlayerEnabled && (!isMainPlayerVisible || currentpage !== 'home');
+    miniPlayer.classList.toggle('visible', shouldShow);
+}
+
+function initMiniMusicPlayer() {
+    const miniPlayer = document.getElementById('mini-music-player');
+    if (!miniPlayer) return;
+
+    const minimizeBtn = document.getElementById('mini-player-minimize');
+    const closeBtn = document.getElementById('mini-player-close');
+    const setMiniCollapsedState = (collapsed) => {
+        miniPlayer.classList.toggle('collapsed', collapsed);
+        if (minimizeBtn) {
+            const icon = minimizeBtn.querySelector('i');
+            if (icon) {
+                icon.className = collapsed ? 'fas fa-expand-alt' : 'fas fa-compress-alt';
+            }
+        }
+    };
+
+    setMiniCollapsedState(!!settings.miniPlayerCollapsed);
+
+    if (minimizeBtn) {
+        minimizeBtn.addEventListener('click', () => {
+            settings.miniPlayerCollapsed = !settings.miniPlayerCollapsed;
+            setMiniCollapsedState(settings.miniPlayerCollapsed);
+            saveSettings();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            settings.floatingPlayerEnabled = false;
+            saveSettings();
+            applySettings();
+        });
+    }
+
+    const miniMain = miniPlayer.querySelector('.mini-player-main');
+    if (miniMain) {
+        miniMain.addEventListener('click', togglePlayPause);
+    }
+
+    const miniVolumeRange = document.getElementById('mini-player-volume-range');
+    if (miniVolumeRange) {
+        miniVolumeRange.value = Math.round(settings.volume * 100);
+        miniVolumeRange.addEventListener('input', (e) => {
+            const value = Number(e.target.value);
+            settings.volume = Math.max(0, Math.min(1, value / 100));
+            saveSettings();
+            applyAudioSettings();
+        });
+    }
+
+    syncMiniMusicPlayerMeta();
+    updatePlayPauseButton();
+    updateMusicProgress();
+    updateMiniMusicPlayerVisibility();
+}
+
+function initMusicPlayerVisibilityObserver() {
+    const playerCard = document.querySelector('.music-player-card.now-playing-card');
+    if (!playerCard) return;
+
+    if (miniMusicObserver) {
+        miniMusicObserver.disconnect();
+        miniMusicObserver = null;
+    }
+
+    if ('IntersectionObserver' in window) {
+        miniMusicObserver = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            isMainPlayerVisible = entry.isIntersecting && entry.intersectionRatio > 0.35;
+            updateMiniMusicPlayerVisibility();
+        }, { threshold: [0, 0.35, 1] });
+
+        miniMusicObserver.observe(playerCard);
+    } else {
+        const fallbackUpdate = () => {
+            const rect = playerCard.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            isMainPlayerVisible = rect.top < viewportHeight * 0.65 && rect.bottom > viewportHeight * 0.25;
+            updateMiniMusicPlayerVisibility();
+        };
+
+        window.addEventListener('scroll', fallbackUpdate, { passive: true });
+        window.addEventListener('resize', fallbackUpdate);
+        fallbackUpdate();
+    }
+}
+
+function initAboutFacts() {
+    const facts = [
+        { text: 'I started my design journey by creating simple graphics in Photopea.', tag: 'Design' },
+        { text: 'Nozercode began around 3 years ago and grew from small projects into a real brand.', tag: 'Journey' },
+        { text: 'I enjoy mixing coding and visual style so each project looks as good as it works.', tag: 'Creative' },
+        { text: 'Besides web projects, I also build Roblox games and 3D models for my own group.', tag: 'Roblox' },
+        { text: 'I like working on projects that teach me something new every time.', tag: 'Growth' },
+        { text: 'Music is part of my workflow and helps me stay focused while building.', tag: 'Workflow' }
+    ];
+
+    const factTextEl = document.getElementById('about-fact-text');
+    const factChipEl = document.getElementById('about-fact-chip');
+    const factCardEl = document.getElementById('about-fact-card');
+    const shuffleBtn = document.getElementById('about-fact-btn');
+
+    if (!factTextEl || !factChipEl || !factCardEl || !shuffleBtn) return;
+
+    const renderFact = () => {
+        let nextIndex = Math.floor(Math.random() * facts.length);
+        if (facts.length > 1 && nextIndex === aboutFactIndex) {
+            nextIndex = (nextIndex + 1) % facts.length;
+        }
+
+        aboutFactIndex = nextIndex;
+        factTextEl.textContent = facts[nextIndex].text;
+        factChipEl.textContent = facts[nextIndex].tag;
+        factCardEl.classList.remove('fact-animate');
+        void factCardEl.offsetWidth;
+        factCardEl.classList.add('fact-animate');
+    };
+
+    shuffleBtn.addEventListener('click', renderFact);
+    renderFact();
 }
 
 function weatherCodeToInfo(code) {
@@ -531,28 +713,252 @@ function initFavoritesWidget() {
     const toggle = card.querySelector('.favorites-toggle');
     const tabs = Array.from(card.querySelectorAll('.fav-tab'));
     const items = Array.from(card.querySelectorAll('.favorite-item'));
+    const grid = card.querySelector('.favorites-grid');
+    let isTransitioning = false;
+
+    if (toggle) {
+        toggle.setAttribute('aria-expanded', 'true');
+        const toggleLabel = toggle.querySelector('span');
+        if (toggleLabel) toggleLabel.textContent = 'Close';
+    }
 
     if (toggle) {
         toggle.addEventListener('click', () => {
             card.classList.toggle('collapsed');
             const expanded = !card.classList.contains('collapsed');
             toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-            toggle.querySelector('span').textContent = expanded ? 'Close' : 'Open';
+            const toggleLabel = toggle.querySelector('span');
+            if (toggleLabel) toggleLabel.textContent = expanded ? 'Close' : 'Open';
         });
     }
 
     function setActive(category) {
         tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.fav === category));
+
+        let visibleIndex = 0;
         items.forEach(item => {
-            item.style.display = item.dataset.fav === category ? 'block' : 'none';
+            const isActive = item.dataset.fav === category;
+            item.classList.toggle('active', isActive);
+            item.classList.toggle('is-hidden', !isActive);
+            if (isActive) {
+                item.style.setProperty('--fav-delay', `${visibleIndex * 35}ms`);
+                visibleIndex += 1;
+            }
         });
     }
 
+    function switchCategory(category) {
+        if (!grid || isTransitioning) {
+            setActive(category);
+            return;
+        }
+
+        isTransitioning = true;
+        grid.classList.add('switching');
+        window.setTimeout(() => {
+            setActive(category);
+            requestAnimationFrame(() => {
+                grid.classList.remove('switching');
+                window.setTimeout(() => {
+                    isTransitioning = false;
+                }, 220);
+            });
+        }, 140);
+    }
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => setActive(tab.dataset.fav));
+        tab.addEventListener('click', () => switchCategory(tab.dataset.fav));
     });
 
     setActive('games');
+}
+
+function initWorkAvailabilityStatus() {
+    const workStatus = document.getElementById('work-status');
+    const textEl = document.getElementById('work-status-text');
+    if (!workStatus || !textEl) return;
+
+    const openLabel = workStatus.dataset.openLabel || 'OPEN';
+    const closedLabel = workStatus.dataset.closedLabel || 'CLOSED FOR WORK';
+
+    function isOpenNowInWarsaw() {
+        const now = new Date();
+        const weekdayString = new Intl.DateTimeFormat('en-GB', {
+            weekday: 'short',
+            timeZone: 'Europe/Warsaw'
+        }).format(now);
+
+        const hourString = new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit',
+            hour12: false,
+            timeZone: 'Europe/Warsaw'
+        }).format(now);
+
+        const minuteString = new Intl.DateTimeFormat('en-GB', {
+            minute: '2-digit',
+            timeZone: 'Europe/Warsaw'
+        }).format(now);
+
+        const dayMap = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 };
+        const day = dayMap[weekdayString] ?? 0;
+        const totalMinutes = Number(hourString) * 60 + Number(minuteString);
+
+        const weekdayOpen = day >= 1 && day <= 5 && totalMinutes >= (15 * 60) && totalMinutes < (19 * 60);
+        const saturdayOpen = day === 6 && totalMinutes >= (9 * 60) && totalMinutes < (19 * 60);
+
+        return weekdayOpen || saturdayOpen;
+    }
+
+    function applyStatus() {
+        const openNow = isOpenNowInWarsaw();
+        workStatus.classList.toggle('is-open', openNow);
+        workStatus.classList.toggle('is-closed', !openNow);
+        textEl.textContent = openNow ? openLabel : closedLabel;
+    }
+
+    applyStatus();
+    setInterval(applyStatus, 60000);
+}
+
+function formatCounterValue(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return '--';
+    return numeric.toLocaleString('en-US');
+}
+
+async function countApiHit(namespace, key) {
+    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Counter hit failed');
+    return response.json();
+}
+
+async function initHomeViewCounter() {
+    const viewEl = document.getElementById('home-view-count');
+    if (!viewEl) return;
+
+    const namespace = 'nozersite';
+    const key = 'home-views-v1';
+
+    try {
+        const data = await countApiHit(namespace, key);
+        viewEl.textContent = formatCounterValue(data.value);
+    } catch (error) {
+        viewEl.textContent = '--';
+    }
+}
+
+function initPartnersCarousel() {
+    const carousel = document.getElementById('partners-carousel');
+    const track = document.getElementById('partners-track');
+    const prevBtn = document.getElementById('partners-prev');
+    const nextBtn = document.getElementById('partners-next');
+    const dotsWrap = document.getElementById('partners-dots');
+    if (!carousel || !track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    const slides = Array.from(track.querySelectorAll('.partner-slide'));
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoplayId = null;
+    const hideBtn = document.getElementById('partners-hide-btn');
+
+    const dots = slides.map((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'partners-dot';
+        dot.setAttribute('aria-label', `Go to partner ${index + 1}`);
+        dot.addEventListener('click', () => {
+            goTo(index);
+            restartAutoplay();
+        });
+        dotsWrap.appendChild(dot);
+        return dot;
+    });
+
+    function render() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+    }
+
+    function goTo(index) {
+        const lastIndex = slides.length - 1;
+        if (index < 0) currentIndex = lastIndex;
+        else if (index > lastIndex) currentIndex = 0;
+        else currentIndex = index;
+        render();
+    }
+
+    function stopAutoplay() {
+        if (!autoplayId) return;
+        clearInterval(autoplayId);
+        autoplayId = null;
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        if (settings.reduceMotion) return;
+        autoplayId = setInterval(() => goTo(currentIndex + 1), 5500);
+    }
+
+    function restartAutoplay() {
+        startAutoplay();
+    }
+
+    prevBtn.addEventListener('click', () => {
+        goTo(currentIndex - 1);
+        restartAutoplay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        goTo(currentIndex + 1);
+        restartAutoplay();
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
+    carousel.addEventListener('touchend', startAutoplay, { passive: true });
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', () => {
+            partnersSectionCollapsed = !partnersSectionCollapsed;
+            updateGlobalPartnersVisibility();
+            hideBtn.textContent = partnersSectionCollapsed ? 'Show section' : 'Hide section';
+            hideBtn.setAttribute('aria-expanded', partnersSectionCollapsed ? 'false' : 'true');
+        });
+    }
+
+    partnersCarouselState = {
+        refreshAutoplay: () => {
+            if (partnersSectionCollapsed || currentpage === 'contact' || !settings.partnersVisible) {
+                stopAutoplay();
+                return;
+            }
+            startAutoplay();
+        },
+        stopAutoplay
+    };
+
+    render();
+    startAutoplay();
+}
+
+function updateGlobalPartnersVisibility() {
+    const partnersSection = document.getElementById('global-partners');
+    const hideBtn = document.getElementById('partners-hide-btn');
+    if (!partnersSection) return;
+    const shouldHide = currentpage === 'contact' || !settings.partnersVisible;
+    partnersSection.classList.toggle('hidden', shouldHide);
+    partnersSection.classList.toggle('collapsed', partnersSectionCollapsed);
+    if (hideBtn) {
+        hideBtn.textContent = partnersSectionCollapsed ? 'Show section' : 'Hide section';
+        hideBtn.setAttribute('aria-expanded', partnersSectionCollapsed ? 'false' : 'true');
+    }
+
+    if (partnersCarouselState?.refreshAutoplay) {
+        partnersCarouselState.refreshAutoplay();
+    }
 }
 
 function formatMusicTime(seconds) {
@@ -564,14 +970,12 @@ function formatMusicTime(seconds) {
 
 const cursorsys = {
     init: function() {
-        this.ismobile = this.ismobile();
-        if (!this.ismobile) {
-            this.setupevents();
-        }
+        this.isMobile = this.isTouchLikeDevice();
+        this.setupevents();
     },
 
-    ismobile: function() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    isTouchLikeDevice: function() {
+        return window.matchMedia('(pointer: coarse)').matches;
     },
 
     setupevents: function() {
@@ -599,25 +1003,38 @@ const cursorsys = {
             cursor.classList.add('hidden');
         });
 
-        const hoverElements = document.querySelectorAll('a, button, .nav-link, .invite-card, .social-link');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
+        document.addEventListener('pointerover', (e) => {
+            const target = e.target;
+            if (!(target instanceof Element)) return;
+            if (target.closest('input, textarea, [contenteditable=\"true\"]')) {
+                cursor.classList.add('text');
+            } else {
+                cursor.classList.remove('text');
+            }
+            if (target.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle')) {
                 cursor.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
+            } else {
                 cursor.classList.remove('hover');
-            });
+            }
         });
 
-        const textElements = document.querySelectorAll('input, textarea');
-        textElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('text');
-            });
-            el.addEventListener('mouseleave', () => {
+        document.addEventListener('pointerout', (e) => {
+            const toEl = e.relatedTarget;
+            if (!(toEl instanceof Element)) {
+                cursor.classList.remove('hover', 'text');
+                return;
+            }
+            if (!toEl.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle')) {
+                cursor.classList.remove('hover');
+            }
+            if (!toEl.closest('input, textarea, [contenteditable=\"true\"]')) {
                 cursor.classList.remove('text');
-            });
+            }
         });
+
+        document.addEventListener('touchstart', () => {
+            cursor.classList.add('hidden');
+        }, { passive: true });
     }
 };
 
@@ -694,6 +1111,11 @@ function showpage(page) {
     });
 
     currentpage = page;
+    if (page !== 'home') {
+        isMainPlayerVisible = false;
+    }
+    updateMiniMusicPlayerVisibility();
+    updateGlobalPartnersVisibility();
 }
 
 // Discord Profile Fetching
@@ -1116,6 +1538,15 @@ document.addEventListener('DOMContentLoaded', function() {
             closeContactForm();
             cancelExternalRedirect();
             closeSettings();
+            return;
+        }
+
+        if (e.code === 'Space') {
+            const activeTag = document.activeElement ? document.activeElement.tagName : '';
+            const isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA' || document.activeElement?.isContentEditable;
+            if (isTyping) return;
+            e.preventDefault();
+            togglePlayPause();
         }
     });
 
@@ -1125,8 +1556,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initMusicPlayer();
     initWeatherWidget();
     initFavoritesWidget();
+    initWorkAvailabilityStatus();
+    initAboutFacts();
+    initPartnersCarousel();
+    initHomeViewCounter();
     checkIfReadyToWakeup();
     applySettings();
+    updateGlobalPartnersVisibility();
 
     // Fetch Discord profile
     fetchDiscordProfile();
@@ -1150,6 +1586,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const volumeRange = document.getElementById('setting-volume');
     const cursorToggle = document.getElementById('setting-cursor');
     const confirmToggle = document.getElementById('setting-confirm-redirects');
+    const floatingPlayerToggle = document.getElementById('setting-floating-player');
+    const showPartnersToggle = document.getElementById('setting-show-partners');
     const reduceMotionToggle = document.getElementById('setting-reduce-motion');
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
@@ -1185,6 +1623,22 @@ document.addEventListener('DOMContentLoaded', function() {
             settings.confirmExternal = e.target.checked;
             saveSettings();
             syncSettingsUI();
+        });
+    }
+
+    if (floatingPlayerToggle) {
+        floatingPlayerToggle.addEventListener('change', (e) => {
+            settings.floatingPlayerEnabled = e.target.checked;
+            saveSettings();
+            applySettings();
+        });
+    }
+
+    if (showPartnersToggle) {
+        showPartnersToggle.addEventListener('change', (e) => {
+            settings.partnersVisible = e.target.checked;
+            saveSettings();
+            applySettings();
         });
     }
 
