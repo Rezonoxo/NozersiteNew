@@ -156,13 +156,13 @@
     </div>
 </div>
 <style>
-    /* GĹ‚Ăłwny kontener karty - teraz na peĹ‚nÄ… szerokoĹ›Ä‡ */
+    /* Glowny kontener karty - teraz na pelna szerokosc */
     .spotify-history-card {
         background: linear-gradient(155deg, rgba(9, 14, 11, 0.92) 0%, rgba(12, 18, 14, 0.82) 100%);
         border: 1px solid rgba(30, 215, 96, 0.24);
         border-radius: 14px;
         padding: 24px;
-        width: 100%; /* WypeĹ‚nia caĹ‚Ä… dostÄ™pnÄ… szerokoĹ›Ä‡ */
+        width: 100%; /* Wypelnia cala dostepna szerokosc */
         box-sizing: border-box;
         font-family: 'Inter', sans-serif;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -247,7 +247,7 @@
     .track-info {
         display: flex;
         flex-direction: column;
-        flex: 1; /* To sprawia, ĹĽe info zajmuje caĹ‚e wolne miejsce */
+        flex: 1; /* To sprawia, ze info zajmuje cale wolne miejsce */
         min-width: 0;
     }
 
@@ -286,7 +286,7 @@
         box-shadow: 0 0 15px rgba(67, 181, 129, 0.1);
     }
 
-    /* Animacja sĹ‚upkĂłw */
+    /* Animacja slupkow */
     .playing-bars {
         display: flex;
         align-items: flex-end;
@@ -330,8 +330,8 @@
 <script>
     async function updateRecentTracks() {
         // --- KONFIGURACJA ---
-        const USERNAME = 'Nozercode'; // Podaj swojÄ… nazwÄ™ na Last.fm
-        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // MĂłj klucz API
+        const USERNAME = 'Nozercode'; // Podaj swoja nazwe na Last.fm
+        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // Moj klucz API
         // --------------------
 
         const URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
@@ -354,13 +354,13 @@
                 return;
             }
 
-            listElement.innerHTML = ''; // CzyĹ›cimy loader
+            listElement.innerHTML = ''; // Czyscimy loader
             let isNowPlaying = false;
 
             tracks.forEach(track => {
                 const playingNow = track['@attr'] && track['@attr'].nowplaying;
                 if (playingNow) isNowPlaying = true;
-                // Wybieramy Ĺ›redni rozmiar obrazka
+                // Wybieramy sredni rozmiar obrazka
                 const imgUrl = track.image[2]['#text'] || 'https://via.placeholder.com/64/111/111?text=?';
                 const trackName = track.name || '';
                 const artistName = track.artist['#text'] || '';
@@ -389,9 +389,9 @@
         }
     }
 
-    // Pierwsze wywoĹ‚anie
+    // Pierwsze wywolanie
     updateRecentTracks();
-    // OdĹ›wieĹĽanie co 30 sekund
+    // Odswiezanie co 30 sekund
     setInterval(updateRecentTracks, 30000);
 </script>
             <div class="music-player-card now-playing-card">
@@ -444,7 +444,7 @@
             <div class="weather-card" id="weather-card">
                 <div class="weather-header">
                     <div>
-                        <div class="weather-location">RzeszĂłw</div>
+                        <div class="weather-location">Rzeszów</div>
                         <div class="weather-subtitle">3-day forecast</div>
                     </div>
                     <div class="weather-updated" id="weather-updated">Updating...</div>
@@ -455,7 +455,7 @@
                         <div class="weather-icon" id="weather-icon-current">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-temp-current">--Â°</div>
+                        <div class="weather-temp" id="weather-temp-current">--°</div>
                         <div class="weather-desc" id="weather-desc-current">--</div>
                     </div>
                     <div class="weather-day">
@@ -463,16 +463,16 @@
                         <div class="weather-icon" id="weather-day-1-icon">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-day-1-temp">--Â°</div>
-                        <div class="weather-range" id="weather-day-1-range">--Â° / --Â°</div>
+                        <div class="weather-temp" id="weather-day-1-temp">--°</div>
+                        <div class="weather-range" id="weather-day-1-range">--° / --°</div>
                     </div>
                     <div class="weather-day">
                         <div class="weather-day-label" id="weather-day-2-label">Day After</div>
                         <div class="weather-icon" id="weather-day-2-icon">
                             <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="weather-temp" id="weather-day-2-temp">--Â°</div>
-                        <div class="weather-range" id="weather-day-2-range">--Â° / --Â°</div>
+                        <div class="weather-temp" id="weather-day-2-temp">--°</div>
+                        <div class="weather-range" id="weather-day-2-range">--° / --°</div>
                     </div>
                 </div>
             </div>
@@ -513,7 +513,7 @@
                     </div>
                     <div class="about-content">
                         <h3>Who I Am</h3>
-                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others, the start of my business under the name â€Nozercodeâ€™ began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS since then I've been constantly evolving.</p>
+                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others. The start of my business under the name 'Nozercode' began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS. Since then, I've been constantly evolving.</p>
                     </div>
                 </div>
 
@@ -644,7 +644,7 @@
                                         <h4 class="favorite-name">Interstellar</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Space, time, and emotion â€” an unforgettable journey.</p>
+                                    <p class="favorite-desc">Space, time, and emotion - an unforgettable journey.</p>
                                 </div>
                             </a>
                         </div>
@@ -689,7 +689,7 @@
                                         <h4 class="favorite-name">Murder Drones</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Stylish sciâ€‘fi animation with mystery and humor.</p>
+                                    <p class="favorite-desc">Stylish sci-fi animation with mystery and humor.</p>
                                 </div>
                             </a>
                         </div>
@@ -704,7 +704,7 @@
                                         <h4 class="favorite-name">Money Heist (La Casa de Papel)</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Highâ€‘stakes heists, twists, and iconic characters.</p>
+                                    <p class="favorite-desc">High-stakes heists, twists, and iconic characters.</p>
                                 </div>
                             </a>
                         </div>
@@ -719,7 +719,7 @@
                                         <h4 class="favorite-name">Orange</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Energy accent â€” <code>#f97316</code>.</p>
+                                    <p class="favorite-desc">Energy accent - <code>#f97316</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -734,7 +734,7 @@
                                         <h4 class="favorite-name">Blue</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Clean primary â€” <code>#3b82f6</code>.</p>
+                                    <p class="favorite-desc">Clean primary - <code>#3b82f6</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -749,7 +749,7 @@
                                         <h4 class="favorite-name">White</h4>
                                         <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                                     </div>
-                                    <p class="favorite-desc">Minimal contrast â€” <code>#ffffff</code>.</p>
+                                    <p class="favorite-desc">Minimal contrast - <code>#ffffff</code>.</p>
                                 </div>
                             </a>
                         </div>
@@ -934,16 +934,16 @@
             <section class="behance-showcase" aria-label="Behance graphics">
                 <div class="behance-header">
                     <h3>Graphic Portfolio</h3>
-                    <p>All of my graphic design work is published on Behance.</p>
+                    <p>My latest visual projects are published on Behance.</p>
                 </div>
                 <article class="behance-card behance-card-single">
                     <div class="behance-card-top">
                         <span class="behance-pill">Behance</span>
                         <i class="fab fa-behance"></i>
                     </div>
-                    <h4>nozercode on Behance</h4>
-                    <p>Branding, social media, visuals, and concept work are available in one place.</p>
-                    <a href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">View all projects <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    <h4>Nozercode on Behance</h4>
+                    <p>Branding, social media visuals, and concept work collected in one clean portfolio.</p>
+                    <a href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">Open portfolio <i class="fas fa-arrow-up-right-from-square"></i></a>
                 </article>
             </section>
 
@@ -1039,7 +1039,7 @@
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                            <img src="https://cdn.simpleicons.org/mysql/ffffff" alt="MySQL">
                         </div>
                         <div class="language-name">MySQL</div>
                     </div>
