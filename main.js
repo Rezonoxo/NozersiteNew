@@ -778,8 +778,8 @@ function initWorkAvailabilityStatus() {
     const textEl = document.getElementById('work-status-text');
     if (!workStatus || !textEl) return;
 
-    const openLabel = workStatus.dataset.openLabel || 'OPEN';
-    const closedLabel = workStatus.dataset.closedLabel || 'CLOSED FOR WORK';
+    const openLabel = workStatus.dataset.openLabel || 'ACTIVE';
+    const closedLabel = workStatus.dataset.closedLabel || 'INACTIVE';
 
     function isOpenNowInWarsaw() {
         const now = new Date();
@@ -1194,6 +1194,7 @@ async function fetchDiscordProfile() {
             statusTextEl.textContent = statusTexts[status] || 'Currently offline';
         }
 
+        const customTileEl = document.getElementById('discord-custom-tile');
         const customTextEl = document.getElementById('discord-custom-text');
         const activityLabelEl = document.getElementById('discord-activity-label');
         const activityTextEl = document.getElementById('discord-activity-text');
@@ -1313,17 +1314,12 @@ async function fetchDiscordProfile() {
                 activitiesContainer.innerHTML = '<div class="activity-placeholder">No activities right now</div>';
             }
 
-            if (customTextEl) {
-                if (customStatus) {
-                    customTextEl.textContent = customStatus;
-                } else {
-                    const fallbacks = [
-                        'Quietly crafting pixels and code',
-                        'Building in silence, shipping in style',
-                        'Minimal chaos, maximal focus'
-                    ];
-                    customTextEl.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-                }
+            if (customTileEl) {
+                customTileEl.hidden = !customStatus;
+            }
+
+            if (customTextEl && customStatus) {
+                customTextEl.textContent = customStatus;
             }
 
             const summaryActivity = spotifyActivity || gameActivity;
@@ -1369,6 +1365,7 @@ function loadFallbackProfile() {
     const statusTextEl = document.getElementById('discord-status-text');
     const statusEl = document.getElementById('discord-status');
     const activitiesContainer = document.getElementById('discord-activities');
+    const customTileEl = document.getElementById('discord-custom-tile');
     const customTextEl = document.getElementById('discord-custom-text');
     const activityLabelEl = document.getElementById('discord-activity-label');
     const activityTextEl = document.getElementById('discord-activity-text');
@@ -1394,8 +1391,12 @@ function loadFallbackProfile() {
         statusTextEl.textContent = 'Currently offline';
     }
 
+    if (customTileEl) {
+        customTileEl.hidden = true;
+    }
+
     if (customTextEl) {
-        customTextEl.textContent = 'Minimal chaos, maximal focus';
+        customTextEl.textContent = '';
     }
 
     if (activityLabelEl) {
