@@ -567,7 +567,55 @@ function initMiniMusicPlayer() {
     syncMiniMusicPlayerMeta();
     updatePlayPauseButton();
     updateMusicProgress();
+    initMiniMusicPlayerDrag();
     updateMiniMusicPlayerVisibility();
+}
+
+function initMiniMusicPlayerDrag() {
+    const miniPlayer = document.getElementById('mini-music-player');
+    const dragHandle = miniPlayer ? miniPlayer.querySelector('.mini-player-header') : null;
+    if (!miniPlayer || !dragHandle) return;
+    if (!window.matchMedia('(min-width: 769px) and (pointer: fine)').matches) return;
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const onPointerMove = (event) => {
+        if (!isDragging) return;
+
+        const maxX = Math.max(0, window.innerWidth - miniPlayer.offsetWidth);
+        const maxY = Math.max(0, window.innerHeight - miniPlayer.offsetHeight);
+        const nextX = Math.min(maxX, Math.max(0, event.clientX - offsetX));
+        const nextY = Math.min(maxY, Math.max(0, event.clientY - offsetY));
+
+        miniPlayer.style.left = `${nextX}px`;
+        miniPlayer.style.top = `${nextY}px`;
+        miniPlayer.style.right = 'auto';
+        miniPlayer.style.bottom = 'auto';
+    };
+
+    const onPointerUp = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        miniPlayer.classList.remove('dragging');
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+    };
+
+    dragHandle.addEventListener('pointerdown', (event) => {
+        const isInteractive = event.target.closest('button, input, a, .mini-player-header-actions');
+        if (isInteractive) return;
+
+        event.preventDefault();
+        isDragging = true;
+        const rect = miniPlayer.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+        miniPlayer.classList.add('dragging');
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', onPointerUp);
+    });
 }
 
 function initMusicPlayerVisibilityObserver() {
@@ -1318,8 +1366,8 @@ async function fetchDiscordProfile() {
                 customTileEl.hidden = !customStatus;
             }
 
-            if (customTextEl && customStatus) {
-                customTextEl.textContent = customStatus;
+            if (customTextEl) {
+                customTextEl.textContent = customStatus || '';
             }
 
             const summaryActivity = spotifyActivity || gameActivity;

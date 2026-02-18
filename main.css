@@ -4296,6 +4296,12 @@ body.custom-cursor-enabled .settings-modal * {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    cursor: grab;
+    user-select: none;
+}
+
+.mini-music-player.dragging .mini-player-header {
+    cursor: grabbing;
 }
 
 .mini-player-label {
@@ -4791,14 +4797,14 @@ body.custom-cursor-enabled .settings-modal * {
 .partners-carousel {
     position: relative;
     display: block;
-    padding: 0 44px;
-    margin-top: 8px;
+    padding: 0 52px;
+    margin-top: 10px;
     z-index: 1;
 }
 
 .partners-viewport {
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 18px;
 }
 
 .partners-track {
@@ -4811,9 +4817,10 @@ body.custom-cursor-enabled .settings-modal * {
     background: linear-gradient(150deg, rgba(16, 18, 24, 0.92) 0%, rgba(11, 12, 18, 0.86) 100%);
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.36);
+    padding: 0 22px 18px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
     transition: transform 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
 }
 
 .partner-slide:hover {
@@ -4825,39 +4832,72 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    margin-top: -22px;
+    position: relative;
+    z-index: 2;
+}
+
+.partner-banner {
+    height: 124px;
+    margin: 0 -22px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.partner-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 8, 14, 0.2) 0%, rgba(7, 8, 14, 0.8) 78%, rgba(7, 8, 14, 1) 100%);
 }
 
 .partner-logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid rgb(var(--accent) / 0.35);
-    background: rgb(var(--accent) / 0.14);
+    background: linear-gradient(145deg, rgba(12, 15, 24, 0.95), rgba(16, 18, 28, 0.9));
     color: rgb(var(--accent));
+    overflow: hidden;
+}
+
+.partner-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.partner-logo-fallback {
+    font-size: 16px;
 }
 
 .partner-brand-meta h4 {
-    font-size: 15px;
+    font-size: 24px;
     color: #ffffff;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    letter-spacing: 0.2px;
 }
 
 .partner-brand-meta span {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: #8f8f8f;
+    letter-spacing: 1.1px;
+    color: #9298ad;
 }
 
 .partner-copy {
     font-size: 13px;
-    line-height: 1.5;
-    color: #d3d3d3;
-    margin-bottom: 16px;
+    line-height: 1.55;
+    color: #d7d9e2;
+    margin-bottom: 14px;
+    min-height: 44px;
 }
 
 .partner-link {
@@ -4868,16 +4908,27 @@ body.custom-cursor-enabled .settings-modal * {
     color: color-mix(in srgb, rgb(var(--accent)) 80%, white);
     font-size: 12px;
     font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.22s ease;
+}
+
+.partner-link:hover {
+    border-color: rgb(var(--accent) / 0.45);
+    background: rgb(var(--accent) / 0.12);
+    transform: translateY(-1px);
 }
 
 .partners-nav {
     position: absolute;
     top: 50%;
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(18, 20, 28, 0.95);
+    background: rgba(14, 17, 26, 0.92);
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -4888,11 +4939,11 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .partners-nav.prev {
-    left: 0;
+    left: 4px;
 }
 
 .partners-nav.next {
-    right: 0;
+    right: 4px;
 }
 
 .partners-nav:hover {
@@ -4905,7 +4956,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: 14px;
 }
 
 .partners-dot {
