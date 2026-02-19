@@ -430,7 +430,7 @@
 
             <div class="weather-card" id="weather-card">
                 <div class="weather-header">
-                    <div>
+                    <div class="weather-head-main">
                         <div class="weather-location">Rzeszów</div>
                         <div class="weather-subtitle">3-day forecast</div>
                     </div>
@@ -438,25 +438,31 @@
                 </div>
                 <div class="weather-grid">
                     <div class="weather-day weather-today">
-                        <div class="weather-day-label">Today</div>
-                        <div class="weather-icon" id="weather-icon-current">
-                            <i class="fas fa-cloud"></i>
+                        <div class="weather-day-top">
+                            <div class="weather-day-label">Today</div>
+                            <div class="weather-icon" id="weather-icon-current">
+                                <i class="fas fa-cloud"></i>
+                            </div>
                         </div>
                         <div class="weather-temp" id="weather-temp-current">--°</div>
                         <div class="weather-desc" id="weather-desc-current">--</div>
                     </div>
                     <div class="weather-day">
-                        <div class="weather-day-label" id="weather-day-1-label">Tomorrow</div>
-                        <div class="weather-icon" id="weather-day-1-icon">
-                            <i class="fas fa-cloud"></i>
+                        <div class="weather-day-top">
+                            <div class="weather-day-label" id="weather-day-1-label">Tomorrow</div>
+                            <div class="weather-icon" id="weather-day-1-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
                         </div>
                         <div class="weather-temp" id="weather-day-1-temp">--°</div>
                         <div class="weather-range" id="weather-day-1-range">--° / --°</div>
                     </div>
                     <div class="weather-day">
-                        <div class="weather-day-label" id="weather-day-2-label">Day After</div>
-                        <div class="weather-icon" id="weather-day-2-icon">
-                            <i class="fas fa-cloud"></i>
+                        <div class="weather-day-top">
+                            <div class="weather-day-label" id="weather-day-2-label">Day After</div>
+                            <div class="weather-icon" id="weather-day-2-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
                         </div>
                         <div class="weather-temp" id="weather-day-2-temp">--°</div>
                         <div class="weather-range" id="weather-day-2-range">--° / --°</div>
@@ -982,9 +988,9 @@
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
                         </div>
-                        <div class="language-name">JavaScript</div>
+                        <div class="language-name">TypeScript</div>
                     </div>
 
                     <div class="language-card">
@@ -1304,6 +1310,16 @@
                         <span class="settings-slider"></span>
                     </label>
                 </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Performance mode</div>
+                        <div class="settings-item-desc">Reduce expensive visuals and keep the site smooth on weaker devices</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-performance-mode">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
             </div>
 
             <div class="settings-section">
@@ -1402,7 +1418,7 @@
                     <button class="partners-visibility-btn" id="partners-hide-btn" type="button" aria-controls="partners-carousel" aria-expanded="true">Hide section</button>
                 </div>
             </div>
-            <div class="partners-carousel" id="partners-carousel">
+            <div class="partners-carousel" id="partners-carousel" tabindex="0">
                 <button class="partners-nav prev" id="partners-prev" type="button" aria-label="Previous partner">
                     <i class="fas fa-chevron-left"></i>
                 </button>

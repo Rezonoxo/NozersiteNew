@@ -16,7 +16,8 @@ const defaultSettings = {
     focusOutlines: false,
     floatingPlayerEnabled: true,
     miniPlayerCollapsed: false,
-    partnersVisible: true
+    partnersVisible: true,
+    performanceMode: false
 };
 
 let settings = loadSettings();
@@ -125,6 +126,7 @@ function syncSettingsUI() {
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
     const focusToggle = document.getElementById('setting-focus-outlines');
+    const performanceToggle = document.getElementById('setting-performance-mode');
 
     if (muteToggle) muteToggle.checked = settings.mute;
     if (volumeRange) volumeRange.value = Math.round(settings.volume * 100);
@@ -136,21 +138,23 @@ function syncSettingsUI() {
     if (highContrastToggle) highContrastToggle.checked = settings.highContrast;
     if (largeTextToggle) largeTextToggle.checked = settings.largeText;
     if (focusToggle) focusToggle.checked = settings.focusOutlines;
+    if (performanceToggle) performanceToggle.checked = settings.performanceMode;
 }
 
 function applySettings() {
     const body = document.body;
     if (!body) return;
 
-    const useCustomCursor = settings.cursorEnabled && !window.matchMedia('(pointer: coarse)').matches;
+    const useCustomCursor = settings.cursorEnabled && !settings.performanceMode && !window.matchMedia('(pointer: coarse)').matches;
     body.classList.toggle('custom-cursor-enabled', useCustomCursor);
     body.classList.toggle('cursor-disabled', !useCustomCursor);
     body.classList.toggle('reduce-motion', settings.reduceMotion);
     body.classList.toggle('high-contrast', settings.highContrast);
     body.classList.toggle('large-text', settings.largeText);
     body.classList.toggle('focus-outlines', settings.focusOutlines);
+    body.classList.toggle('performance-mode', settings.performanceMode);
 
-    if (settings.reduceMotion) {
+    if (settings.reduceMotion || settings.performanceMode) {
         stopStarfield();
     } else if (!starIntervalId) {
         startStarfield();
@@ -567,8 +571,40 @@ function initMiniMusicPlayer() {
     syncMiniMusicPlayerMeta();
     updatePlayPauseButton();
     updateMusicProgress();
+    keepMiniPlayerInViewport({ resetOnMobile: true });
     initMiniMusicPlayerDrag();
     updateMiniMusicPlayerVisibility();
+}
+
+function keepMiniPlayerInViewport(options = {}) {
+    const { resetOnMobile = false } = options;
+    const miniPlayer = document.getElementById('mini-music-player');
+    if (!miniPlayer) return;
+
+    const isDesktopDragMode = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
+    if (resetOnMobile && !isDesktopDragMode) {
+        miniPlayer.style.left = '';
+        miniPlayer.style.top = '';
+        miniPlayer.style.right = '';
+        miniPlayer.style.bottom = '';
+        return;
+    }
+
+    const rect = miniPlayer.getBoundingClientRect();
+    const hasCustomPosition = miniPlayer.style.left !== '' || miniPlayer.style.top !== '';
+    if (!hasCustomPosition) return;
+
+    const margin = 8;
+    const maxX = Math.max(margin, window.innerWidth - rect.width - margin);
+    const maxY = Math.max(margin, window.innerHeight - rect.height - margin);
+
+    const nextX = Math.min(maxX, Math.max(margin, rect.left));
+    const nextY = Math.min(maxY, Math.max(margin, rect.top));
+
+    miniPlayer.style.left = `${Math.round(nextX)}px`;
+    miniPlayer.style.top = `${Math.round(nextY)}px`;
+    miniPlayer.style.right = 'auto';
+    miniPlayer.style.bottom = 'auto';
 }
 
 function initMiniMusicPlayerDrag() {
@@ -621,6 +657,10 @@ function initMiniMusicPlayerDrag() {
         }
         document.addEventListener('pointermove', onPointerMove);
         document.addEventListener('pointerup', onPointerUp);
+    });
+
+    window.addEventListener('resize', () => {
+        keepMiniPlayerInViewport({ resetOnMobile: true });
     });
 }
 
@@ -922,6 +962,7 @@ function initPartnersCarousel() {
         dot.type = 'button';
         dot.className = 'partners-dot';
         dot.setAttribute('aria-label', `Go to partner ${index + 1}`);
+        dot.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
         dot.addEventListener('click', () => {
             goTo(index);
             restartAutoplay();
@@ -932,7 +973,11 @@ function initPartnersCarousel() {
 
     function render() {
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+        dots.forEach((dot, index) => {
+            const active = index === currentIndex;
+            dot.classList.toggle('active', active);
+            dot.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
     }
 
     function goTo(index) {
@@ -973,6 +1018,16 @@ function initPartnersCarousel() {
     carousel.addEventListener('mouseleave', startAutoplay);
     carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
     carousel.addEventListener('touchend', startAutoplay, { passive: true });
+    carousel.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+            goTo(currentIndex - 1);
+            restartAutoplay();
+        }
+        if (event.key === 'ArrowRight') {
+            goTo(currentIndex + 1);
+            restartAutoplay();
+        }
+    });
 
     if (hideBtn) {
         hideBtn.addEventListener('click', () => {
@@ -1036,9 +1091,25 @@ const cursorsys = {
         const cursor = document.getElementById('customCursor');
         if (!cursor) return;
 
+        let rafId = null;
+        let targetX = window.innerWidth / 2;
+        let targetY = window.innerHeight / 2;
+        let currentX = targetX;
+        let currentY = targetY;
+
+        const animateCursor = () => {
+            currentX += (targetX - currentX) * 0.24;
+            currentY += (targetY - currentY) * 0.24;
+            cursor.style.left = `${currentX}px`;
+            cursor.style.top = `${currentY}px`;
+            rafId = window.requestAnimationFrame(animateCursor);
+        };
+
+        rafId = window.requestAnimationFrame(animateCursor);
+
         const updateCursorPosition = (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            targetX = e.clientX;
+            targetY = e.clientY;
         };
 
         document.addEventListener('mousemove', updateCursorPosition);
@@ -1068,7 +1139,7 @@ const cursorsys = {
             } else {
                 cursor.classList.remove('text');
             }
-            if (target.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle')) {
+            if (target.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle, .partners-nav, .join-btn-modern, .mini-player-control, .mini-player-header-btn')) {
                 cursor.classList.add('hover');
             } else {
                 cursor.classList.remove('hover');
@@ -1081,7 +1152,7 @@ const cursorsys = {
                 cursor.classList.remove('hover', 'text');
                 return;
             }
-            if (!toEl.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle')) {
+            if (!toEl.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle, .partners-nav, .join-btn-modern, .mini-player-control, .mini-player-header-btn')) {
                 cursor.classList.remove('hover');
             }
             if (!toEl.closest('input, textarea, [contenteditable=\"true\"]')) {
@@ -1092,6 +1163,10 @@ const cursorsys = {
         document.addEventListener('touchstart', () => {
             cursor.classList.add('hidden');
         }, { passive: true });
+
+        window.addEventListener('beforeunload', () => {
+            if (rafId) window.cancelAnimationFrame(rafId);
+        });
     }
 };
 
@@ -1650,6 +1725,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
     const focusToggle = document.getElementById('setting-focus-outlines');
+    const performanceToggle = document.getElementById('setting-performance-mode');
 
     if (muteToggle) {
         muteToggle.addEventListener('change', (e) => {
@@ -1727,6 +1803,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (focusToggle) {
         focusToggle.addEventListener('change', (e) => {
             settings.focusOutlines = e.target.checked;
+            saveSettings();
+            applySettings();
+        });
+    }
+
+    if (performanceToggle) {
+        performanceToggle.addEventListener('change', (e) => {
+            settings.performanceMode = e.target.checked;
             saveSettings();
             applySettings();
         });
