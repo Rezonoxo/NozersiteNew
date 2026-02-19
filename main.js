@@ -595,12 +595,15 @@ function initMiniMusicPlayerDrag() {
         miniPlayer.style.bottom = 'auto';
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (event) => {
         if (!isDragging) return;
         isDragging = false;
         miniPlayer.classList.remove('dragging');
         document.removeEventListener('pointermove', onPointerMove);
         document.removeEventListener('pointerup', onPointerUp);
+        if (event && dragHandle.hasPointerCapture && dragHandle.hasPointerCapture(event.pointerId)) {
+            dragHandle.releasePointerCapture(event.pointerId);
+        }
     };
 
     dragHandle.addEventListener('pointerdown', (event) => {
@@ -613,6 +616,9 @@ function initMiniMusicPlayerDrag() {
         offsetX = event.clientX - rect.left;
         offsetY = event.clientY - rect.top;
         miniPlayer.classList.add('dragging');
+        if (dragHandle.setPointerCapture) {
+            dragHandle.setPointerCapture(event.pointerId);
+        }
         document.addEventListener('pointermove', onPointerMove);
         document.addEventListener('pointerup', onPointerUp);
     });
@@ -1030,10 +1036,13 @@ const cursorsys = {
         const cursor = document.getElementById('customCursor');
         if (!cursor) return;
 
-        document.addEventListener('mousemove', (e) => {
+        const updateCursorPosition = (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-        });
+        };
+
+        document.addEventListener('mousemove', updateCursorPosition);
+        document.addEventListener('pointermove', updateCursorPosition);
 
         document.addEventListener('mousedown', () => {
             cursor.classList.add('click');

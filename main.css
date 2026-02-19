@@ -5946,6 +5946,9 @@ body.custom-cursor-enabled .settings-modal * {
     font-weight: 600;
     color: #ffffff;
     margin-bottom: 4px;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
 }
 
 .invite-details-modern .invite-description {
