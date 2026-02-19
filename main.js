@@ -3,6 +3,14 @@ let contactCooldownExpiry = 0;
 let pendingRedirectUrl = null;
 let pendingRedirectTarget = null;
 let starIntervalId = null;
+let activeModalState = null;
+
+// Manual notice toggle for visitors.
+const SITE_NOTICE_CONFIG = {
+    enabled: true,
+    dismissible: true,
+    message: 'The website is currently being rebuilt, so some features may not work as expected.'
+};
 
 const SETTINGS_KEY = 'nozer_settings_v1';
 const defaultSettings = {
@@ -14,6 +22,7 @@ const defaultSettings = {
     highContrast: false,
     largeText: false,
     focusOutlines: false,
+    dyslexiaFont: false,
     floatingPlayerEnabled: true,
     miniPlayerCollapsed: false,
     partnersVisible: true,
@@ -126,6 +135,7 @@ function syncSettingsUI() {
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
     const focusToggle = document.getElementById('setting-focus-outlines');
+    const dyslexiaFontToggle = document.getElementById('setting-dyslexia-font');
     const performanceToggle = document.getElementById('setting-performance-mode');
 
     if (muteToggle) muteToggle.checked = settings.mute;
@@ -138,6 +148,7 @@ function syncSettingsUI() {
     if (highContrastToggle) highContrastToggle.checked = settings.highContrast;
     if (largeTextToggle) largeTextToggle.checked = settings.largeText;
     if (focusToggle) focusToggle.checked = settings.focusOutlines;
+    if (dyslexiaFontToggle) dyslexiaFontToggle.checked = settings.dyslexiaFont;
     if (performanceToggle) performanceToggle.checked = settings.performanceMode;
 }
 
@@ -152,6 +163,7 @@ function applySettings() {
     body.classList.toggle('high-contrast', settings.highContrast);
     body.classList.toggle('large-text', settings.largeText);
     body.classList.toggle('focus-outlines', settings.focusOutlines);
+    body.classList.toggle('dyslexia-font', settings.dyslexiaFont);
     body.classList.toggle('performance-mode', settings.performanceMode);
 
     if (settings.reduceMotion || settings.performanceMode) {
@@ -169,6 +181,25 @@ function applySettings() {
     }
 }
 
+function initSiteNotice() {
+    const notice = document.getElementById('site-notice');
+    const noticeText = document.getElementById('site-notice-text');
+    const dismissBtn = document.getElementById('site-notice-dismiss');
+    if (!notice || !noticeText) return;
+
+    const enabled = !!SITE_NOTICE_CONFIG.enabled;
+    noticeText.textContent = SITE_NOTICE_CONFIG.message || '';
+    notice.hidden = !enabled;
+    document.body.classList.toggle('site-notice-active', enabled);
+
+    if (!dismissBtn) return;
+    dismissBtn.hidden = !SITE_NOTICE_CONFIG.dismissible;
+    dismissBtn.onclick = () => {
+        notice.hidden = true;
+        document.body.classList.remove('site-notice-active');
+    };
+}
+
 function startStarfield() {
     if (starIntervalId) return;
     starIntervalId = setInterval(makestar, 200);
@@ -180,16 +211,91 @@ function stopStarfield() {
     starIntervalId = null;
 }
 
+function getFocusableElements(container) {
+    if (!container) return [];
+    const selector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    return Array.from(container.querySelectorAll(selector)).filter((element) => {
+        const styles = window.getComputedStyle(element);
+        return styles.display !== 'none' && styles.visibility !== 'hidden';
+    });
+}
+
+function trapModalFocus(event) {
+    if (event.key !== 'Tab' || !activeModalState?.modal) return;
+
+    const focusable = getFocusableElements(activeModalState.modal);
+    if (!focusable.length) {
+        event.preventDefault();
+        activeModalState.modal.focus();
+        return;
+    }
+
+    const firstElement = focusable[0];
+    const lastElement = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+        return;
+    }
+
+    if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+    }
+}
+
+function activateModal(overlay, modal, initialFocusSelector) {
+    if (!overlay || !modal) return;
+
+    if (activeModalState && activeModalState.overlay !== overlay) {
+        deactivateModal(activeModalState.overlay, false);
+    }
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    activeModalState = { overlay, modal, previouslyFocused };
+    document.addEventListener('keydown', trapModalFocus, true);
+
+    requestAnimationFrame(() => {
+        const initialFocus = initialFocusSelector ? modal.querySelector(initialFocusSelector) : null;
+        const focusable = getFocusableElements(modal);
+        const target = initialFocus || focusable[0] || modal;
+        if (target instanceof HTMLElement) {
+            target.focus();
+        }
+    });
+}
+
+function deactivateModal(overlay, restoreFocus = true) {
+    if (!overlay) return;
+
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    if (!activeModalState || activeModalState.overlay !== overlay) return;
+
+    const previousFocus = activeModalState.previouslyFocused;
+    activeModalState = null;
+    document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', trapModalFocus, true);
+
+    if (restoreFocus && previousFocus && previousFocus.isConnected) {
+        previousFocus.focus();
+    }
+}
+
 function openSettings() {
     const overlay = document.getElementById('settings-overlay');
-    if (!overlay) return;
-    overlay.classList.add('active');
+    const modal = overlay ? overlay.querySelector('.settings-modal') : null;
+    if (!overlay || !modal) return;
+    activateModal(overlay, modal, '.settings-close');
     syncSettingsUI();
 }
 
 function closeSettings() {
     const overlay = document.getElementById('settings-overlay');
-    if (overlay) overlay.classList.remove('active');
+    if (overlay) deactivateModal(overlay);
 }
 
 function loadContactCooldown() {
@@ -206,7 +312,9 @@ function loadContactCooldown() {
 
 function openContactForm() {
     const overlay = document.getElementById('contact-overlay');
-    overlay.classList.add('active');
+    const modal = overlay ? overlay.querySelector('.contact-modal') : null;
+    if (!overlay || !modal) return;
+    activateModal(overlay, modal, '#contact-name');
     document.getElementById('contact-name').value = '';
     document.getElementById('contact-email').value = '';
     document.getElementById('contact-message').value = '';
@@ -223,20 +331,21 @@ function openContactForm() {
 
 function closeContactForm() {
     const overlay = document.getElementById('contact-overlay');
-    overlay.classList.remove('active');
+    if (overlay) deactivateModal(overlay);
 }
 
 function openExternalRedirect(url, target) {
     const overlay = document.getElementById('external-redirect-overlay');
+    const modal = overlay ? overlay.querySelector('.external-redirect-modal') : null;
     const urlEl = document.getElementById('external-redirect-url');
     const dontAsk = document.getElementById('external-redirect-dont-ask');
-    if (!overlay || !urlEl) return;
+    if (!overlay || !modal || !urlEl) return;
 
     pendingRedirectUrl = url;
     pendingRedirectTarget = target;
     urlEl.textContent = getDisplayUrl(url);
     if (dontAsk) dontAsk.checked = false;
-    overlay.classList.add('active');
+    activateModal(overlay, modal, '.external-redirect-btn.primary');
 }
 
 function getDisplayUrl(url) {
@@ -251,7 +360,7 @@ function getDisplayUrl(url) {
 
 function closeExternalRedirect() {
     const overlay = document.getElementById('external-redirect-overlay');
-    if (overlay) overlay.classList.remove('active');
+    if (overlay) deactivateModal(overlay);
     pendingRedirectUrl = null;
     pendingRedirectTarget = null;
 }
@@ -270,6 +379,21 @@ function cancelExternalRedirect() {
     closeExternalRedirect();
 }
 
+function safeOpenExternal(url, target = '_blank') {
+    if (!url) return;
+
+    if (settings.confirmExternal) {
+        openExternalRedirect(url, target);
+        return;
+    }
+
+    if (target === '_blank') {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+        window.location.href = url;
+    }
+}
+
 function confirmExternalRedirect() {
     if (!pendingRedirectUrl) return;
 
@@ -279,7 +403,7 @@ function confirmExternalRedirect() {
     closeExternalRedirect();
 
     if (target === '_blank') {
-        window.open(url, '_blank', 'noopener');
+        window.open(url, '_blank', 'noopener,noreferrer');
     } else {
         window.location.href = url;
     }
@@ -1112,8 +1236,11 @@ const cursorsys = {
             targetY = e.clientY;
         };
 
-        document.addEventListener('mousemove', updateCursorPosition);
-        document.addEventListener('pointermove', updateCursorPosition);
+        if ('PointerEvent' in window) {
+            document.addEventListener('pointermove', updateCursorPosition);
+        } else {
+            document.addEventListener('mousemove', updateCursorPosition);
+        }
 
         document.addEventListener('mousedown', () => {
             cursor.classList.add('click');
@@ -1694,8 +1821,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initPartnersCarousel();
     initHomeViewCounter();
     checkIfReadyToWakeup();
+    initSiteNotice();
     applySettings();
     updateGlobalPartnersVisibility();
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopStarfield();
+            return;
+        }
+        if (!settings.reduceMotion && !settings.performanceMode) {
+            startStarfield();
+        }
+    });
 
     // Fetch Discord profile
     fetchDiscordProfile();
@@ -1725,6 +1862,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const highContrastToggle = document.getElementById('setting-high-contrast');
     const largeTextToggle = document.getElementById('setting-large-text');
     const focusToggle = document.getElementById('setting-focus-outlines');
+    const dyslexiaFontToggle = document.getElementById('setting-dyslexia-font');
     const performanceToggle = document.getElementById('setting-performance-mode');
 
     if (muteToggle) {
@@ -1808,6 +1946,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    if (dyslexiaFontToggle) {
+        dyslexiaFontToggle.addEventListener('change', (e) => {
+            settings.dyslexiaFont = e.target.checked;
+            saveSettings();
+            applySettings();
+        });
+    }
+
     if (performanceToggle) {
         performanceToggle.addEventListener('change', (e) => {
             settings.performanceMode = e.target.checked;
@@ -1819,7 +1965,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (!link) return;
-        if (link.classList.contains('track-item')) return;
 
         const href = link.getAttribute('href');
         if (!href || href === '#' || href.startsWith('javascript:')) return;

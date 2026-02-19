@@ -2,16 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Nozer - Personal Portfolio">
 <meta name="keywords" content="portfolio, developer, designer, Nozer">
+<meta name="author" content="Nozer">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nozer">
 <meta property="og:description" content="Personal portfolio of Nozer">
 <meta property="og:url" content="https://nozer.site/">
+<meta property="og:site_name" content="Nozer">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.pinimg.com/1200x/80/f0/19/80f01908e898e4c2a29f86f91474cb27.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,13 +27,34 @@
 <meta name="twitter:image:alt" content="Portfolio preview">
 <meta name="twitter:site" content="@nozer">
 <meta name="twitter:creator" content="@nozer">
+<meta name="twitter:url" content="https://nozer.site/">
 <title>Nozer</title>
+<link rel="canonical" href="https://nozer.site/">
 <link rel="icon" href="icons/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="main.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nozer",
+  "url": "https://nozer.site/",
+  "sameAs": [
+    "https://github.com/rezonoxo",
+    "https://www.behance.net/nozercode",
+    "https://youtube.com/@nozercode",
+    "https://tiktok.com/@nozercode"
+  ],
+  "jobTitle": "Developer and Designer"
+}
+</script>
 </head>
 <body>
     <div id="customCursor"></div>
@@ -50,6 +75,13 @@
             <button class="nav-link" onclick="showpage('contact')">contact</button>
         </div>
     </nav>
+    <div id="site-notice" class="site-notice" role="status" aria-live="polite" hidden>
+        <div class="site-notice-inner">
+            <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="site-notice-text">The website is currently being rebuilt, so some features may not work as expected.</span>
+            <button id="site-notice-dismiss" class="site-notice-dismiss" type="button" aria-label="Dismiss site notice">Dismiss</button>
+        </div>
+    </div>
 
     <div id="home" class="container">
         <div class="content">
@@ -63,7 +95,7 @@
                 <div class="discord-profile-top">
                     <div class="discord-profile-identity">
                         <div class="avatar-container">
-                            <img class="avatar" id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
+                            <img class="avatar" id="discord-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Discord Avatar" decoding="async" onclick="safeOpenExternal('https://discord.com/users/690653953238499369')">
                             <div class="status-indicator offline" id="discord-status"></div>
                         </div>
                         <div class="identity-text">
@@ -74,7 +106,7 @@
                         </div>
                     </div>
                     <div class="discord-profile-actions">
-                        <button class="discord-action" onclick="window.open('https://discord.com/users/690653953238499369', '_blank')">
+                        <button class="discord-action" onclick="safeOpenExternal('https://discord.com/users/690653953238499369')">
                             <i class="fab fa-discord"></i>
                             Open profile
                         </button>
@@ -105,23 +137,23 @@
                     </div>
                     <div class="invite-details-modern">
                         <div class="invite-name">Heaven Community Roblox</div>
-                        <div class="invite-description">Official Discord server for the Heaven Community Roblox team.</div>
+                        <div class="invite-description">Official Discord server for the Heaven Community Roblox members.</div>
                     </div>
                     <div class="invite-action-modern">
-                        <button class="join-btn-modern" onclick="window.open('https://discord.com/invite/MWM3MrBcP3', '_blank')">JOIN SERVER</button>
+                        <button class="join-btn-modern" onclick="safeOpenExternal('https://discord.com/invite/MWM3MrBcP3')">JOIN SERVER</button>
                     </div>
                 </div>
 
                 <div class="invite-card-modern server-invite server-green">
                     <div class="invite-icon-modern">
                         <i class="fas fa-cubes"></i>
-                    </div>
+                    </div> 
                     <div class="invite-details-modern">
                         <div class="invite-name">Heaven Community Roblox Group</div>
-                        <div class="invite-description">Official Roblox group for the Heaven Community Roblox community.</div>
+                        <div class="invite-description">My main roblox group with games and shop made with our team.</div>
                     </div>
                     <div class="invite-action-modern">
-                        <button class="join-btn-modern" onclick="window.open('https://www.roblox.com/share/g/369646540', '_blank')">VISIT GROUP</button>
+                        <button class="join-btn-modern" onclick="safeOpenExternal('https://www.roblox.com/share/g/369646540')">VISIT GROUP</button>
                     </div>
                 </div>
             </div>
@@ -142,178 +174,6 @@
         <div class="loading-text">INITIALIZING AUDIO STREAM...</div>
     </div>
 </div>
-<style>
-    /* Glowny kontener karty - teraz na pelna szerokosc */
-    .spotify-history-card {
-        background: linear-gradient(155deg, rgba(9, 14, 11, 0.92) 0%, rgba(12, 18, 14, 0.82) 100%);
-        border: 1px solid rgba(30, 215, 96, 0.24);
-        border-radius: 14px;
-        padding: 24px;
-        width: 100%; /* Wypelnia cala dostepna szerokosc */
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 16px;
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .spotify-history-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 80% -20%, rgba(30, 215, 96, 0.28), transparent 46%);
-        pointer-events: none;
-    }
-
-    .spotify-history-card:hover {
-        border-color: rgba(30, 215, 96, 0.5);
-        background: linear-gradient(155deg, rgba(11, 18, 13, 0.96) 0%, rgba(15, 24, 18, 0.88) 100%);
-        transform: translateY(-3px);
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-    }
-
-    .history-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .history-tag {
-        font-size: 10px;
-        color: #58f284;
-        font-weight: 800;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-
-    .history-title {
-        font-size: 20px;
-        color: #ffffff;
-        margin: 6px 0 0 0;
-        font-weight: 700;
-    }
-
-    .history-list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .track-item {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        text-decoration: none;
-        padding: 10px 4px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        transition: all 0.2s ease;
-        border-radius: 10px;
-    }
-
-    .track-item:last-child {
-        border-bottom: none;
-    }
-
-    .track-item:hover {
-        padding-left: 8px;
-        background: rgba(255, 255, 255, 0.03);
-    }
-
-    .album-art {
-        width: 48px;
-        height: 48px;
-        border-radius: 8px;
-        background: #111;
-        border: 1px solid rgba(255,255,255,0.08);
-        object-fit: cover;
-    }
-
-    .track-info {
-        display: flex;
-        flex-direction: column;
-        flex: 1; /* To sprawia, ze info zajmuje cale wolne miejsce */
-        min-width: 0;
-    }
-
-    .track-name {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .track-artist {
-        color: #888;
-        font-size: 12px;
-        margin-top: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .status-badge {
-        font-size: 9px;
-        font-weight: 900;
-        padding: 5px 10px;
-        border-radius: 6px;
-        background: rgba(255,255,255,0.03);
-        color: #555;
-        letter-spacing: 0.5px;
-        flex-shrink: 0; /* Zapobiega zgniataniu badge'a */
-    }
-
-    .status-now {
-        color: #43b581;
-        background: rgba(67, 181, 129, 0.1);
-        box-shadow: 0 0 15px rgba(67, 181, 129, 0.1);
-    }
-
-    /* Animacja slupkow */
-    .playing-bars {
-        display: flex;
-        align-items: flex-end;
-        gap: 3px;
-        height: 18px;
-        opacity: 0.4;
-    }
-
-    .bar {
-        width: 3px;
-        background: #1ed760;
-        animation: grow 1s ease-in-out infinite;
-        animation-play-state: paused;
-    }
-
-    .bar:nth-child(2) { animation-delay: 0.2s; }
-    .bar:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes grow {
-        0%, 100% { height: 5px; }
-        50% { height: 18px; }
-    }
-
-    .spotify-history-card.is-playing .bar {
-        animation-play-state: running;
-    }
-
-    .spotify-history-card.is-playing .playing-bars {
-        opacity: 1;
-    }
-
-    .loading-text {
-        font-size: 11px;
-        color: #444;
-        letter-spacing: 1px;
-        text-align: center;
-        padding: 30px 0;
-    }
-
-</style>
 <script>
     async function updateRecentTracks() {
         // --- KONFIGURACJA ---
@@ -353,7 +213,7 @@
                 const artistName = track.artist['#text'] || '';
                 
                 const trackHtml = `
-                    <a href="${track.url}" target="_blank" class="track-item" data-track="${encodeURIComponent(trackName)}" data-artist="${encodeURIComponent(artistName)}">
+                    <a href="${track.url}" target="_blank" rel="noopener noreferrer" class="track-item" data-track="${encodeURIComponent(trackName)}" data-artist="${encodeURIComponent(artistName)}">
                         <img src="${imgUrl}" class="album-art" alt="Album Art">
                         <div class="track-info">
                             <span class="track-name">${trackName}</span>
@@ -388,7 +248,7 @@
                         <div class="music-top-row">
                             <div class="music-main">
                                 <div class="music-album-container" onclick="togglePlayPause()" style="cursor: pointer;">
-                                    <img class="music-album-art" id="music-album-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
+                                <img class="music-album-art" id="music-album-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art" decoding="async">
                                 </div>
                                 <div class="music-track-info">
                                     <div class="music-title-row">
@@ -550,7 +410,7 @@
                     <div class="favorites-title">
                         <i class="fas fa-heart"></i>
                         <span>Favorites</span>
-                        <span class="favorites-subtitle">Now open</span>
+                        <span class="favorites-subtitle">Get to know me</span>
                     </div>
                     <button class="favorites-toggle" type="button" aria-expanded="false">
                         <i class="fas fa-layer-group"></i>
@@ -787,8 +647,8 @@
             </div>
 
             <div class="projects-intro">
-                <h2>Built to solve real problems</h2>
-                <p>Handpicked projects focused on practical value, stable performance, and clean user experience.</p>
+                <h2>Development Portfolio</h2>
+                <p>You can find many of my recent web development work on GitHub.</p>
             </div>
 
             <div class="projects-grid">
@@ -967,42 +827,42 @@
                 <div class="languages-grid">
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">HTML</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">CSS</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">JS</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">TypeScript</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Python</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Lua</div>
                     </div>
@@ -1018,35 +878,35 @@
                 <div class="languages-grid">
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">VSCode</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub">
+                            <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">GitHub</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/mysql/ffffff" alt="MySQL">
+                            <img src="https://cdn.simpleicons.org/mysql/ffffff" alt="MySQL" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">MySQL</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/modrinth/ffffff" alt="Modrinth">
+                            <img src="https://cdn.simpleicons.org/modrinth/ffffff" alt="Modrinth" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Modrinth</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox Studio">
+                            <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox Studio" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Roblox Studio</div>
                     </div>
@@ -1062,26 +922,26 @@
                 <div class="languages-grid">
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="icons/affinityicon.png" alt="Affinity">
+                            <img src="icons/affinityicon.png" alt="Affinity" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Affinity</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/davinciresolve/ffffff" alt="DaVinci Resolve">
+                            <img src="https://cdn.simpleicons.org/davinciresolve/ffffff" alt="DaVinci Resolve" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">DaVinci Resolve</div>
                     </div>
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/blender/ffffff" alt="Blender">
+                            <img src="https://cdn.simpleicons.org/blender/ffffff" alt="Blender" loading="lazy" decoding="async">
                         </div>
                         <div class="language-name">Blender</div>
                     </div>
                 </div>
-            </div>            </div>
+            </div>
         </div>
     </div>
 
@@ -1161,14 +1021,14 @@
         </div>
     </div>
 
-    <div id="contact-overlay" class="contact-overlay">
-        <div class="contact-modal">
+    <div id="contact-overlay" class="contact-overlay" aria-hidden="true">
+        <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" tabindex="-1">
             <div class="contact-modal-header">
-                <div class="contact-modal-title">
+                <div class="contact-modal-title" id="contact-modal-title">
                     <i class="fas fa-envelope"></i>
                     Send a Message
                 </div>
-                <button class="contact-close-btn" onclick="closeContactForm()">&times;</button>
+                <button class="contact-close-btn" type="button" aria-label="Close contact form" onclick="closeContactForm()">&times;</button>
             </div>
 
             <form id="contact-form" class="contact-form" onsubmit="submitContactForm(event)">
@@ -1207,14 +1067,14 @@
         </div>
     </div>
 
-    <div id="external-redirect-overlay" class="external-redirect-overlay">
-        <div class="external-redirect-modal">
+    <div id="external-redirect-overlay" class="external-redirect-overlay" aria-hidden="true">
+        <div class="external-redirect-modal" role="dialog" aria-modal="true" aria-labelledby="external-redirect-title" tabindex="-1">
             <div class="external-redirect-header">
-                <div class="external-redirect-title">
+                <div class="external-redirect-title" id="external-redirect-title">
                     <i class="fas fa-arrow-up-right-from-square"></i>
                     External Redirect
                 </div>
-                <button class="external-redirect-close" type="button" onclick="cancelExternalRedirect()">&times;</button>
+                <button class="external-redirect-close" type="button" aria-label="Close redirect dialog" onclick="cancelExternalRedirect()">&times;</button>
             </div>
             <div class="external-redirect-body">
                 <div class="external-redirect-text">Do you want to redirect to:</div>
@@ -1237,14 +1097,14 @@
         <i class="fas fa-sliders"></i>
     </button>
 
-    <div id="settings-overlay" class="settings-overlay">
-        <div class="settings-modal">
+    <div id="settings-overlay" class="settings-overlay" aria-hidden="true">
+        <div class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" tabindex="-1">
             <div class="settings-header">
-                <div class="settings-title">
+                <div class="settings-title" id="settings-title">
                     <i class="fas fa-sliders"></i>
                     Settings
                 </div>
-                <button class="settings-close" type="button" onclick="closeSettings()">&times;</button>
+                <button class="settings-close" type="button" aria-label="Close settings" onclick="closeSettings()">&times;</button>
             </div>
 
             <div class="settings-section">
@@ -1364,6 +1224,16 @@
                         <span class="settings-slider"></span>
                     </label>
                 </div>
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <div class="settings-item-title">Dyslexia-friendly font</div>
+                        <div class="settings-item-desc">Use a font designed for easier reading</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-dyslexia-font">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
@@ -1381,7 +1251,7 @@
             </div>
         </div>
         <div class="mini-player-main">
-            <img id="mini-player-art" class="mini-player-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art">
+            <img id="mini-player-art" class="mini-player-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art" decoding="async">
             <div class="mini-player-meta">
                 <div id="mini-player-title" class="mini-player-title">#habibati</div>
                 <div id="mini-player-artist" class="mini-player-artist">Local Track</div>
@@ -1428,7 +1298,7 @@
                             <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
                             <div class="partner-brand">
                                 <span class="partner-logo">
-                                    <img class="partner-logo-image" src="https://lyute.shop/favicon.ico" alt="Lyute BShop logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <img class="partner-logo-image" src="https://lyute.shop/favicon.ico" alt="Lyute BShop logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                                     <i class="fas fa-store partner-logo-fallback" style="display:none;"></i>
                                 </span>
                                 <div class="partner-brand-meta">
@@ -1443,7 +1313,7 @@
                             <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
                             <div class="partner-brand">
                                 <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Discord Community logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <img class="partner-logo-image" src="icons/icon.png" alt="Discord Community logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                                     <i class="fab fa-discord partner-logo-fallback" style="display:none;"></i>
                                 </span>
                                 <div class="partner-brand-meta">
@@ -1458,7 +1328,7 @@
                             <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
                             <div class="partner-brand">
                                 <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Roblox Creators logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <img class="partner-logo-image" src="icons/icon.png" alt="Roblox Creators logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                                     <i class="fas fa-cube partner-logo-fallback" style="display:none;"></i>
                                 </span>
                                 <div class="partner-brand-meta">
@@ -1473,7 +1343,7 @@
                             <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
                             <div class="partner-brand">
                                 <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Visual Clients logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                                    <img class="partner-logo-image" src="icons/icon.png" alt="Visual Clients logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                                     <i class="fas fa-palette partner-logo-fallback" style="display:none;"></i>
                                 </span>
                                 <div class="partner-brand-meta">
