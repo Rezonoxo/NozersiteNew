@@ -13,6 +13,30 @@ const SITE_NOTICE_CONFIG = {
 };
 
 const SETTINGS_KEY = 'nozer_settings_v1';
+const DEFAULT_SHORTCUTS = {
+    togglePlayPause: 'Space',
+    previousTrack: 'ArrowLeft',
+    nextTrack: 'ArrowRight',
+    openSettings: 'KeyO',
+    gotoHome: 'Digit1',
+    gotoAbout: 'Digit2',
+    gotoProjects: 'Digit3',
+    gotoSkills: 'Digit4',
+    gotoContact: 'Digit5'
+};
+
+const SHORTCUT_ACTIONS = [
+    { id: 'togglePlayPause', title: 'Play / Pause', desc: 'Toggle the current track.' },
+    { id: 'previousTrack', title: 'Previous Track', desc: 'Go to the previous song.' },
+    { id: 'nextTrack', title: 'Next Track', desc: 'Go to the next song.' },
+    { id: 'openSettings', title: 'Open Settings', desc: 'Open the settings modal.' },
+    { id: 'gotoHome', title: 'Go to Home', desc: 'Switch to Home page.' },
+    { id: 'gotoAbout', title: 'Go to About', desc: 'Switch to About page.' },
+    { id: 'gotoProjects', title: 'Go to Projects', desc: 'Switch to Projects page.' },
+    { id: 'gotoSkills', title: 'Go to Skills', desc: 'Switch to Skills page.' },
+    { id: 'gotoContact', title: 'Go to Contact', desc: 'Switch to Contact page.' }
+];
+
 const defaultSettings = {
     mute: false,
     volume: 0.6,
@@ -24,17 +48,26 @@ const defaultSettings = {
     focusOutlines: false,
     dyslexiaFont: false,
     floatingPlayerEnabled: true,
+    miniPlayerSnapAssist: true,
+    shortcuts: { ...DEFAULT_SHORTCUTS },
     miniPlayerCollapsed: false,
     partnersVisible: true,
     performanceMode: false
 };
 
 let settings = loadSettings();
+settings.shortcuts = { ...DEFAULT_SHORTCUTS, ...(settings.shortcuts || {}) };
 
 const names = ['Nozer', 'Wiktor', 'Heaven'];
 let currentNameIndex = 0;
 
 const musicTracks = [
+    {
+        name: 'Ride or Die, Pt. 2',
+        artist: 'Sevdaliza, Tokischa & Villano Antillano',
+        file: 'audio/MT3.mp3',
+        image: 'icons/cover3.jpg'
+    },
     {
         name: '#habibati',
         artist: 'Poshlaya Molly, HOFMANNITA',
@@ -46,12 +79,6 @@ const musicTracks = [
         artist: 'Eldzhey, Poshlaya Molly',
         file: 'audio/MT2.mp3',
         image: 'icons/cover2.jpg'
-    },
-    {
-        name: 'Ride or Die, Pt. 2',
-        artist: 'Sevdaliza, Tokischa & Villano Antillano',
-        file: 'audio/MT3.mp3',
-        image: 'icons/cover3.jpg'
     },
     {
         name: 'Адская колыбельная',
@@ -93,6 +120,31 @@ let isMainPlayerVisible = true;
 let aboutFactIndex = -1;
 let partnersCarouselState = null;
 let partnersSectionCollapsed = false;
+const FALLBACK_PARTNER_BANNER = 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1400&q=80';
+const PARTNERS = [
+    {
+        name: 'winterboard.pl',
+        role: 'Promotional partner',
+        description: 'WinterBoard is a modern platform that allows Discord server administrators to effectively advertise their communities and attract new members.',
+        linkUrl: 'https://winterboard.pl/',
+        linkLabel: 'Visit partner',
+        logoUrl: 'icons/partners/winterboard-logo.png',
+        logoAlt: 'winterboard.pl logo',
+        fallbackIconClass: 'fas fa-store',
+        bannerUrl: 'icons/partners/winterboardBaner.png'
+    },
+    {
+        name: 'Your Brand Here',
+        role: 'Become a Partner',
+        description: 'This slot is available. Promote your brand here by becoming an official partner.',
+        linkUrl: 'https://nozer.site/',
+        linkLabel: 'Become partner',
+        logoUrl: 'icons/icon.png',
+        logoAlt: 'Partner placeholder logo',
+        fallbackIconClass: 'fas fa-handshake',
+        bannerUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80'
+    }
+];
 
 function loadSettings() {
     try {
@@ -107,6 +159,189 @@ function loadSettings() {
 
 function saveSettings() {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function normalizeShortcutCode(value) {
+    if (typeof value !== 'string') return '';
+    return value.trim();
+}
+
+function getShortcutLabel(code) {
+    if (!code) return 'Unassigned';
+    const map = {
+        Space: 'Space',
+        ArrowLeft: 'Arrow Left',
+        ArrowRight: 'Arrow Right',
+        ArrowUp: 'Arrow Up',
+        ArrowDown: 'Arrow Down',
+        Escape: 'Escape',
+        Enter: 'Enter',
+        Backspace: 'Backspace',
+        Tab: 'Tab'
+    };
+    if (map[code]) return map[code];
+    if (code.startsWith('Key')) return code.slice(3).toUpperCase();
+    if (code.startsWith('Digit')) return code.slice(5);
+    if (code.startsWith('Numpad')) return `Num ${code.slice(6)}`;
+    return code;
+}
+
+function executeShortcutAction(actionId) {
+    switch (actionId) {
+        case 'togglePlayPause':
+            togglePlayPause();
+            return true;
+        case 'previousTrack':
+            previousTrack();
+            return true;
+        case 'nextTrack':
+            nextTrack();
+            return true;
+        case 'openSettings':
+            openSettings();
+            return true;
+        case 'gotoHome':
+            showpage('home');
+            return true;
+        case 'gotoAbout':
+            showpage('about');
+            return true;
+        case 'gotoProjects':
+            showpage('projects');
+            return true;
+        case 'gotoSkills':
+            showpage('skills');
+            return true;
+        case 'gotoContact':
+            showpage('contact');
+            return true;
+        default:
+            return false;
+    }
+}
+
+function handleGlobalShortcut(event) {
+    const activeTag = document.activeElement ? document.activeElement.tagName : '';
+    const isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA' || document.activeElement?.isContentEditable;
+    if (isTyping || document.body.classList.contains('capturing-shortcut')) return false;
+    if (event.altKey || event.ctrlKey || event.metaKey) return false;
+
+    const code = normalizeShortcutCode(event.code);
+    if (!code) return false;
+
+    const shortcuts = settings.shortcuts || {};
+    const action = Object.keys(shortcuts).find((id) => normalizeShortcutCode(shortcuts[id]) === code);
+    if (!action) return false;
+
+    event.preventDefault();
+    return executeShortcutAction(action);
+}
+
+function initSettingsCategories() {
+    const modal = document.querySelector('.settings-modal');
+    if (!modal) return;
+
+    const tabs = Array.from(modal.querySelectorAll('.settings-category-btn'));
+    const sections = Array.from(modal.querySelectorAll('.settings-section[data-settings-category]'));
+    if (!tabs.length || !sections.length) return;
+
+    const setCategory = (category) => {
+        tabs.forEach((tab) => {
+            const active = tab.dataset.settingsCategory === category;
+            tab.classList.toggle('active', active);
+            tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        sections.forEach((section) => {
+            section.hidden = section.dataset.settingsCategory !== category;
+        });
+    };
+
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            setCategory(tab.dataset.settingsCategory);
+        });
+    });
+
+    const defaultTab = tabs.find((tab) => tab.classList.contains('active')) || tabs[0];
+    if (defaultTab) setCategory(defaultTab.dataset.settingsCategory);
+}
+
+function initShortcutSettings() {
+    const list = document.getElementById('shortcut-list');
+    const resetBtn = document.getElementById('shortcut-reset-btn');
+    if (!list || !resetBtn) return;
+    let captureHandler = null;
+
+    const render = () => {
+        list.innerHTML = '';
+        SHORTCUT_ACTIONS.forEach((action) => {
+            const row = document.createElement('div');
+            row.className = 'shortcut-item';
+            row.innerHTML = `
+                <div class="shortcut-info">
+                    <div class="shortcut-title">${action.title}</div>
+                    <div class="shortcut-desc">${action.desc}</div>
+                </div>
+                <button type="button" class="shortcut-bind-btn" data-shortcut-action="${action.id}">
+                    ${getShortcutLabel(settings.shortcuts?.[action.id] || '')}
+                </button>
+            `;
+            list.appendChild(row);
+        });
+
+        Array.from(list.querySelectorAll('.shortcut-bind-btn')).forEach((btn) => {
+            btn.addEventListener('click', () => {
+                if (captureHandler) return;
+                const actionId = btn.dataset.shortcutAction;
+                if (!actionId) return;
+
+                document.body.classList.add('capturing-shortcut');
+                btn.classList.add('capturing');
+                btn.textContent = 'Press key...';
+
+                captureHandler = (event) => {
+                    event.preventDefault();
+                    const code = normalizeShortcutCode(event.code);
+                    if (!code) return;
+
+                    if (code === 'Escape') {
+                        document.removeEventListener('keydown', captureHandler, true);
+                        captureHandler = null;
+                        document.body.classList.remove('capturing-shortcut');
+                        render();
+                        return;
+                    }
+
+                    if (code === 'Backspace') {
+                        settings.shortcuts[actionId] = '';
+                    } else {
+                        const duplicatedAction = Object.keys(settings.shortcuts || {}).find((id) => settings.shortcuts[id] === code && id !== actionId);
+                        if (duplicatedAction) {
+                            settings.shortcuts[duplicatedAction] = '';
+                        }
+                        settings.shortcuts[actionId] = code;
+                    }
+
+                    saveSettings();
+                    document.removeEventListener('keydown', captureHandler, true);
+                    captureHandler = null;
+                    document.body.classList.remove('capturing-shortcut');
+                    render();
+                };
+
+                document.addEventListener('keydown', captureHandler, true);
+            });
+        });
+    };
+
+    resetBtn.addEventListener('click', () => {
+        settings.shortcuts = { ...DEFAULT_SHORTCUTS };
+        saveSettings();
+        render();
+    });
+
+    render();
 }
 
 function applyAudioSettings() {
@@ -130,6 +365,7 @@ function syncSettingsUI() {
     const cursorToggle = document.getElementById('setting-cursor');
     const confirmToggle = document.getElementById('setting-confirm-redirects');
     const floatingPlayerToggle = document.getElementById('setting-floating-player');
+    const snapAssistToggle = document.getElementById('setting-mini-player-snap-assist');
     const showPartnersToggle = document.getElementById('setting-show-partners');
     const reduceMotionToggle = document.getElementById('setting-reduce-motion');
     const highContrastToggle = document.getElementById('setting-high-contrast');
@@ -143,6 +379,7 @@ function syncSettingsUI() {
     if (cursorToggle) cursorToggle.checked = settings.cursorEnabled;
     if (confirmToggle) confirmToggle.checked = settings.confirmExternal;
     if (floatingPlayerToggle) floatingPlayerToggle.checked = settings.floatingPlayerEnabled;
+    if (snapAssistToggle) snapAssistToggle.checked = settings.miniPlayerSnapAssist;
     if (showPartnersToggle) showPartnersToggle.checked = settings.partnersVisible;
     if (reduceMotionToggle) reduceMotionToggle.checked = settings.reduceMotion;
     if (highContrastToggle) highContrastToggle.checked = settings.highContrast;
@@ -740,6 +977,186 @@ function initMiniMusicPlayerDrag() {
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
+    let velocityX = 0;
+    let velocityY = 0;
+    let pointerLastX = 0;
+    let pointerLastY = 0;
+    let pointerLastTs = 0;
+    let inertiaFrame = null;
+    let snapGhostEl = null;
+    let nearestDock = null;
+
+    const getDockPoints = (width, height) => {
+        const margin = 10;
+        const maxX = Math.max(margin, window.innerWidth - width - margin);
+        const maxY = Math.max(margin, window.innerHeight - height - margin);
+        const midX = Math.round((window.innerWidth - width) / 2);
+        const midY = Math.round((window.innerHeight - height) / 2);
+
+        return [
+            { key: 'top-left', x: margin, y: margin },
+            { key: 'top-center', x: midX, y: margin },
+            { key: 'top-right', x: maxX, y: margin },
+            { key: 'middle-left', x: margin, y: midY },
+            { key: 'middle-right', x: maxX, y: midY },
+            { key: 'bottom-left', x: margin, y: maxY },
+            { key: 'bottom-center', x: midX, y: maxY },
+            { key: 'bottom-right', x: maxX, y: maxY }
+        ];
+    };
+
+    const ensureSnapGhost = () => {
+        if (snapGhostEl && snapGhostEl.isConnected) return snapGhostEl;
+        snapGhostEl = document.createElement('div');
+        snapGhostEl.className = 'mini-player-snap-ghost';
+        document.body.appendChild(snapGhostEl);
+        return snapGhostEl;
+    };
+
+    const hideSnapGhost = () => {
+        const ghost = ensureSnapGhost();
+        ghost.classList.remove('visible', 'strong');
+        ghost.style.opacity = '0';
+    };
+
+    const updateSnapGhost = () => {
+        if (!settings.miniPlayerSnapAssist) {
+            hideSnapGhost();
+            nearestDock = null;
+            return;
+        }
+
+        const rect = miniPlayer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const docks = getDockPoints(rect.width, rect.height);
+        const ghost = ensureSnapGhost();
+
+        nearestDock = docks[0];
+        let nearestDist = Number.POSITIVE_INFINITY;
+        docks.forEach((dock) => {
+            const dockCenterX = dock.x + rect.width / 2;
+            const dockCenterY = dock.y + rect.height / 2;
+            const dist = Math.hypot(centerX - dockCenterX, centerY - dockCenterY);
+            if (dist < nearestDist) {
+                nearestDist = dist;
+                nearestDock = dock;
+            }
+        });
+
+        ghost.style.width = `${Math.round(rect.width)}px`;
+        ghost.style.height = `${Math.round(rect.height)}px`;
+        ghost.style.left = `${Math.round(nearestDock.x)}px`;
+        ghost.style.top = `${Math.round(nearestDock.y)}px`;
+        ghost.classList.add('visible');
+        ghost.classList.toggle('strong', nearestDist <= 92);
+        ghost.style.opacity = nearestDist <= 170 ? '1' : '0.45';
+    };
+
+    const snapIfCloseEnough = () => {
+        if (!settings.miniPlayerSnapAssist || !nearestDock) return false;
+        const rect = miniPlayer.getBoundingClientRect();
+        const currentCenterX = rect.left + rect.width / 2;
+        const currentCenterY = rect.top + rect.height / 2;
+        const dockCenterX = nearestDock.x + rect.width / 2;
+        const dockCenterY = nearestDock.y + rect.height / 2;
+        const distance = Math.hypot(currentCenterX - dockCenterX, currentCenterY - dockCenterY);
+        if (distance > 96) return false;
+        miniPlayer.style.left = `${Math.round(nearestDock.x)}px`;
+        miniPlayer.style.top = `${Math.round(nearestDock.y)}px`;
+        miniPlayer.style.right = 'auto';
+        miniPlayer.style.bottom = 'auto';
+        return true;
+    };
+
+    const snapToNearestDock = () => {
+        const rect = miniPlayer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const docks = getDockPoints(rect.width, rect.height);
+
+        let closest = docks[0];
+        let closestDist = Number.POSITIVE_INFINITY;
+
+        docks.forEach((dock) => {
+            const dockCenterX = dock.x + rect.width / 2;
+            const dockCenterY = dock.y + rect.height / 2;
+            const dx = centerX - dockCenterX;
+            const dy = centerY - dockCenterY;
+            const dist = Math.hypot(dx, dy);
+            if (dist < closestDist) {
+                closestDist = dist;
+                closest = dock;
+            }
+        });
+
+        miniPlayer.style.left = `${Math.round(closest.x)}px`;
+        miniPlayer.style.top = `${Math.round(closest.y)}px`;
+        miniPlayer.style.right = 'auto';
+        miniPlayer.style.bottom = 'auto';
+    };
+
+    const stopInertia = () => {
+        if (inertiaFrame !== null) {
+            cancelAnimationFrame(inertiaFrame);
+            inertiaFrame = null;
+        }
+    };
+
+    const runInertia = () => {
+        if (settings.reduceMotion || settings.performanceMode) {
+            snapIfCloseEnough();
+            return;
+        }
+
+        const friction = 0.94;
+        const minSpeed = 0.05;
+        const bounce = 0.75;
+
+        const step = () => {
+            const rect = miniPlayer.getBoundingClientRect();
+            const maxX = Math.max(0, window.innerWidth - rect.width);
+            const maxY = Math.max(0, window.innerHeight - rect.height);
+
+            let nextX = rect.left + velocityX;
+            let nextY = rect.top + velocityY;
+
+            if (nextX <= 0) {
+                nextX = 0;
+                velocityX = Math.abs(velocityX) * bounce;
+            } else if (nextX >= maxX) {
+                nextX = maxX;
+                velocityX = -Math.abs(velocityX) * bounce;
+            }
+
+            if (nextY <= 0) {
+                nextY = 0;
+                velocityY = Math.abs(velocityY) * bounce;
+            } else if (nextY >= maxY) {
+                nextY = maxY;
+                velocityY = -Math.abs(velocityY) * bounce;
+            }
+
+            miniPlayer.style.left = `${nextX}px`;
+            miniPlayer.style.top = `${nextY}px`;
+            miniPlayer.style.right = 'auto';
+            miniPlayer.style.bottom = 'auto';
+
+            velocityX *= friction;
+            velocityY *= friction;
+
+            if (Math.abs(velocityX) < minSpeed && Math.abs(velocityY) < minSpeed) {
+                stopInertia();
+                snapIfCloseEnough();
+                return;
+            }
+
+            inertiaFrame = requestAnimationFrame(step);
+        };
+
+        stopInertia();
+        inertiaFrame = requestAnimationFrame(step);
+    };
 
     const onPointerMove = (event) => {
         if (!isDragging) return;
@@ -753,6 +1170,18 @@ function initMiniMusicPlayerDrag() {
         miniPlayer.style.top = `${nextY}px`;
         miniPlayer.style.right = 'auto';
         miniPlayer.style.bottom = 'auto';
+
+        const now = performance.now();
+        const dt = Math.max(1, now - pointerLastTs);
+        const dx = event.clientX - pointerLastX;
+        const dy = event.clientY - pointerLastY;
+        const smooth = 0.3;
+        velocityX = velocityX * (1 - smooth) + (dx / dt) * smooth * 16;
+        velocityY = velocityY * (1 - smooth) + (dy / dt) * smooth * 16;
+        pointerLastX = event.clientX;
+        pointerLastY = event.clientY;
+        pointerLastTs = now;
+        updateSnapGhost();
     };
 
     const onPointerUp = (event) => {
@@ -764,6 +1193,8 @@ function initMiniMusicPlayerDrag() {
         if (event && dragHandle.hasPointerCapture && dragHandle.hasPointerCapture(event.pointerId)) {
             dragHandle.releasePointerCapture(event.pointerId);
         }
+        hideSnapGhost();
+        runInertia();
     };
 
     dragHandle.addEventListener('pointerdown', (event) => {
@@ -771,11 +1202,18 @@ function initMiniMusicPlayerDrag() {
         if (isInteractive) return;
 
         event.preventDefault();
+        stopInertia();
         isDragging = true;
         const rect = miniPlayer.getBoundingClientRect();
         offsetX = event.clientX - rect.left;
         offsetY = event.clientY - rect.top;
+        pointerLastX = event.clientX;
+        pointerLastY = event.clientY;
+        pointerLastTs = performance.now();
+        velocityX = 0;
+        velocityY = 0;
         miniPlayer.classList.add('dragging');
+        updateSnapGhost();
         if (dragHandle.setPointerCapture) {
             dragHandle.setPointerCapture(event.pointerId);
         }
@@ -785,6 +1223,9 @@ function initMiniMusicPlayerDrag() {
 
     window.addEventListener('resize', () => {
         keepMiniPlayerInViewport({ resetOnMobile: true });
+        if (window.matchMedia('(min-width: 769px) and (pointer: fine)').matches && settings.miniPlayerSnapAssist) {
+            snapToNearestDock();
+        }
     });
 }
 
@@ -821,12 +1262,13 @@ function initMusicPlayerVisibilityObserver() {
 
 function initAboutFacts() {
     const facts = [
-        { text: 'I started my design journey by creating simple graphics in Photopea.', tag: 'Design' },
-        { text: 'Nozercode began around 3 years ago and grew from small projects into a real brand.', tag: 'Journey' },
-        { text: 'I enjoy mixing coding and visual style so each project looks as good as it works.', tag: 'Creative' },
-        { text: 'Besides web projects, I also build Roblox games and 3D models for my own group.', tag: 'Roblox' },
-        { text: 'I like working on projects that teach me something new every time.', tag: 'Growth' },
-        { text: 'Music is part of my workflow and helps me stay focused while building.', tag: 'Workflow' }
+        { text: 'In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.', tag: 'Achievement' },
+        { text: 'I have already traveled to more than eight countries.', tag: 'Travel' },
+        { text: 'I have two pets: a cockatiel parrot and a crested gecko.', tag: 'Pets' },
+        { text: 'I reached Rysy peak in Slovakia and also climbed other mountain peaks in Poland and Slovakia.', tag: 'Mountains' },
+        { text: 'I participated in the Erasmus+ program in Malaga, Spain.', tag: 'Erasmus+' },
+        { text: 'I can move my left ear and crack three fingers on my hands.', tag: 'Fun Skill' },
+        { text: 'I love playing Roblox, especially meeting new people on voice chat.', tag: 'Roblox' }
     ];
 
     const factTextEl = document.getElementById('about-fact-text');
@@ -1044,11 +1486,43 @@ function formatCounterValue(value) {
     return numeric.toLocaleString('en-US');
 }
 
+const VIEW_COUNTER_ENDPOINTS = [
+    'https://countapi.xyz'
+];
+const VIEW_COUNTER_FALLBACK_KEY = 'nozersite_home_views_local_fallback_v1';
+
+function getLocalFallbackViewCount() {
+    const current = Number(localStorage.getItem(VIEW_COUNTER_FALLBACK_KEY)) || 0;
+    const nextValue = current + 1;
+    localStorage.setItem(VIEW_COUNTER_FALLBACK_KEY, String(nextValue));
+    return nextValue;
+}
+
 async function countApiHit(namespace, key) {
-    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
-    const response = await fetch(url, { cache: 'no-store' });
-    if (!response.ok) throw new Error('Counter hit failed');
-    return response.json();
+    const encodedNamespace = encodeURIComponent(namespace);
+    const encodedKey = encodeURIComponent(key);
+
+    for (const baseUrl of VIEW_COUNTER_ENDPOINTS) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        try {
+            const url = `${baseUrl}/hit/${encodedNamespace}/${encodedKey}`;
+            const response = await fetch(url, {
+                cache: 'no-store',
+                signal: controller.signal
+            });
+            if (!response.ok) throw new Error('Counter hit failed');
+            const payload = await response.json();
+            if (payload && Number.isFinite(Number(payload.value))) return payload;
+        } catch (error) {
+            // Try next endpoint.
+        } finally {
+            clearTimeout(timeoutId);
+        }
+    }
+
+    throw new Error('All counter endpoints failed');
 }
 
 async function initHomeViewCounter() {
@@ -1062,8 +1536,88 @@ async function initHomeViewCounter() {
         const data = await countApiHit(namespace, key);
         viewEl.textContent = formatCounterValue(data.value);
     } catch (error) {
-        viewEl.textContent = '--';
+        const fallbackValue = getLocalFallbackViewCount();
+        viewEl.textContent = formatCounterValue(fallbackValue);
     }
+}
+
+function sanitizeAssetUrl(value) {
+    return String(value || '').trim().replace(/\\/g, '/');
+}
+
+function createPartnerSlide(partner) {
+    const slide = document.createElement('article');
+    slide.className = 'partner-slide';
+
+    const banner = document.createElement('div');
+    banner.className = 'partner-banner';
+    banner.setAttribute('aria-hidden', 'true');
+    banner.style.backgroundImage = `url('${sanitizeAssetUrl(partner.bannerUrl)}')`;
+
+    const brand = document.createElement('div');
+    brand.className = 'partner-brand';
+
+    const logoWrap = document.createElement('span');
+    logoWrap.className = 'partner-logo';
+
+    const logo = document.createElement('img');
+    logo.className = 'partner-logo-image';
+    logo.src = sanitizeAssetUrl(partner.logoUrl);
+    logo.alt = partner.logoAlt || `${partner.name} logo`;
+    logo.loading = 'lazy';
+    logo.decoding = 'async';
+
+    const fallbackIcon = document.createElement('i');
+    fallbackIcon.className = `${partner.fallbackIconClass} partner-logo-fallback`;
+    fallbackIcon.style.display = 'none';
+    logo.addEventListener('error', () => {
+        logo.style.display = 'none';
+        fallbackIcon.style.display = 'inline-flex';
+    });
+
+    logoWrap.append(logo, fallbackIcon);
+
+    const brandMeta = document.createElement('div');
+    brandMeta.className = 'partner-brand-meta';
+    const name = document.createElement('h4');
+    name.textContent = partner.name;
+    const role = document.createElement('span');
+    role.textContent = partner.role;
+    brandMeta.append(name, role);
+    brand.append(logoWrap, brandMeta);
+
+    const copy = document.createElement('p');
+    copy.className = 'partner-copy';
+    copy.textContent = partner.description;
+
+    const link = document.createElement('a');
+    link.className = 'partner-link';
+    link.href = partner.linkUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.append(document.createTextNode(`${partner.linkLabel} `));
+    const externalIcon = document.createElement('i');
+    externalIcon.className = 'fas fa-arrow-up-right-from-square';
+    link.appendChild(externalIcon);
+
+    const safeBanner = sanitizeAssetUrl(partner.bannerUrl);
+    if (safeBanner.startsWith('http')) {
+        const checkImage = new Image();
+        checkImage.onerror = () => {
+            banner.style.backgroundImage = `url('${FALLBACK_PARTNER_BANNER}')`;
+        };
+        checkImage.src = safeBanner;
+    }
+
+    slide.append(banner, brand, copy, link);
+    return slide;
+}
+
+function renderPartnersSlides(track) {
+    track.innerHTML = '';
+    PARTNERS.forEach((partner) => {
+        track.appendChild(createPartnerSlide(partner));
+    });
 }
 
 function initPartnersCarousel() {
@@ -1074,12 +1628,14 @@ function initPartnersCarousel() {
     const dotsWrap = document.getElementById('partners-dots');
     if (!carousel || !track || !prevBtn || !nextBtn || !dotsWrap) return;
 
+    renderPartnersSlides(track);
     const slides = Array.from(track.querySelectorAll('.partner-slide'));
     if (!slides.length) return;
 
     let currentIndex = 0;
     let autoplayId = null;
     const hideBtn = document.getElementById('partners-hide-btn');
+    dotsWrap.innerHTML = '';
 
     const dots = slides.map((_, index) => {
         const dot = document.createElement('button');
@@ -1801,13 +2357,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (e.code === 'Space') {
-            const activeTag = document.activeElement ? document.activeElement.tagName : '';
-            const isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA' || document.activeElement?.isContentEditable;
-            if (isTyping) return;
-            e.preventDefault();
-            togglePlayPause();
-        }
+        handleGlobalShortcut(e);
     });
 
     loadContactCooldown();
@@ -1822,6 +2372,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initHomeViewCounter();
     checkIfReadyToWakeup();
     initSiteNotice();
+    initSettingsCategories();
+    initShortcutSettings();
     applySettings();
     updateGlobalPartnersVisibility();
     document.addEventListener('visibilitychange', () => {
@@ -1857,6 +2409,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cursorToggle = document.getElementById('setting-cursor');
     const confirmToggle = document.getElementById('setting-confirm-redirects');
     const floatingPlayerToggle = document.getElementById('setting-floating-player');
+    const snapAssistToggle = document.getElementById('setting-mini-player-snap-assist');
     const showPartnersToggle = document.getElementById('setting-show-partners');
     const reduceMotionToggle = document.getElementById('setting-reduce-motion');
     const highContrastToggle = document.getElementById('setting-high-contrast');
@@ -1901,6 +2454,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (floatingPlayerToggle) {
         floatingPlayerToggle.addEventListener('change', (e) => {
             settings.floatingPlayerEnabled = e.target.checked;
+            saveSettings();
+            applySettings();
+        });
+    }
+
+    if (snapAssistToggle) {
+        snapAssistToggle.addEventListener('change', (e) => {
+            settings.miniPlayerSnapAssist = e.target.checked;
             saveSettings();
             applySettings();
         });

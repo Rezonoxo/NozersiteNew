@@ -176,10 +176,8 @@
 </div>
 <script>
     async function updateRecentTracks() {
-        // --- KONFIGURACJA ---
-        const USERNAME = 'Nozercode'; // Podaj swoja nazwe na Last.fm
-        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837'; // Moj klucz API
-        // --------------------
+        const USERNAME = 'Nozercode';
+        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837';
 
         const URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
 
@@ -201,7 +199,7 @@
                 return;
             }
 
-            listElement.innerHTML = ''; // Czyscimy loader
+            listElement.innerHTML = '';
             let isNowPlaying = false;
 
             tracks.forEach(track => {
@@ -800,9 +798,9 @@
                 </article>
             </section>
 
-            <div class="open-work" id="work-status" data-open-label="OPEN" data-closed-label="CLOSED FOR WORK" aria-live="polite">
+            <div class="open-work" id="work-status" data-open-label="Avaiable" data-closed-label="not Avaiable" aria-live="polite">
                 <span class="status-dot" id="work-status-dot"></span>
-                <span id="work-status-text">OPEN</span>
+                <span id="work-status-text">Avaiable</span>
             </div>
             <p class="open-work-note">
                 Working hours: Mon-Fri 15:00-19:00, Sat 09:00-19:00. This does not guarantee an instant reply,
@@ -848,9 +846,9 @@
 
                     <div class="language-card">
                         <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy" decoding="async">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" loading="lazy" decoding="async">
                         </div>
-                        <div class="language-name">TypeScript</div>
+                        <div class="language-name">PHP</div>
                     </div>
 
                     <div class="language-card">
@@ -1106,8 +1104,14 @@
                 </div>
                 <button class="settings-close" type="button" aria-label="Close settings" onclick="closeSettings()">&times;</button>
             </div>
+            <div class="settings-categories" role="tablist" aria-label="Settings categories">
+                <button class="settings-category-btn active" type="button" data-settings-category="sound" role="tab" aria-selected="true">Sound</button>
+                <button class="settings-category-btn" type="button" data-settings-category="experience" role="tab" aria-selected="false">Experience</button>
+                <button class="settings-category-btn" type="button" data-settings-category="accessibility" role="tab" aria-selected="false">Accessibility</button>
+                <button class="settings-category-btn" type="button" data-settings-category="shortcuts" role="tab" aria-selected="false">Shortcuts</button>
+            </div>
 
-            <div class="settings-section">
+            <div class="settings-section" data-settings-category="sound">
                 <div class="settings-section-title">Sound</div>
                 <div class="settings-item">
                     <div class="settings-info">
@@ -1128,7 +1132,7 @@
                 </div>
             </div>
 
-            <div class="settings-section">
+            <div class="settings-section" data-settings-category="experience">
                 <div class="settings-section-title">Experience</div>
                 <div class="settings-item">
                     <div class="settings-info">
@@ -1162,6 +1166,16 @@
                 </div>
                 <div class="settings-item">
                     <div class="settings-info">
+                        <div class="settings-item-title">Mini player snap assist</div>
+                        <div class="settings-item-desc">Show ghost snap hints and snap when you drop near a suggested position</div>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" id="setting-mini-player-snap-assist">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-info">
                         <div class="settings-item-title">Show partners section</div>
                         <div class="settings-item-desc">Permanently show or hide partners on all pages except contact</div>
                     </div>
@@ -1182,7 +1196,7 @@
                 </div>
             </div>
 
-            <div class="settings-section">
+            <div class="settings-section" data-settings-category="accessibility">
                 <div class="settings-section-title">Accessibility</div>
                 <div class="settings-item">
                     <div class="settings-info">
@@ -1234,6 +1248,16 @@
                         <span class="settings-slider"></span>
                     </label>
                 </div>
+            </div>
+
+            <div class="settings-section" data-settings-category="shortcuts">
+                <div class="settings-section-title">Keyboard Shortcuts</div>
+                <div class="settings-shortcuts-intro">Click any shortcut key to rebind it. Press <kbd>Backspace</kbd> while binding to clear.</div>
+                <div id="shortcut-list" class="shortcut-list"></div>
+                <button id="shortcut-reset-btn" class="shortcut-reset-btn" type="button">
+                    <i class="fas fa-rotate-left"></i>
+                    Reset defaults
+                </button>
             </div>
         </div>
     </div>
@@ -1293,68 +1317,7 @@
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="partners-viewport">
-                    <div class="partners-track" id="partners-track">
-                        <article class="partner-slide">
-                            <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
-                            <div class="partner-brand">
-                                <span class="partner-logo">
-                                    <img class="partner-logo-image" src="https://lyute.shop/favicon.ico" alt="Lyute BShop logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-                                    <i class="fas fa-store partner-logo-fallback" style="display:none;"></i>
-                                </span>
-                                <div class="partner-brand-meta">
-                                    <h4>Lyute BShop</h4>
-                                    <span>E-commerce Partner</span>
-                                </div>
-                            </div>
-                            <p class="partner-copy">Storefront integration, visuals, and conversion-focused UI.</p>
-                            <a class="partner-link" href="https://lyute.shop" target="_blank" rel="noopener noreferrer">Visit partner <i class="fas fa-arrow-up-right-from-square"></i></a>
-                        </article>
-                        <article class="partner-slide">
-                            <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
-                            <div class="partner-brand">
-                                <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Discord Community logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-                                    <i class="fab fa-discord partner-logo-fallback" style="display:none;"></i>
-                                </span>
-                                <div class="partner-brand-meta">
-                                    <h4>Discord Community</h4>
-                                    <span>Community Partner</span>
-                                </div>
-                            </div>
-                            <p class="partner-copy">Moderation design assets and custom community experiences.</p>
-                            <a class="partner-link" href="https://discord.gg/server1" target="_blank" rel="noopener noreferrer">Open invite <i class="fas fa-arrow-up-right-from-square"></i></a>
-                        </article>
-                        <article class="partner-slide">
-                            <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
-                            <div class="partner-brand">
-                                <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Roblox Creators logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-                                    <i class="fas fa-cube partner-logo-fallback" style="display:none;"></i>
-                                </span>
-                                <div class="partner-brand-meta">
-                                    <h4>Roblox Creators</h4>
-                                    <span>Game Development</span>
-                                </div>
-                            </div>
-                            <p class="partner-copy">Maps, systems, and models for Roblox-focused game teams.</p>
-                            <a class="partner-link" href="https://www.roblox.com/groups" target="_blank" rel="noopener noreferrer">See ecosystem <i class="fas fa-arrow-up-right-from-square"></i></a>
-                        </article>
-                        <article class="partner-slide">
-                            <div class="partner-banner" style="background-image: url('https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80');" aria-hidden="true"></div>
-                            <div class="partner-brand">
-                                <span class="partner-logo">
-                                    <img class="partner-logo-image" src="icons/icon.png" alt="Visual Clients logo" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-                                    <i class="fas fa-palette partner-logo-fallback" style="display:none;"></i>
-                                </span>
-                                <div class="partner-brand-meta">
-                                    <h4>Visual Clients</h4>
-                                    <span>Graphic Design</span>
-                                </div>
-                            </div>
-                            <p class="partner-copy">Branding packs and social media graphics tailored to niche audiences.</p>
-                            <a class="partner-link" href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">See portfolio <i class="fas fa-arrow-up-right-from-square"></i></a>
-                        </article>
-                    </div>
+                    <div class="partners-track" id="partners-track"></div>
                 </div>
                 <button class="partners-nav next" id="partners-next" type="button" aria-label="Next partner">
                     <i class="fas fa-chevron-right"></i>
