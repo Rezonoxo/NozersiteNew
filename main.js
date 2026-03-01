@@ -1961,7 +1961,7 @@ function initWeatherWidget() {
             const currentTempEl = document.getElementById('weather-temp-current');
             const currentDescEl = document.getElementById('weather-desc-current');
 
-            if (currentTempEl) currentTempEl.textContent = `${currentTemp}Â°`;
+            if (currentTempEl) currentTempEl.textContent = `${currentTemp}°`;
             if (currentDescEl) currentDescEl.textContent = currentLabel || '--';
 
             for (let i = 1; i <= 2; i++) {
@@ -1971,8 +1971,8 @@ function initWeatherWidget() {
                 const minTemp = Math.round(data.daily.temperature_2m_min[i]);
                 const tempEl = document.getElementById(`weather-day-${i}-temp`);
                 const rangeEl = document.getElementById(`weather-day-${i}-range`);
-                if (tempEl) tempEl.textContent = `${maxTemp}Â°`;
-                if (rangeEl) rangeEl.textContent = `${minTemp}Â° / ${maxTemp}Â°`;
+                if (tempEl) tempEl.textContent = `${maxTemp}°`;
+                if (rangeEl) rangeEl.textContent = `${minTemp}° / ${maxTemp}°`;
             }
 
             const updatedEl = document.getElementById('weather-updated');
@@ -2765,6 +2765,16 @@ function readIdleSince(user) {
     if (typeof rawIdle === 'number') {
         return rawIdle > 1e12 ? rawIdle : rawIdle * 1000;
     }
+    if (typeof rawIdle === 'string' && rawIdle.trim() !== '') {
+        const numeric = Number(rawIdle);
+        if (Number.isFinite(numeric)) {
+            return numeric > 1e12 ? numeric : numeric * 1000;
+        }
+        const parsed = Date.parse(rawIdle);
+        if (Number.isFinite(parsed)) {
+            return parsed;
+        }
+    }
     return null;
 }
 
@@ -2839,8 +2849,8 @@ function renderDiscordProfile(user) {
         const apiIdleSince = readIdleSince(user);
         if (apiIdleSince) {
             discordIdleSince = apiIdleSince;
-        } else if (!discordIdleSince) {
-            discordIdleSince = Date.now();
+        } else {
+            discordIdleSince = null;
         }
     } else {
         discordIdleSince = null;
@@ -3542,5 +3552,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         openExternalRedirect(url.href, link.getAttribute('target'));
     });
 });
+
 
 
