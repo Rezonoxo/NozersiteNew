@@ -62,6 +62,9 @@
         <div class="wakeup-content">
             <div class="pulse-dot"></div>
             <div class="wake-text">click</div>
+            <button id="wakeup-no-music-btn" class="wakeup-no-music-btn" type="button">
+                press here to enter without background music
+            </button>
         </div>
     </div>
 
@@ -87,7 +90,7 @@
         <div class="content">
             <div class="header">
                 <h1 class="name">nozer.site</h1>
-                <p class="tagline">Hey, I'm: <span id="changing-name" class="animated-name">Nozer</span></p>
+                <p class="tagline" id="home-tagline">Hey, I'm: <span id="changing-name" class="animated-name">Nozer</span></p>
             </div>
 
             <!-- Discord Profile Card -->
@@ -136,11 +139,11 @@
                         <i class="fab fa-discord"></i>
                     </div>
                     <div class="invite-details-modern">
-                        <div class="invite-name">Heaven Community Roblox</div>
-                        <div class="invite-description">Official Discord server for the Heaven Community Roblox members.</div>
+                        <div class="invite-name" id="invite-1-name">Heaven Community Roblox</div>
+                        <div class="invite-description" id="invite-1-description">Official Discord server for the Heaven Community Roblox members.</div>
                     </div>
                     <div class="invite-action-modern">
-                        <button class="join-btn-modern" onclick="safeOpenExternal('https://discord.com/invite/MWM3MrBcP3')">JOIN SERVER</button>
+                        <button class="join-btn-modern" id="invite-1-button" onclick="safeOpenExternal('https://discord.com/invite/MWM3MrBcP3')">JOIN SERVER</button>
                     </div>
                 </div>
 
@@ -149,11 +152,11 @@
                         <i class="fas fa-cubes"></i>
                     </div> 
                     <div class="invite-details-modern">
-                        <div class="invite-name">Heaven Community Roblox Group</div>
-                        <div class="invite-description">My main roblox group with games and shop made with our team.</div>
+                        <div class="invite-name" id="invite-2-name">Heaven Community Roblox Group</div>
+                        <div class="invite-description" id="invite-2-description">My main roblox group with games and shop made with our team.</div>
                     </div>
                     <div class="invite-action-modern">
-                        <button class="join-btn-modern" onclick="safeOpenExternal('https://www.roblox.com/share/g/369646540')">VISIT GROUP</button>
+                        <button class="join-btn-modern" id="invite-2-button" onclick="safeOpenExternal('https://www.roblox.com/share/g/369646540')">VISIT GROUP</button>
                     </div>
                 </div>
             </div>
@@ -234,9 +237,9 @@
         }
     }
 
-    // Pierwsze wywolanie
+    // Initial fetch
     updateRecentTracks();
-    // Odswiezanie co 30 sekund
+    // Refresh every 30 seconds
     setInterval(updateRecentTracks, 30000);
 </script>
             <div class="music-player-card now-playing-card">
@@ -266,6 +269,9 @@
                                 <button class="music-control" onclick="nextTrack()">
                                     <i class="fas fa-step-forward"></i>
                                 </button>
+                                <button class="music-control" id="music-playlist-btn" type="button" aria-label="Open playlist">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -289,8 +295,8 @@
             <div class="weather-card" id="weather-card">
                 <div class="weather-header">
                     <div class="weather-head-main">
-                        <div class="weather-location">Rzeszów</div>
-                        <div class="weather-subtitle">3-day forecast</div>
+                        <div class="weather-location" id="weather-location">Rzeszow</div>
+                        <div class="weather-subtitle" id="weather-subtitle">3-day forecast</div>
                     </div>
                     <div class="weather-updated" id="weather-updated">Updating...</div>
                 </div>
@@ -331,11 +337,11 @@
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">Location</div>
-                    <div class="info-value">Poland</div>
+                    <div class="info-value" id="home-location-value">Poland</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Timezone</div>
-                    <div class="info-value">GMT+1</div>
+                    <div class="info-value" id="home-timezone-value">GMT+1</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Site Views</div>
@@ -648,6 +654,13 @@
                 <h2>Development Portfolio</h2>
                 <p>You can find many of my recent web development work on GitHub.</p>
             </div>
+            <div class="section-search-wrap">
+                <label class="section-search" for="projects-search">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input id="projects-search" type="search" placeholder="Search projects, tags, or technologies...">
+                </label>
+                <div id="projects-search-empty" class="section-search-empty" hidden>No projects match this search.</div>
+            </div>
 
             <div class="projects-grid">
                 <div class="project-card">
@@ -798,9 +811,9 @@
                 </article>
             </section>
 
-            <div class="open-work" id="work-status" data-open-label="Avaiable" data-closed-label="not Avaiable" aria-live="polite">
+            <div class="open-work" id="work-status" data-open-label="Available" data-closed-label="Not available" aria-live="polite">
                 <span class="status-dot" id="work-status-dot"></span>
-                <span id="work-status-text">Avaiable</span>
+                <span id="work-status-text">Available</span>
             </div>
             <p class="open-work-note">
                 Working hours: Mon-Fri 15:00-19:00, Sat 09:00-19:00. This does not guarantee an instant reply,
@@ -815,131 +828,144 @@
                 <h1 class="name">skills</h1>
                 <p class="tagline">Development and creative tools</p>
             </div>
-
-            <div class="discord-card">
-                <div class="skills-section-title">
-                    <i class="fas fa-code"></i>
-                    <span>Development</span>
+            <section class="skills-shell" aria-label="Skills browser">
+                <div class="skills-search-head">
+                    <div class="skills-search-label">SEARCH SKILLS</div>
+                    <label class="section-search skills-search-input" for="skills-search">
+                        <i class="fas fa-magnifying-glass"></i>
+                        <input id="skills-search" type="search" placeholder="Search skills, frameworks, or tools">
+                    </label>
+                    <div id="skills-search-count" class="skills-search-count">showing all skills</div>
                 </div>
-                
-                <div class="languages-grid">
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">HTML</div>
-                    </div>
 
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">CSS</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">JS</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">PHP</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">Python</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">Lua</div>
-                    </div>
+                <div class="skills-meta-pills" aria-label="Skill highlights">
+                    <span class="skills-pill"><i class="fas fa-code"></i> full stack mindset</span>
+                    <span class="skills-pill"><i class="fas fa-bolt"></i> rapid prototyping</span>
+                    <span class="skills-pill"><i class="fas fa-shield-halved"></i> clean architecture</span>
                 </div>
-            </div>
 
-            <div class="discord-card">
-                <div class="skills-section-title">
-                    <i class="fas fa-laptop-code"></i>
-                    <span>Development Tools</span>
-                </div>
-                
-                <div class="languages-grid">
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" loading="lazy" decoding="async">
+                <div id="skills-search-empty" class="section-search-empty" hidden>No skills match this search.</div>
+
+                <div class="skills-group discord-card">
+                    <div class="skills-group-header">
+                        <div class="skills-section-title">
+                            <i class="fas fa-code"></i>
+                            <span>Main Languages</span>
                         </div>
-                        <div class="language-name">VSCode</div>
+                        <span class="skills-group-count">0</span>
                     </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" loading="lazy" decoding="async">
+                    <div class="languages-grid">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">HTML</div>
                         </div>
-                        <div class="language-name">GitHub</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/mysql/ffffff" alt="MySQL" loading="lazy" decoding="async">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">CSS</div>
                         </div>
-                        <div class="language-name">MySQL</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/modrinth/ffffff" alt="Modrinth" loading="lazy" decoding="async">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">JavaScript</div>
                         </div>
-                        <div class="language-name">Modrinth</div>
-                    </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox Studio" loading="lazy" decoding="async">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">PHP</div>
                         </div>
-                        <div class="language-name">Roblox Studio</div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Python</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Lua</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="discord-card">
-                <div class="skills-section-title">
-                    <i class="fas fa-palette"></i>
-                    <span>Creative Tools</span>
+                <div class="skills-group discord-card">
+                    <div class="skills-group-header">
+                        <div class="skills-section-title">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Development Tools</span>
+                        </div>
+                        <span class="skills-group-count">0</span>
+                    </div>
+                    <div class="languages-grid">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">VSCode</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">GitHub</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/mysql/ffffff" alt="MySQL" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">MySQL</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/modrinth/ffffff" alt="Modrinth" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Modrinth</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox Studio" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Roblox Studio</div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="languages-grid">
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="icons/affinityicon.png" alt="Affinity" loading="lazy" decoding="async">
-                        </div>
-                        <div class="language-name">Affinity</div>
-                    </div>
 
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/davinciresolve/ffffff" alt="DaVinci Resolve" loading="lazy" decoding="async">
+                <div class="skills-group discord-card">
+                    <div class="skills-group-header">
+                        <div class="skills-section-title">
+                            <i class="fas fa-palette"></i>
+                            <span>Creative Tools</span>
                         </div>
-                        <div class="language-name">DaVinci Resolve</div>
+                        <span class="skills-group-count">0</span>
                     </div>
-
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <img src="https://cdn.simpleicons.org/blender/ffffff" alt="Blender" loading="lazy" decoding="async">
+                    <div class="languages-grid">
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="icons/affinityicon.png" alt="Affinity" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Affinity</div>
                         </div>
-                        <div class="language-name">Blender</div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/davinciresolve/ffffff" alt="DaVinci Resolve" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">DaVinci Resolve</div>
+                        </div>
+                        <div class="language-card">
+                            <div class="language-icon">
+                                <img src="https://cdn.simpleicons.org/blender/ffffff" alt="Blender" loading="lazy" decoding="async">
+                            </div>
+                            <div class="language-name">Blender</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 
@@ -947,11 +973,11 @@
         <div class="content">
             <div class="header">
                 <h1 class="name">contact</h1>
-                <p class="tagline">Let's connect and create something extraordinary together</p>
+                <p class="tagline" id="contact-tagline">Available for focused collaborations and high-quality digital work.</p>
             </div>
 
-            <div class="contact-grid">
-                <a href="https://discord.com/users/690653953238499369" class="contact-item" target="_blank" rel="noopener noreferrer">
+            <div class="contact-grid" role="list">
+                <a href="https://discord.com/users/690653953238499369" class="contact-item" target="_blank" rel="noopener noreferrer" role="listitem">
                     <div class="contact-icon">
                         <i class="fab fa-discord"></i>
                     </div>
@@ -959,9 +985,10 @@
                         <div class="contact-label">Discord</div>
                         <div class="contact-value">rezonoxo</div>
                     </div>
+                    <i class="fas fa-arrow-up-right-from-square contact-item-arrow" aria-hidden="true"></i>
                 </a>
                 
-                <a href="#" class="contact-item" target="_blank" rel="noopener noreferrer">
+                <a href="#" class="contact-item" id="contact-email-link" target="_blank" rel="noopener noreferrer" role="listitem">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
@@ -969,9 +996,10 @@
                         <div class="contact-label">Email</div>
                         <div class="contact-value" id="email">d2lrdG9ya29ub3BrYS5ub3plckBnbWFpbC5jb20=</div>
                     </div>
+                    <i class="fas fa-arrow-up-right-from-square contact-item-arrow" aria-hidden="true"></i>
                 </a>
 
-                <a href="https://ko-fi.com/nozer" class="contact-item donate-item" target="_blank" rel="noopener noreferrer">
+                <a href="https://ko-fi.com/nozer" class="contact-item donate-item" target="_blank" rel="noopener noreferrer" role="listitem">
                     <div class="contact-icon donate-icon">
                         <i class="fas fa-heart"></i>
                     </div>
@@ -979,14 +1007,21 @@
                         <div class="contact-label">Support My Work</div>
                         <div class="contact-value">Buy me a coffee</div>
                     </div>
+                    <i class="fas fa-arrow-up-right-from-square contact-item-arrow" aria-hidden="true"></i>
                     <div class="donate-accent"></div>
                 </a>
             </div>
 
-            <button class="contact-now-btn" onclick="openContactForm()">
-                <i class="fas fa-paper-plane"></i>
-                <span>Contact Now</span>
-            </button>
+            <div class="contact-cta-row">
+                <button class="contact-now-btn" type="button" onclick="openContactForm()">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Start Conversation</span>
+                </button>
+                <button class="contact-secondary-btn" type="button" onclick="copyContactEmail()">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy Email</span>
+                </button>
+            </div>
 
             <div class="discord-card social-card">
                 <div class="social-links-container">
@@ -1030,6 +1065,10 @@
             </div>
 
             <form id="contact-form" class="contact-form" onsubmit="submitContactForm(event)">
+                <p class="contact-response-note" id="contact-response-note">
+                    <i class="fas fa-clock" aria-hidden="true"></i>
+                    Typical response time: within 24 hours.
+                </p>
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-user"></i>
@@ -1104,12 +1143,25 @@
                 </div>
                 <button class="settings-close" type="button" aria-label="Close settings" onclick="closeSettings()">&times;</button>
             </div>
-            <div class="settings-categories" role="tablist" aria-label="Settings categories">
-                <button class="settings-category-btn active" type="button" data-settings-category="sound" role="tab" aria-selected="true">Sound</button>
-                <button class="settings-category-btn" type="button" data-settings-category="experience" role="tab" aria-selected="false">Experience</button>
-                <button class="settings-category-btn" type="button" data-settings-category="accessibility" role="tab" aria-selected="false">Accessibility</button>
-                <button class="settings-category-btn" type="button" data-settings-category="shortcuts" role="tab" aria-selected="false">Shortcuts</button>
+            <div class="settings-tools">
+                <label class="settings-search-wrap" for="settings-search">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input id="settings-search" type="search" placeholder="Search settings...">
+                </label>
+                <button id="setting-reset-all" class="settings-reset-all" type="button">
+                    <i class="fas fa-rotate-left"></i>
+                    Reset all settings
+                </button>
             </div>
+            <nav class="settings-navbar" aria-label="Settings sections">
+                <div class="settings-categories" role="tablist" aria-label="Settings categories">
+                    <button class="settings-category-btn active" type="button" data-settings-category="sound" role="tab" aria-selected="true">Sound</button>
+                    <button class="settings-category-btn" type="button" data-settings-category="experience" role="tab" aria-selected="false">Experience</button>
+                    <button class="settings-category-btn" type="button" data-settings-category="accessibility" role="tab" aria-selected="false">Accessibility</button>
+                    <button class="settings-category-btn" type="button" data-settings-category="shortcuts" role="tab" aria-selected="false">Shortcuts</button>
+                </div>
+            </nav>
+            <div id="settings-search-empty" class="settings-search-empty" hidden>No settings found for this query.</div>
 
             <div class="settings-section" data-settings-category="sound">
                 <div class="settings-section-title">Sound</div>
@@ -1266,6 +1318,9 @@
         <div class="mini-player-header">
             <span class="mini-player-label">Now Playing</span>
             <div class="mini-player-header-actions">
+                <button id="mini-player-playlist" class="mini-player-header-btn" type="button" aria-label="Open playlist">
+                    <i class="fas fa-list-ul"></i>
+                </button>
                 <button id="mini-player-minimize" class="mini-player-header-btn" type="button" aria-label="Minimize mini player">
                     <i class="fas fa-compress-alt"></i>
                 </button>
@@ -1298,6 +1353,19 @@
             <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
                 <i class="fas fa-step-forward"></i>
             </button>
+        </div>
+    </div>
+
+    <div id="playlist-overlay" class="playlist-overlay" aria-hidden="true">
+        <div class="playlist-modal" role="dialog" aria-modal="true" aria-labelledby="playlist-title" tabindex="-1">
+            <div class="playlist-header">
+                <div class="playlist-title" id="playlist-title">
+                    <i class="fas fa-list-ul"></i>
+                    Playlist
+                </div>
+                <button class="playlist-close" type="button" aria-label="Close playlist" onclick="closePlaylistOverlay()">&times;</button>
+            </div>
+            <div id="playlist-list" class="playlist-list"></div>
         </div>
     </div>
 

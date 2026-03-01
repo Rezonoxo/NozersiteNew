@@ -4,6 +4,10 @@ let pendingRedirectUrl = null;
 let pendingRedirectTarget = null;
 let starIntervalId = null;
 let activeModalState = null;
+let contentData = null;
+let musicFadeFrame = null;
+let activeSettingsCategory = 'sound';
+let nameTypewriterTimeout = null;
 
 // Manual notice toggle for visitors.
 const SITE_NOTICE_CONFIG = {
@@ -17,6 +21,7 @@ const DEFAULT_SHORTCUTS = {
     togglePlayPause: 'Space',
     previousTrack: 'ArrowLeft',
     nextTrack: 'ArrowRight',
+    openPlaylist: 'KeyP',
     openSettings: 'KeyO',
     gotoHome: 'Digit1',
     gotoAbout: 'Digit2',
@@ -29,6 +34,7 @@ const SHORTCUT_ACTIONS = [
     { id: 'togglePlayPause', title: 'Play / Pause', desc: 'Toggle the current track.' },
     { id: 'previousTrack', title: 'Previous Track', desc: 'Go to the previous song.' },
     { id: 'nextTrack', title: 'Next Track', desc: 'Go to the next song.' },
+    { id: 'openPlaylist', title: 'Open Playlist', desc: 'Open the playlist panel.' },
     { id: 'openSettings', title: 'Open Settings', desc: 'Open the settings modal.' },
     { id: 'gotoHome', title: 'Go to Home', desc: 'Switch to Home page.' },
     { id: 'gotoAbout', title: 'Go to About', desc: 'Switch to About page.' },
@@ -58,10 +64,18 @@ const defaultSettings = {
 let settings = loadSettings();
 settings.shortcuts = { ...DEFAULT_SHORTCUTS, ...(settings.shortcuts || {}) };
 
-const names = ['Nozer', 'Wiktor', 'Heaven'];
+let names = ['Nozer', 'Wiktor', 'Heaven'];
+let pageTitles = {
+    base: 'Nozer',
+    home: 'Home',
+    about: 'About',
+    projects: 'Projects',
+    skills: 'Skills',
+    contact: 'Contact'
+};
 let currentNameIndex = 0;
 
-const musicTracks = [
+let musicTracks = [
     {
         name: 'Ride or Die, Pt. 2',
         artist: 'Sevdaliza, Tokischa & Villano Antillano',
@@ -121,7 +135,7 @@ let aboutFactIndex = -1;
 let partnersCarouselState = null;
 let partnersSectionCollapsed = false;
 const FALLBACK_PARTNER_BANNER = 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1400&q=80';
-const PARTNERS = [
+let PARTNERS = [
     {
         name: 'winterboard.pl',
         role: 'Promotional partner',
@@ -145,6 +159,15 @@ const PARTNERS = [
         bannerUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80'
     }
 ];
+let aboutFacts = [
+    { text: 'In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.', tag: 'Achievement' },
+    { text: 'I have already traveled to more than eight countries.', tag: 'Travel' },
+    { text: 'I have two pets: a cockatiel parrot and a crested gecko.', tag: 'Pets' },
+    { text: 'I reached Rysy peak in Slovakia and also climbed other mountain peaks in Poland and Slovakia.', tag: 'Mountains' },
+    { text: 'I participated in the Erasmus+ program in Malaga, Spain.', tag: 'Erasmus+' },
+    { text: 'I can move my left ear and crack three fingers on my hands.', tag: 'Fun Skill' },
+    { text: 'I love playing Roblox, especially meeting new people on voice chat.', tag: 'Roblox' }
+];
 
 function loadSettings() {
     try {
@@ -159,6 +182,213 @@ function loadSettings() {
 
 function saveSettings() {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function renderFavoritesFromContent(favorites) {
+    if (!favorites) return;
+    const card = document.getElementById('favorites-card');
+    if (!card) return;
+
+    const subtitleEl = card.querySelector('.favorites-subtitle');
+    const introEl = card.querySelector('.favorites-intro');
+    const tabsContainer = card.querySelector('.favorites-tabs');
+    const grid = card.querySelector('.favorites-grid');
+    if (!tabsContainer || !grid) return;
+
+    if (subtitleEl && favorites.subtitle) subtitleEl.textContent = favorites.subtitle;
+    if (introEl && favorites.intro) introEl.textContent = favorites.intro;
+
+    const categories = Array.isArray(favorites.categories) ? favorites.categories : [];
+    const items = Array.isArray(favorites.items) ? favorites.items : [];
+
+    tabsContainer.innerHTML = categories.map((category, index) => `
+        <button class="fav-tab ${index === 0 ? 'active' : ''}" data-fav="${escapeHtml(category.id)}" type="button">${escapeHtml(category.label)}</button>
+    `).join('');
+
+    grid.innerHTML = items.map((item) => `
+        <div class="favorite-item" data-fav="${escapeHtml(item.category)}">
+            <a class="favorite-tile" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" style="--fav-accent: ${escapeHtml(item.accent)};">
+                <div class="favorite-media">
+                    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || item.name)}" loading="lazy" decoding="async">
+                    <span class="favorite-badge">${escapeHtml(item.badge || '')}</span>
+                </div>
+                <div class="favorite-meta">
+                    <div class="favorite-topline">
+                        <h4 class="favorite-name">${escapeHtml(item.name)}</h4>
+                        <span class="favorite-link"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                    </div>
+                    <p class="favorite-desc">${escapeHtml(item.description || '')}</p>
+                </div>
+            </a>
+        </div>
+    `).join('');
+}
+
+function applyContentConfig(data) {
+    if (!data || typeof data !== 'object') return;
+    contentData = data;
+
+    if (Array.isArray(data.names) && data.names.length) {
+        names = data.names.slice();
+    }
+
+    if (data.pageTitles && typeof data.pageTitles === 'object') {
+        pageTitles = { ...pageTitles, ...data.pageTitles };
+    }
+
+    if (Array.isArray(data.musicTracks) && data.musicTracks.length) {
+        musicTracks = data.musicTracks.slice();
+    }
+
+    if (Array.isArray(data.partners) && data.partners.length) {
+        PARTNERS = data.partners.slice();
+    }
+
+    if (Array.isArray(data.randomFacts) && data.randomFacts.length) {
+        aboutFacts = data.randomFacts.slice();
+    }
+
+    if (data.siteNotice) {
+        SITE_NOTICE_CONFIG.enabled = data.siteNotice.enabled !== false;
+        SITE_NOTICE_CONFIG.dismissible = data.siteNotice.dismissible !== false;
+        SITE_NOTICE_CONFIG.message = data.siteNotice.message || SITE_NOTICE_CONFIG.message;
+    }
+
+    const changingName = document.getElementById('changing-name');
+    if (changingName && names.length) {
+        changingName.textContent = names[0];
+    }
+
+    if (data.home?.taglinePrefix && changingName?.parentNode?.firstChild) {
+        changingName.parentNode.firstChild.textContent = `${data.home.taglinePrefix} `;
+    }
+
+    if (Array.isArray(data.home?.invites)) {
+        data.home.invites.slice(0, 2).forEach((invite, index) => {
+            const offset = index + 1;
+            const nameEl = document.getElementById(`invite-${offset}-name`);
+            const descEl = document.getElementById(`invite-${offset}-description`);
+            const btnEl = document.getElementById(`invite-${offset}-button`);
+            if (nameEl && invite.name) nameEl.textContent = invite.name;
+            if (descEl && invite.description) descEl.textContent = invite.description;
+            if (btnEl) {
+                if (invite.buttonLabel) btnEl.textContent = invite.buttonLabel.toUpperCase();
+                if (invite.url) btnEl.onclick = () => safeOpenExternal(invite.url);
+            }
+        });
+    }
+
+    const locationEl = document.getElementById('home-location-value');
+    const timezoneEl = document.getElementById('home-timezone-value');
+    if (locationEl && data.home?.info?.location) locationEl.textContent = data.home.info.location;
+    if (timezoneEl && data.home?.info?.timezone) timezoneEl.textContent = data.home.info.timezone;
+
+    const weatherLocationEl = document.getElementById('weather-location');
+    const weatherSubtitleEl = document.getElementById('weather-subtitle');
+    if (weatherLocationEl && data.weather?.locationLabel) weatherLocationEl.textContent = data.weather.locationLabel;
+    if (weatherSubtitleEl && data.weather?.subtitle) weatherSubtitleEl.textContent = data.weather.subtitle;
+
+    if (data.about?.randomFactPlaceholder) {
+        const placeholder = document.getElementById('about-fact-text');
+        if (placeholder) placeholder.textContent = data.about.randomFactPlaceholder;
+    }
+
+    if (Array.isArray(data.about?.cards)) {
+        const cardContentEls = Array.from(document.querySelectorAll('#about .about-card .about-content'));
+        data.about.cards.forEach((card, index) => {
+            const target = cardContentEls[index];
+            if (!target) return;
+            const titleEl = target.querySelector('h3');
+            const textEl = target.querySelector('p');
+            if (titleEl && card.title) titleEl.textContent = card.title;
+            if (textEl && card.text) textEl.textContent = card.text;
+        });
+    }
+
+    if (data.about?.finalCard) {
+        const finalCard = document.querySelector('.skills-final-card .final-text');
+        if (finalCard) {
+            const titleEl = finalCard.querySelector('h3');
+            const textEl = finalCard.querySelector('p');
+            if (titleEl && data.about.finalCard.title) titleEl.textContent = data.about.finalCard.title;
+            if (textEl && data.about.finalCard.text) textEl.textContent = data.about.finalCard.text;
+        }
+    }
+
+    if (data.workStatus) {
+        const workStatus = document.getElementById('work-status');
+        const workText = document.getElementById('work-status-text');
+        if (workStatus) {
+            if (data.workStatus.openLabel) workStatus.dataset.openLabel = data.workStatus.openLabel;
+            if (data.workStatus.closedLabel) workStatus.dataset.closedLabel = data.workStatus.closedLabel;
+        }
+        if (workText && data.workStatus.openLabel) {
+            workText.textContent = data.workStatus.openLabel;
+        }
+    }
+
+    if (data.contact) {
+        const contactTagline = document.getElementById('contact-tagline');
+        const responseNote = document.getElementById('contact-response-note');
+        const primaryCta = document.querySelector('#contact .contact-now-btn span');
+        const secondaryCta = document.querySelector('#contact .contact-secondary-btn span');
+
+        if (contactTagline && data.contact.tagline) contactTagline.textContent = data.contact.tagline;
+        if (responseNote && data.contact.responseNote) {
+            responseNote.innerHTML = `<i class="fas fa-clock" aria-hidden="true"></i> ${escapeHtml(data.contact.responseNote)}`;
+        }
+        if (primaryCta && data.contact.primaryCta) primaryCta.textContent = data.contact.primaryCta;
+        if (secondaryCta && data.contact.secondaryCta) secondaryCta.textContent = data.contact.secondaryCta;
+    }
+
+    if (data.favorites) {
+        renderFavoritesFromContent(data.favorites);
+    }
+
+    updateDocumentTitle(currentpage);
+}
+
+async function loadContentConfig() {
+    try {
+        const response = await fetch('content.json');
+        if (!response.ok) throw new Error('Unable to load content.json');
+        const data = await response.json();
+        applyContentConfig(data);
+    } catch (error) {
+        console.warn('Using embedded fallback content.', error);
+    }
+}
+
+function runWhenIdle(callback, timeout = 1200) {
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => callback(), { timeout });
+        return;
+    }
+    setTimeout(callback, 220);
+}
+
+function optimizeStaticMediaLoading() {
+    const images = Array.from(document.querySelectorAll('img'));
+    images.forEach((img, index) => {
+        if (!img.getAttribute('loading')) {
+            img.setAttribute('loading', index < 6 ? 'eager' : 'lazy');
+        }
+        if (!img.getAttribute('decoding')) {
+            img.setAttribute('decoding', 'async');
+        }
+        if (!img.getAttribute('fetchpriority')) {
+            img.setAttribute('fetchpriority', index < 2 ? 'high' : 'auto');
+        }
+    });
 }
 
 function normalizeShortcutCode(value) {
@@ -197,6 +427,9 @@ function executeShortcutAction(actionId) {
         case 'nextTrack':
             nextTrack();
             return true;
+        case 'openPlaylist':
+            openPlaylistOverlay();
+            return true;
         case 'openSettings':
             openSettings();
             return true;
@@ -224,6 +457,7 @@ function handleGlobalShortcut(event) {
     const activeTag = document.activeElement ? document.activeElement.tagName : '';
     const isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA' || document.activeElement?.isContentEditable;
     if (isTyping || document.body.classList.contains('capturing-shortcut')) return false;
+    if (activeModalState?.overlay) return false;
     if (event.altKey || event.ctrlKey || event.metaKey) return false;
 
     const code = normalizeShortcutCode(event.code);
@@ -243,28 +477,174 @@ function initSettingsCategories() {
 
     const tabs = Array.from(modal.querySelectorAll('.settings-category-btn'));
     const sections = Array.from(modal.querySelectorAll('.settings-section[data-settings-category]'));
+    const searchInput = document.getElementById('settings-search');
+    const resetAllBtn = document.getElementById('setting-reset-all');
+    const emptyState = document.getElementById('settings-search-empty');
     if (!tabs.length || !sections.length) return;
 
-    const setCategory = (category) => {
+    const updateSectionsVisibility = () => {
+        const query = (searchInput?.value || '').trim().toLowerCase();
+        const hasQuery = query.length > 0;
+        let matchCount = 0;
+
         tabs.forEach((tab) => {
-            const active = tab.dataset.settingsCategory === category;
+            const active = tab.dataset.settingsCategory === activeSettingsCategory;
             tab.classList.toggle('active', active);
             tab.setAttribute('aria-selected', active ? 'true' : 'false');
         });
 
         sections.forEach((section) => {
-            section.hidden = section.dataset.settingsCategory !== category;
+            const isActivePage = section.dataset.settingsCategory === activeSettingsCategory;
+            const sectionItems = Array.from(section.querySelectorAll('.settings-item, .shortcut-item'));
+            section.hidden = !isActivePage;
+            if (!isActivePage) return;
+
+            if (hasQuery && sectionItems.length) {
+                sectionItems.forEach((item) => {
+                    const text = (item.textContent || '').toLowerCase();
+                    const match = text.includes(query);
+                    item.hidden = !match;
+                    if (match) matchCount += 1;
+                });
+                return;
+            }
+
+            sectionItems.forEach((item) => { item.hidden = false; });
+            matchCount += sectionItems.length;
         });
+
+        if (emptyState) {
+            emptyState.hidden = !hasQuery || matchCount > 0;
+        }
     };
 
     tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
-            setCategory(tab.dataset.settingsCategory);
+            activeSettingsCategory = tab.dataset.settingsCategory || 'sound';
+            updateSectionsVisibility();
         });
     });
 
+    if (searchInput) {
+        searchInput.addEventListener('input', updateSectionsVisibility);
+    }
+
+    if (resetAllBtn) {
+        resetAllBtn.addEventListener('click', () => {
+            const accepted = window.confirm('Reset all settings to defaults?');
+            if (!accepted) return;
+
+            settings = {
+                ...defaultSettings,
+                shortcuts: { ...DEFAULT_SHORTCUTS }
+            };
+            saveSettings();
+            applySettings();
+            syncSettingsUI();
+            activeSettingsCategory = 'sound';
+            if (searchInput) searchInput.value = '';
+            const miniPlayer = document.getElementById('mini-music-player');
+            if (miniPlayer) {
+                miniPlayer.style.left = '';
+                miniPlayer.style.top = '';
+                miniPlayer.style.right = '';
+                miniPlayer.style.bottom = '';
+            }
+            updateSectionsVisibility();
+
+            const shortcutButtons = Array.from(document.querySelectorAll('.shortcut-bind-btn'));
+            shortcutButtons.forEach((button) => {
+                const actionId = button.getAttribute('data-shortcut-action');
+                if (!actionId) return;
+                button.textContent = getShortcutLabel(settings.shortcuts?.[actionId] || '');
+            });
+        });
+    }
+
     const defaultTab = tabs.find((tab) => tab.classList.contains('active')) || tabs[0];
-    if (defaultTab) setCategory(defaultTab.dataset.settingsCategory);
+    if (defaultTab) {
+        activeSettingsCategory = defaultTab.dataset.settingsCategory || 'sound';
+    }
+    updateSectionsVisibility();
+}
+
+function initProjectsSearch() {
+    const input = document.getElementById('projects-search');
+    const emptyState = document.getElementById('projects-search-empty');
+    const cards = Array.from(document.querySelectorAll('#projects .project-card'));
+    if (!input || !cards.length) return;
+
+    const applyFilter = () => {
+        const query = input.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+            const title = card.querySelector('.project-title')?.textContent || '';
+            const desc = card.querySelector('.project-desc')?.textContent || '';
+            const tags = Array.from(card.querySelectorAll('.project-tag')).map((tag) => tag.textContent || '').join(' ');
+            const haystack = `${title} ${desc} ${tags}`.toLowerCase();
+            const match = !query || haystack.includes(query);
+            card.hidden = !match;
+            if (match) visibleCount += 1;
+        });
+
+        if (emptyState) {
+            emptyState.hidden = !query || visibleCount > 0;
+        }
+    };
+
+    input.addEventListener('input', applyFilter);
+}
+
+function initSkillsSearch() {
+    const input = document.getElementById('skills-search');
+    const countEl = document.getElementById('skills-search-count');
+    const emptyState = document.getElementById('skills-search-empty');
+    const cards = Array.from(document.querySelectorAll('#skills .language-card'));
+    const groups = Array.from(document.querySelectorAll('#skills .skills-group'));
+    if (!input || !cards.length || !groups.length) return;
+    const totalSkills = cards.length;
+
+    const applyFilter = () => {
+        const query = input.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+            const name = card.querySelector('.language-name')?.textContent || '';
+            const alt = card.querySelector('img')?.getAttribute('alt') || '';
+            const groupTitle = card.closest('.skills-group')?.querySelector('.skills-section-title span')?.textContent || '';
+            const haystack = `${name} ${alt} ${groupTitle}`.toLowerCase();
+            const match = !query || haystack.includes(query);
+            card.hidden = !match;
+            if (match) visibleCount += 1;
+        });
+
+        groups.forEach((group) => {
+            const groupCards = Array.from(group.querySelectorAll('.language-card'));
+            const hasVisible = groupCards.some((card) => !card.hidden);
+            group.hidden = !hasVisible;
+            const badge = group.querySelector('.skills-group-count');
+            if (badge) {
+                const visibleInGroup = groupCards.filter((card) => !card.hidden).length;
+                badge.textContent = String(visibleInGroup);
+            }
+        });
+
+        if (emptyState) {
+            emptyState.hidden = !query || visibleCount > 0;
+        }
+
+        if (countEl) {
+            if (!query) {
+                countEl.textContent = `showing all ${totalSkills} skills`;
+            } else {
+                countEl.textContent = `showing ${visibleCount} of ${totalSkills} skills`;
+            }
+        }
+    };
+
+    input.addEventListener('input', applyFilter);
+    applyFilter();
 }
 
 function initShortcutSettings() {
@@ -333,6 +713,11 @@ function initShortcutSettings() {
                 document.addEventListener('keydown', captureHandler, true);
             });
         });
+
+        const searchInput = document.getElementById('settings-search');
+        if (searchInput) {
+            searchInput.dispatchEvent(new Event('input'));
+        }
     };
 
     resetBtn.addEventListener('click', () => {
@@ -346,8 +731,8 @@ function initShortcutSettings() {
 
 function applyAudioSettings() {
     if (!musicAudio) return;
-    musicAudio.muted = settings.mute;
-    musicAudio.volume = settings.volume;
+    musicAudio.muted = false;
+    musicAudio.volume = getTargetMusicVolume();
 
     const volumeRange = document.getElementById('music-volume-range');
     const miniVolumeRange = document.getElementById('mini-player-volume-range');
@@ -527,6 +912,11 @@ function openSettings() {
     const modal = overlay ? overlay.querySelector('.settings-modal') : null;
     if (!overlay || !modal) return;
     activateModal(overlay, modal, '.settings-close');
+    const searchInput = document.getElementById('settings-search');
+    if (searchInput) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+    }
     syncSettingsUI();
 }
 
@@ -569,6 +959,26 @@ function openContactForm() {
 function closeContactForm() {
     const overlay = document.getElementById('contact-overlay');
     if (overlay) deactivateModal(overlay);
+}
+
+async function copyContactEmail() {
+    const emailElement = document.getElementById('email');
+    const copyButtonLabel = document.querySelector('#contact .contact-secondary-btn span');
+    const defaultText = contentData?.contact?.secondaryCta || 'Copy Email';
+    const value = emailElement ? emailElement.textContent.trim() : '';
+    if (!value) return;
+    try {
+        await navigator.clipboard.writeText(value);
+        if (copyButtonLabel) copyButtonLabel.textContent = 'Copied';
+    } catch (error) {
+        if (copyButtonLabel) copyButtonLabel.textContent = 'Copy failed';
+    } finally {
+        if (copyButtonLabel) {
+            setTimeout(() => {
+                copyButtonLabel.textContent = defaultText;
+            }, 1500);
+        }
+    }
 }
 
 function openExternalRedirect(url, target) {
@@ -735,19 +1145,176 @@ async function submitContactForm(event) {
     }
 }
 
-function changeName() {
-    const nameElement = document.getElementById('changing-name');
-    if (nameElement) {
-        nameElement.classList.remove('fade-in');
-        void nameElement.offsetWidth; // Trigger reflow
-        currentNameIndex = (currentNameIndex + 1) % names.length;
-        nameElement.textContent = names[currentNameIndex];
-        nameElement.classList.add('fade-in');
-    }
+function updateDocumentTitle(page = currentpage) {
+    const base = pageTitles.base || 'Nozer';
+    const sectionTitle = pageTitles[page] || 'Home';
+    document.title = page === 'home' ? base : `${sectionTitle} | ${base}`;
 }
 
 function initNameChanger() {
-    setInterval(changeName, 3000);
+    const nameElement = document.getElementById('changing-name');
+    if (!nameElement || !names.length) return;
+
+    nameElement.classList.add('typewriter');
+    if (nameTypewriterTimeout) {
+        clearTimeout(nameTypewriterTimeout);
+        nameTypewriterTimeout = null;
+    }
+
+    let deleting = false;
+    let charIndex = 0;
+    currentNameIndex = 0;
+
+    const tick = () => {
+        if (!names.length) return;
+        const fullText = names[currentNameIndex] || '';
+
+        if (settings.reduceMotion) {
+            nameElement.textContent = fullText;
+            currentNameIndex = (currentNameIndex + 1) % names.length;
+            nameTypewriterTimeout = setTimeout(tick, 1900);
+            return;
+        }
+
+        if (!deleting) {
+            charIndex = Math.min(fullText.length, charIndex + 1);
+            nameElement.textContent = fullText.slice(0, charIndex);
+            if (charIndex >= fullText.length) {
+                deleting = true;
+                nameTypewriterTimeout = setTimeout(tick, 1100);
+                return;
+            }
+            nameTypewriterTimeout = setTimeout(tick, 85);
+            return;
+        }
+
+        charIndex = Math.max(0, charIndex - 1);
+        nameElement.textContent = fullText.slice(0, charIndex);
+        if (charIndex <= 0) {
+            deleting = false;
+            currentNameIndex = (currentNameIndex + 1) % names.length;
+            nameTypewriterTimeout = setTimeout(tick, 220);
+            return;
+        }
+        nameTypewriterTimeout = setTimeout(tick, 45);
+    };
+
+    nameElement.textContent = '';
+    tick();
+}
+
+function getTargetMusicVolume() {
+    if (settings.mute) return 0;
+    return Math.max(0, Math.min(1, settings.volume));
+}
+
+function clampUnit(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return 0;
+    return Math.max(0, Math.min(1, numeric));
+}
+
+function cancelMusicFade() {
+    if (musicFadeFrame !== null) {
+        cancelAnimationFrame(musicFadeFrame);
+        musicFadeFrame = null;
+    }
+}
+
+function fadeMusicVolume(targetVolume, duration = 220) {
+    return new Promise((resolve) => {
+        if (!musicAudio) {
+            resolve();
+            return;
+        }
+
+        cancelMusicFade();
+        const startVolume = clampUnit(musicAudio.volume);
+        const target = clampUnit(targetVolume);
+        if (duration <= 0 || Math.abs(startVolume - target) < 0.005) {
+            musicAudio.volume = target;
+            resolve();
+            return;
+        }
+
+        const start = performance.now();
+        const step = (now) => {
+            const progress = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const nextVolume = startVolume + (target - startVolume) * eased;
+            musicAudio.volume = clampUnit(nextVolume);
+
+            if (progress < 1) {
+                musicFadeFrame = requestAnimationFrame(step);
+                return;
+            }
+
+            musicAudio.volume = target;
+            musicFadeFrame = null;
+            resolve();
+        };
+
+        musicFadeFrame = requestAnimationFrame(step);
+    });
+}
+
+async function playCurrentTrackWithFade() {
+    if (!musicAudio || !musicAudio.src) return;
+
+    const finalVolume = getTargetMusicVolume();
+    const shouldFade = !settings.reduceMotion && !settings.performanceMode && finalVolume > 0;
+
+    cancelMusicFade();
+    if (shouldFade) {
+        musicAudio.volume = 0;
+    } else {
+        musicAudio.volume = finalVolume;
+    }
+
+    try {
+        await musicAudio.play();
+        isMusicPlaying = true;
+        updatePlayPauseButton();
+        if (shouldFade) {
+            await fadeMusicVolume(finalVolume, 230);
+        }
+    } catch (error) {
+        console.log('Autoplay blocked:', error);
+        isMusicPlaying = false;
+        updatePlayPauseButton();
+    }
+}
+
+async function pauseCurrentTrackWithFade() {
+    if (!musicAudio || !isMusicPlaying) return;
+    const shouldFade = !settings.reduceMotion && !settings.performanceMode;
+
+    if (shouldFade) {
+        await fadeMusicVolume(0, 170);
+    }
+
+    musicAudio.pause();
+    musicAudio.volume = getTargetMusicVolume();
+    isMusicPlaying = false;
+    updatePlayPauseButton();
+}
+
+async function switchTrack(trackIndex) {
+    if (!musicAudio) return;
+    const shouldResume = isMusicPlaying;
+
+    if (shouldResume && !settings.reduceMotion && !settings.performanceMode) {
+        await fadeMusicVolume(0, 130);
+    }
+
+    loadTrack(trackIndex, { preservePlayingState: shouldResume });
+
+    if (shouldResume) {
+        await playCurrentTrackWithFade();
+    } else {
+        musicAudio.volume = getTargetMusicVolume();
+        updatePlayPauseButton();
+    }
 }
 
 function initMusicPlayer() {
@@ -756,6 +1323,7 @@ function initMusicPlayer() {
     
     loadTrack(0);
     initMiniMusicPlayer();
+    initPlaylistOverlay();
     initMusicPlayerVisibilityObserver();
     
     const volumeRange = document.getElementById('music-volume-range');
@@ -771,15 +1339,19 @@ function initMusicPlayer() {
 
     musicAudio.addEventListener('timeupdate', updateMusicProgress);
     musicAudio.addEventListener('loadedmetadata', updateMusicProgress);
-    musicAudio.addEventListener('ended', nextTrack);
+    musicAudio.addEventListener('ended', () => {
+        nextTrack();
+    });
 }
 
-function loadTrack(trackIndex) {
+function loadTrack(trackIndex, options = {}) {
+    const { preservePlayingState = false } = options;
     if (trackIndex < 0) trackIndex = musicTracks.length - 1;
     if (trackIndex >= musicTracks.length) trackIndex = 0;
     
     currentMusicTrack = trackIndex;
     const track = musicTracks[trackIndex];
+    if (!track || !musicAudio) return;
     
     musicAudio.src = track.file;
     document.getElementById('music-title').textContent = track.name;
@@ -787,22 +1359,22 @@ function loadTrack(trackIndex) {
     document.getElementById('music-artist').textContent = track.artist;
     syncMiniMusicPlayerMeta();
     
-    isMusicPlaying = false;
+    if (!preservePlayingState) {
+        isMusicPlaying = false;
+    }
     updatePlayPauseButton();
-    updateMusicProgress(); // Update progress after loading
+    updateMusicProgress();
+    renderPlaylistItems();
 }
 
-function togglePlayPause() {
+async function togglePlayPause() {
     if (!musicAudio.src) return;
     
     if (isMusicPlaying) {
-        musicAudio.pause();
-        isMusicPlaying = false;
+        await pauseCurrentTrackWithFade();
     } else {
-        musicAudio.play().catch(e => console.log('Autoplay blocked:', e));
-        isMusicPlaying = true;
+        await playCurrentTrackWithFade();
     }
-    updatePlayPauseButton();
 }
 
 function updatePlayPauseButton() {
@@ -823,15 +1395,12 @@ function updatePlayPauseButton() {
     }
 }
 
-function nextTrack() {
-    loadTrack(currentMusicTrack + 1);
-    musicAudio.play().catch(e => console.log('Autoplay blocked:', e));
-    isMusicPlaying = true;
-    updatePlayPauseButton();
+async function nextTrack() {
+    await switchTrack(currentMusicTrack + 1);
 }
 
-function previousTrack() {
-    loadTrack(currentMusicTrack - 1);
+async function previousTrack() {
+    await switchTrack(currentMusicTrack - 1);
 }
 
 function updateMusicProgress() {
@@ -869,6 +1438,71 @@ function syncMiniMusicPlayerMeta() {
     if (titleEl) titleEl.textContent = track.name;
     if (artistEl) artistEl.textContent = track.artist;
     if (artEl) artEl.src = track.image;
+    renderPlaylistItems();
+}
+
+function renderPlaylistItems() {
+    const list = document.getElementById('playlist-list');
+    if (!list) return;
+
+    list.innerHTML = '';
+    musicTracks.forEach((track, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `playlist-item ${index === currentMusicTrack ? 'active' : ''}`;
+        button.innerHTML = `
+            <img src="${escapeHtml(track.image)}" alt="${escapeHtml(track.name)}" loading="lazy" decoding="async">
+            <span class="playlist-item-meta">
+                <strong>${escapeHtml(track.name)}</strong>
+                <small>${escapeHtml(track.artist)}</small>
+            </span>
+            <span class="playlist-item-state">${index === currentMusicTrack ? 'Now' : ''}</span>
+        `;
+        button.addEventListener('click', async () => {
+            if (index === currentMusicTrack && isMusicPlaying) {
+                await togglePlayPause();
+                return;
+            }
+            await switchTrack(index);
+            if (!isMusicPlaying) {
+                await playCurrentTrackWithFade();
+            }
+        });
+        list.appendChild(button);
+    });
+}
+
+function openPlaylistOverlay() {
+    const overlay = document.getElementById('playlist-overlay');
+    const modal = overlay ? overlay.querySelector('.playlist-modal') : null;
+    if (!overlay || !modal) return;
+    renderPlaylistItems();
+    activateModal(overlay, modal, '.playlist-close');
+}
+
+function closePlaylistOverlay() {
+    const overlay = document.getElementById('playlist-overlay');
+    if (overlay) deactivateModal(overlay);
+}
+
+function initPlaylistOverlay() {
+    const playlistOpenMainBtn = document.getElementById('music-playlist-btn');
+    const playlistOpenMiniBtn = document.getElementById('mini-player-playlist');
+    const overlay = document.getElementById('playlist-overlay');
+
+    if (playlistOpenMainBtn) {
+        playlistOpenMainBtn.addEventListener('click', openPlaylistOverlay);
+    }
+    if (playlistOpenMiniBtn) {
+        playlistOpenMiniBtn.addEventListener('click', openPlaylistOverlay);
+    }
+    if (overlay) {
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                closePlaylistOverlay();
+            }
+        });
+    }
 }
 
 function updateMiniMusicPlayerVisibility() {
@@ -1261,32 +1895,23 @@ function initMusicPlayerVisibilityObserver() {
 }
 
 function initAboutFacts() {
-    const facts = [
-        { text: 'In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.', tag: 'Achievement' },
-        { text: 'I have already traveled to more than eight countries.', tag: 'Travel' },
-        { text: 'I have two pets: a cockatiel parrot and a crested gecko.', tag: 'Pets' },
-        { text: 'I reached Rysy peak in Slovakia and also climbed other mountain peaks in Poland and Slovakia.', tag: 'Mountains' },
-        { text: 'I participated in the Erasmus+ program in Malaga, Spain.', tag: 'Erasmus+' },
-        { text: 'I can move my left ear and crack three fingers on my hands.', tag: 'Fun Skill' },
-        { text: 'I love playing Roblox, especially meeting new people on voice chat.', tag: 'Roblox' }
-    ];
-
     const factTextEl = document.getElementById('about-fact-text');
     const factChipEl = document.getElementById('about-fact-chip');
     const factCardEl = document.getElementById('about-fact-card');
     const shuffleBtn = document.getElementById('about-fact-btn');
 
     if (!factTextEl || !factChipEl || !factCardEl || !shuffleBtn) return;
+    if (!Array.isArray(aboutFacts) || !aboutFacts.length) return;
 
     const renderFact = () => {
-        let nextIndex = Math.floor(Math.random() * facts.length);
-        if (facts.length > 1 && nextIndex === aboutFactIndex) {
-            nextIndex = (nextIndex + 1) % facts.length;
+        let nextIndex = Math.floor(Math.random() * aboutFacts.length);
+        if (aboutFacts.length > 1 && nextIndex === aboutFactIndex) {
+            nextIndex = (nextIndex + 1) % aboutFacts.length;
         }
 
         aboutFactIndex = nextIndex;
-        factTextEl.textContent = facts[nextIndex].text;
-        factChipEl.textContent = facts[nextIndex].tag;
+        factTextEl.textContent = aboutFacts[nextIndex].text;
+        factChipEl.textContent = aboutFacts[nextIndex].tag;
         factCardEl.classList.remove('fact-animate');
         void factCardEl.offsetWidth;
         factCardEl.classList.add('fact-animate');
@@ -1430,7 +2055,8 @@ function initFavoritesWidget() {
         tab.addEventListener('click', () => switchCategory(tab.dataset.fav));
     });
 
-    setActive('games');
+    const initialCategory = tabs[0]?.dataset.fav || 'games';
+    setActive(initialCategory);
 }
 
 function initWorkAvailabilityStatus() {
@@ -1487,7 +2113,7 @@ function formatCounterValue(value) {
 }
 
 const VIEW_COUNTER_ENDPOINTS = [
-    'https://countapi.xyz'
+    'https://api.countapi.xyz'
 ];
 const VIEW_COUNTER_FALLBACK_KEY = 'nozersite_home_views_local_fallback_v1';
 
@@ -1776,10 +2402,57 @@ const cursorsys = {
         let targetY = window.innerHeight / 2;
         let currentX = targetX;
         let currentY = targetY;
+        const textInputSelector = 'input, textarea, [contenteditable="true"]';
+        const interactiveSelector = [
+            'a',
+            'button',
+            '[role="button"]',
+            '.nav-link',
+            '.social-link',
+            '.partner-link',
+            '.project-action',
+            '.settings-toggle',
+            '.settings-category-btn',
+            '.settings-switch',
+            '.settings-slider',
+            '.settings-reset-all',
+            '.shortcut-bind-btn',
+            '.shortcut-reset-btn',
+            '.partners-nav',
+            '.join-btn-modern',
+            '.mini-player-control',
+            '.mini-player-header-btn',
+            '.section-search',
+            '.settings-search-wrap',
+            '.section-search input',
+            '.settings-search-wrap input'
+        ].join(', ');
+
+        const applyCursorClassesForTarget = (target) => {
+            if (!(target instanceof Element)) {
+                cursor.classList.remove('hover', 'text');
+                return;
+            }
+
+            const isTextField = !!target.closest(textInputSelector);
+            if (isTextField) {
+                cursor.classList.add('text');
+                cursor.classList.remove('hover');
+                return;
+            }
+
+            cursor.classList.remove('text');
+            if (target.closest(interactiveSelector)) {
+                cursor.classList.add('hover');
+            } else {
+                cursor.classList.remove('hover');
+            }
+        };
 
         const animateCursor = () => {
-            currentX += (targetX - currentX) * 0.24;
-            currentY += (targetY - currentY) * 0.24;
+            const smoothing = activeModalState?.overlay ? 0.34 : 0.42;
+            currentX += (targetX - currentX) * smoothing;
+            currentY += (targetY - currentY) * smoothing;
             cursor.style.left = `${currentX}px`;
             cursor.style.top = `${currentY}px`;
             rafId = window.requestAnimationFrame(animateCursor);
@@ -1790,6 +2463,15 @@ const cursorsys = {
         const updateCursorPosition = (e) => {
             targetX = e.clientX;
             targetY = e.clientY;
+            const dx = Math.abs(targetX - currentX);
+            const dy = Math.abs(targetY - currentY);
+            // Prevent "heavy" trailing when moving quickly across the page.
+            if (dx + dy > 90) {
+                currentX = targetX;
+                currentY = targetY;
+                cursor.style.left = `${currentX}px`;
+                cursor.style.top = `${currentY}px`;
+            }
         };
 
         if ('PointerEvent' in window) {
@@ -1816,31 +2498,25 @@ const cursorsys = {
 
         document.addEventListener('pointerover', (e) => {
             const target = e.target;
-            if (!(target instanceof Element)) return;
-            if (target.closest('input, textarea, [contenteditable=\"true\"]')) {
-                cursor.classList.add('text');
-            } else {
-                cursor.classList.remove('text');
-            }
-            if (target.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle, .partners-nav, .join-btn-modern, .mini-player-control, .mini-player-header-btn')) {
-                cursor.classList.add('hover');
-            } else {
-                cursor.classList.remove('hover');
-            }
+            applyCursorClassesForTarget(target);
         });
 
         document.addEventListener('pointerout', (e) => {
             const toEl = e.relatedTarget;
-            if (!(toEl instanceof Element)) {
-                cursor.classList.remove('hover', 'text');
+            applyCursorClassesForTarget(toEl);
+        });
+
+        document.addEventListener('focusin', (e) => {
+            applyCursorClassesForTarget(e.target);
+        });
+
+        document.addEventListener('focusout', () => {
+            const active = document.activeElement;
+            if (active instanceof Element) {
+                applyCursorClassesForTarget(active);
                 return;
             }
-            if (!toEl.closest('a, button, [role=\"button\"], .nav-link, .social-link, .partner-link, .project-action, .settings-toggle, .partners-nav, .join-btn-modern, .mini-player-control, .mini-player-header-btn')) {
-                cursor.classList.remove('hover');
-            }
-            if (!toEl.closest('input, textarea, [contenteditable=\"true\"]')) {
-                cursor.classList.remove('text');
-            }
+            cursor.classList.remove('text');
         });
 
         document.addEventListener('touchstart', () => {
@@ -1853,26 +2529,68 @@ const cursorsys = {
     }
 };
 
-function hideWakeupOverlay() {
+function hideWakeupOverlay(playMusic = true) {
     const overlay = document.getElementById('wakeup-overlay');
+    if (playMusic && !isMusicPlaying) {
+        // Try to start music inside the same user gesture to avoid autoplay blocking.
+        startMusicOnWakeup();
+    }
     if (overlay) {
         overlay.classList.add('fade-out');
         setTimeout(() => {
             overlay.remove();
-            // Start music after overlay is removed (first user interaction)
-            if (!isMusicPlaying) {
-                togglePlayPause();
+            // Fallback attempt if first start was blocked.
+            if (playMusic && !isMusicPlaying) {
+                startMusicOnWakeup();
             }
         }, 500);
     }
 }
 
+function enterWithoutMusic(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    hideWakeupOverlay(false);
+}
+
+function startMusicOnWakeup() {
+    if (!musicAudio) return;
+    if (!musicAudio.src) {
+        loadTrack(currentMusicTrack);
+    }
+
+    // "Normal enter" should always start with audible sound.
+    let shouldPersist = false;
+    if (settings.mute) {
+        settings.mute = false;
+        shouldPersist = true;
+    }
+    if (!Number.isFinite(settings.volume) || settings.volume <= 0.01) {
+        settings.volume = Math.max(defaultSettings.volume || 0.6, 0.35);
+        shouldPersist = true;
+    }
+    if (shouldPersist) {
+        saveSettings();
+        syncSettingsUI();
+    }
+
+    applyAudioSettings();
+    playCurrentTrackWithFade();
+}
+
 function checkIfReadyToWakeup() {
     const overlay = document.getElementById('wakeup-overlay');
     if (overlay && !overlay.classList.contains('hidden')) {
-        overlay.addEventListener('click', hideWakeupOverlay);
+        overlay.addEventListener('click', () => hideWakeupOverlay(true));
+        const noMusicBtn = document.getElementById('wakeup-no-music-btn');
+        if (noMusicBtn) {
+            noMusicBtn.addEventListener('click', enterWithoutMusic);
+        }
         document.addEventListener('keydown', (e) => {
             if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
                 hideWakeupOverlay();
             }
         });
@@ -1929,6 +2647,7 @@ function showpage(page) {
     if (page !== 'home') {
         isMainPlayerVisible = false;
     }
+    updateDocumentTitle(page);
     updateMiniMusicPlayerVisibility();
     updateGlobalPartnersVisibility();
 }
@@ -2316,7 +3035,10 @@ function startSpotifyRealTimeUpdate(timestamps) {
     }, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    await loadContentConfig();
+    optimizeStaticMediaLoading();
+
     const messageTextarea = document.getElementById('contact-message');
     if (messageTextarea) {
         messageTextarea.addEventListener('input', updateCharCount);
@@ -2354,6 +3076,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeContactForm();
             cancelExternalRedirect();
             closeSettings();
+            closePlaylistOverlay();
             return;
         }
 
@@ -2364,12 +3087,16 @@ document.addEventListener('DOMContentLoaded', function() {
     cursorsys.init();
     initNameChanger();
     initMusicPlayer();
-    initWeatherWidget();
     initFavoritesWidget();
+    initProjectsSearch();
+    initSkillsSearch();
     initWorkAvailabilityStatus();
     initAboutFacts();
-    initPartnersCarousel();
-    initHomeViewCounter();
+    runWhenIdle(() => {
+        initWeatherWidget();
+        initPartnersCarousel();
+        initHomeViewCounter();
+    }, 1000);
     checkIfReadyToWakeup();
     initSiteNotice();
     initSettingsCategories();
@@ -2386,19 +3113,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Fetch Discord profile
-    fetchDiscordProfile();
-    // Update every 30 seconds
-    setInterval(fetchDiscordProfile, 30000);
+    runWhenIdle(() => {
+        fetchDiscordProfile();
+        setInterval(fetchDiscordProfile, 30000);
+    }, 1500);
 
-    // Dekoduj email
+    // Decode obfuscated email.
     const emailElement = document.getElementById('email');
     if (emailElement) {
         emailElement.textContent = atob(emailElement.textContent);
     }
 
-    // Ustaw href dla linku emailowego
-    const emailLink = document.querySelector('a[href="#"]');
+    // Configure email link target.
+    const emailLink = document.getElementById('contact-email-link');
     if (emailLink && emailElement) {
         const decodedEmail = emailElement.textContent;
         emailLink.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${decodedEmail}`;

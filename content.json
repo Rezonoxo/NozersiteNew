@@ -1,0 +1,322 @@
+{
+  "siteNotice": {
+    "enabled": true,
+    "dismissible": true,
+    "message": "The website is currently being rebuilt, so some features may not work as expected."
+  },
+  "home": {
+    "taglinePrefix": "Hey, I'm:",
+    "invites": [
+      {
+        "name": "Heaven Community Roblox",
+        "description": "Official Discord server for Heaven Community Roblox members.",
+        "buttonLabel": "Join Server",
+        "url": "https://discord.com/invite/MWM3MrBcP3"
+      },
+      {
+        "name": "Heaven Community Roblox Group",
+        "description": "My main Roblox group with games and a team shop.",
+        "buttonLabel": "Visit Group",
+        "url": "https://www.roblox.com/share/g/369646540"
+      }
+    ],
+    "info": {
+      "location": "Poland",
+      "timezone": "GMT+1"
+    }
+  },
+  "weather": {
+    "locationLabel": "Rzeszow",
+    "subtitle": "3-day forecast"
+  },
+  "names": [
+    "Nozer",
+    "Wiktor",
+    "Heaven"
+  ],
+  "pageTitles": {
+    "base": "Nozer.site",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "contact": {
+    "tagline": "Available for focused collaborations and high-quality digital work.",
+    "primaryCta": "Start Conversation",
+    "secondaryCta": "Copy Email",
+    "responseNote": "Typical response time: within 24 hours."
+  },
+  "about": {
+    "cards": [
+      {
+        "title": "Who I Am",
+        "text": "I'm Wiktor, an 18-year-old graphic designer, developer, and content creator. I started Nozercode about 3 years ago with simple graphics in Photopea and websites built with HTML and CSS. Since then, I have been improving every year."
+      },
+      {
+        "title": "My Mission",
+        "text": "I challenge myself every day to learn something new and build projects I can be proud of. My goal is to create practical, creative work that helps me grow and delivers real value for clients."
+      },
+      {
+        "title": "Roblox Development",
+        "text": "Alongside coding and design, I build Roblox games and models. I run my own group where I publish and sell projects created by me and my team."
+      }
+    ],
+    "finalCard": {
+      "title": "Always Learning, Always Growing",
+      "text": "My journey is still in progress. I keep learning new technologies, improving my workflow, and taking projects that raise my level."
+    },
+    "randomFactPlaceholder": "Click shuffle to reveal a fact about me."
+  },
+  "randomFacts": [
+    {
+      "text": "In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.",
+      "tag": "Achievement"
+    },
+    {
+      "text": "I have already traveled to more than eight countries.",
+      "tag": "Travel"
+    },
+    {
+      "text": "I have two pets: a cockatiel parrot and a crested gecko.",
+      "tag": "Pets"
+    },
+    {
+      "text": "I reached Rysy peak in Slovakia and also climbed other mountain peaks in Poland and Slovakia.",
+      "tag": "Mountains"
+    },
+    {
+      "text": "I participated in the Erasmus+ project in Malaga, Spain.",
+      "tag": "Erasmus+"
+    },
+    {
+      "text": "I can move my left ear and crack three fingers on my hands.",
+      "tag": "Fun Skill"
+    },
+    {
+      "text": "I love playing Roblox, especially meeting new people on voice chat.",
+      "tag": "Roblox"
+    }
+  ],
+  "favorites": {
+    "subtitle": "Get to know me",
+    "intro": "A quick look at what I enjoy most.",
+    "categories": [
+      { "id": "games", "label": "Games" },
+      { "id": "movies", "label": "Movies" },
+      { "id": "color", "label": "Colors" },
+      { "id": "season", "label": "Season" }
+    ],
+    "items": [
+      {
+        "category": "games",
+        "url": "https://www.roblox.com/",
+        "accent": "59 130 246",
+        "image": "icons/favorites/roblox.svg",
+        "alt": "Roblox cover",
+        "badge": "Game",
+        "name": "Roblox",
+        "description": "Creating, playing, and building experiences with friends."
+      },
+      {
+        "category": "games",
+        "url": "https://www.minecraft.net/",
+        "accent": "34 197 94",
+        "image": "icons/favorites/minecraft.svg",
+        "alt": "Minecraft cover",
+        "badge": "Game",
+        "name": "Minecraft",
+        "description": "Sandbox creativity, survival, and endless building."
+      },
+      {
+        "category": "games",
+        "url": "https://worldoftanks.com/",
+        "accent": "245 158 11",
+        "image": "icons/favorites/world-of-tanks.svg",
+        "alt": "World of Tanks cover",
+        "badge": "Game",
+        "name": "World Of Tanks",
+        "description": "Tactical armored battles and progression grind."
+      },
+      {
+        "category": "games",
+        "url": "https://www.counter-strike.net/cs2",
+        "accent": "249 115 22",
+        "image": "icons/favorites/cs2.svg",
+        "alt": "Counter-Strike 2 cover",
+        "badge": "Game",
+        "name": "CS2",
+        "description": "Competitive FPS with tight mechanics and teamwork."
+      },
+      {
+        "category": "movies",
+        "url": "https://www.imdb.com/title/tt0816692/",
+        "accent": "96 165 250",
+        "image": "icons/favorites/interstellar.svg",
+        "alt": "Interstellar cover",
+        "badge": "Movie",
+        "name": "Interstellar",
+        "description": "Space, time, and emotion - an unforgettable journey."
+      },
+      {
+        "category": "movies",
+        "url": "https://www.imdb.com/title/tt15398776/",
+        "accent": "239 68 68",
+        "image": "icons/favorites/oppenheimer.svg",
+        "alt": "Oppenheimer cover",
+        "badge": "Movie",
+        "name": "Oppenheimer",
+        "description": "An intense biopic about science, power, and consequences."
+      },
+      {
+        "category": "movies",
+        "url": "https://www.imdb.com/title/tt7286456/",
+        "accent": "168 85 247",
+        "image": "icons/favorites/joker.svg",
+        "alt": "Joker cover",
+        "badge": "Movie",
+        "name": "Joker",
+        "description": "A dark character study with a powerful atmosphere."
+      },
+      {
+        "category": "movies",
+        "url": "https://www.youtube.com/@GLITCH",
+        "accent": "34 211 238",
+        "image": "icons/favorites/murder-drones.svg",
+        "alt": "Murder Drones cover",
+        "badge": "Series",
+        "name": "Murder Drones",
+        "description": "Stylish sci-fi animation with mystery and humor."
+      },
+      {
+        "category": "movies",
+        "url": "https://www.imdb.com/title/tt6468322/",
+        "accent": "245 158 11",
+        "image": "icons/favorites/money-heist.svg",
+        "alt": "Money Heist cover",
+        "badge": "Series",
+        "name": "Money Heist (La Casa de Papel)",
+        "description": "High-stakes heists, twists, and iconic characters."
+      },
+      {
+        "category": "color",
+        "url": "https://www.colorhexa.com/f97316",
+        "accent": "249 115 22",
+        "image": "icons/favorites/orange.svg",
+        "alt": "Orange color",
+        "badge": "Color",
+        "name": "Orange",
+        "description": "Energy accent - #f97316."
+      },
+      {
+        "category": "color",
+        "url": "https://www.colorhexa.com/3b82f6",
+        "accent": "59 130 246",
+        "image": "icons/favorites/blue.svg",
+        "alt": "Blue color",
+        "badge": "Color",
+        "name": "Blue",
+        "description": "Clean primary - #3b82f6."
+      },
+      {
+        "category": "color",
+        "url": "https://www.colorhexa.com/ffffff",
+        "accent": "255 255 255",
+        "image": "icons/favorites/white.svg",
+        "alt": "White color",
+        "badge": "Color",
+        "name": "White",
+        "description": "Minimal contrast - #ffffff."
+      },
+      {
+        "category": "season",
+        "url": "https://en.wikipedia.org/wiki/Spring_(season)",
+        "accent": "34 197 94",
+        "image": "icons/favorites/spring.svg",
+        "alt": "Spring season",
+        "badge": "Season",
+        "name": "Spring",
+        "description": "Fresh vibes, longer days, and new energy."
+      }
+    ]
+  },
+  "musicTracks": [
+    {
+      "name": "Ride or Die, Pt. 2",
+      "artist": "Sevdaliza, Tokischa & Villano Antillano",
+      "file": "audio/MT3.mp3",
+      "image": "icons/cover3.jpg"
+    },
+    {
+      "name": "#habibati",
+      "artist": "Poshlaya Molly, HOFMANNITA",
+      "file": "audio/MT1.mp3",
+      "image": "https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg"
+    },
+    {
+      "name": "Chupa Chups",
+      "artist": "Eldzhey, Poshlaya Molly",
+      "file": "audio/MT2.mp3",
+      "image": "icons/cover2.jpg"
+    },
+    {
+      "name": "Hellish Lullaby",
+      "artist": "Poshlaya Molly",
+      "file": "audio/MT4.mp3",
+      "image": "icons/cover4.jpg"
+    },
+    {
+      "name": "Strip Club",
+      "artist": "Poshlaya Molly",
+      "file": "audio/MT5.mp3",
+      "image": "icons/cover5.jpg"
+    },
+    {
+      "name": "LOYALTY",
+      "artist": "Daniel Di Angelo",
+      "file": "audio/MT6.mp3",
+      "image": "icons/cover6.png"
+    },
+    {
+      "name": "Headlock",
+      "artist": "Imogen Heap",
+      "file": "audio/MT7.mp3",
+      "image": "icons/cover7.png"
+    },
+    {
+      "name": "$WERVIN",
+      "artist": "purge!",
+      "file": "audio/MT8.mp3",
+      "image": "icons/cover8.png"
+    }
+  ],
+  "partners": [
+    {
+      "name": "winterboard.pl",
+      "role": "Promotional Partner",
+      "description": "WinterBoard helps Discord server owners promote their communities and attract new members.",
+      "linkUrl": "https://winterboard.pl/",
+      "linkLabel": "Visit partner",
+      "logoUrl": "icons/partners/winterboard-logo.png",
+      "logoAlt": "winterboard.pl logo",
+      "fallbackIconClass": "fas fa-store",
+      "bannerUrl": "icons/partners/winterboardBaner.png"
+    },
+    {
+      "name": "Your Brand Here",
+      "role": "Become a Partner",
+      "description": "This slot is open. Promote your brand here by becoming an official partner.",
+      "linkUrl": "https://nozer.site/",
+      "linkLabel": "Become partner",
+      "logoUrl": "icons/icon.png",
+      "logoAlt": "Partner placeholder logo",
+      "fallbackIconClass": "fas fa-handshake",
+      "bannerUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80"
+    }
+  ],
+  "workStatus": {
+    "openLabel": "Available",
+    "closedLabel": "Not available"
+  }
+}
