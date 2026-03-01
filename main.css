@@ -151,7 +151,7 @@ body.custom-cursor-enabled * {
     color: inherit;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -179,7 +179,7 @@ body.custom-cursor-enabled * {
 .contact-now-btn i {
     font-size: 24px;
     color: #ffffff;
-    width: 40px;
+    width: 32px;
     text-align: center;
 }
 
@@ -275,8 +275,8 @@ body.custom-cursor-enabled * {
     padding: 8px;
     border-radius: 12px;
     transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,16 +301,16 @@ body.custom-cursor-enabled * {
 }
 
 .form-label {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .form-label i {
-    font-size: 12px;
+    font-size: 11px;
     color: rgb(var(--accent));
 }
 
@@ -320,7 +320,7 @@ body.custom-cursor-enabled * {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 14px 16px;
-    font-size: 15px;
+    font-size: 13px;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
@@ -366,7 +366,7 @@ body.custom-cursor-enabled * {
 }
 
 .char-count {
-    font-size: 12px;
+    font-size: 11px;
     color: #666666;
     text-align: right;
     margin-top: -12px;
@@ -386,7 +386,7 @@ body.custom-cursor-enabled * {
     color: rgb(var(--accent));
     padding: 16px 32px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
     transition: all 0.3s ease;
     display: flex;
@@ -412,8 +412,8 @@ body.custom-cursor-enabled * {
 }
 
 .form-submit-btn .spinner {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border: 2px solid rgb(var(--accent) / 0.2);
     border-top-color: rgb(var(--accent));
     border-radius: 50%;
@@ -429,7 +429,7 @@ body.custom-cursor-enabled * {
 .form-message {
     padding: 14px 18px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -467,7 +467,7 @@ body.custom-cursor-enabled * {
 }
 
 .form-message i {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .cooldown-timer {
@@ -478,7 +478,7 @@ body.custom-cursor-enabled * {
     margin-top: 16px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .cooldown-icon {
@@ -491,7 +491,7 @@ body.custom-cursor-enabled * {
 }
 
 .cooldown-title {
-    font-size: 14px;
+    font-size: 12px;
     color: #faa61a;
     font-weight: 600;
     margin-bottom: 4px;
@@ -648,7 +648,7 @@ body.large-text .partner-copy,
 body.large-text .behance-card p,
 body.large-text .settings-item-desc,
 body.large-text .contact-label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 body.large-text .project-title,
@@ -741,7 +741,7 @@ body.custom-cursor-enabled .settings-modal * {
 
     .form-submit-btn {
         padding: 14px 28px;
-        font-size: 15px;
+        font-size: 13px;
     }
 }
 
@@ -762,7 +762,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .contact-modal-title {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     .contact-modal-title i {
@@ -776,7 +776,7 @@ body.custom-cursor-enabled .settings-modal * {
     .form-input,
     .form-textarea {
         padding: 12px 14px;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .form-textarea {
@@ -785,7 +785,7 @@ body.custom-cursor-enabled .settings-modal * {
 
     .form-submit-btn {
         padding: 13px 24px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
@@ -796,7 +796,7 @@ body.custom-cursor-enabled .settings-modal * {
 .lastfm-card {
     background: rgba(12, 12, 12, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 20px;
     margin-bottom: 16px;
     position: relative;
@@ -836,7 +836,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
     color: #d51007;
     animation: lastfm-pulse 2s ease-in-out infinite;
 }
@@ -847,7 +847,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .lastfm-title {
-    font-size: 16px;
+    font-size: 12px;
     color: #ffffff;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -934,7 +934,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #888888;
     font-weight: 600;
     font-family: 'Space Grotesk', monospace;
@@ -956,7 +956,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .lastfm-track.now-playing .lastfm-track-number::after {
     content: '♪';
-    font-size: 14px;
+    font-size: 12px;
     animation: music-note 1.5s ease-in-out infinite;
 }
 
@@ -1000,7 +1000,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .lastfm-track-name {
-    font-size: 14px;
+    font-size: 12px;
     color: #ffffff;
     font-weight: 600;
     line-height: 1.2;
@@ -1010,7 +1010,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .lastfm-track-artist {
-    font-size: 12px;
+    font-size: 11px;
     color: #cccccc;
     font-weight: 400;
     overflow: hidden;
@@ -1067,7 +1067,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .lastfm-title {
-        font-size: 15px;
+        font-size: 13px;
     }
     
     .lastfm-tracks-container {
@@ -1089,8 +1089,8 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .lastfm-album-art {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
     
     .lastfm-track-name {
@@ -1098,23 +1098,23 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .lastfm-track-artist {
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
 @media (max-width: 480px) {
     .lastfm-card {
         padding: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
     
     .lastfm-header {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         padding-bottom: 8px;
     }
     
     .lastfm-title {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .lastfm-tracks-container {
@@ -1145,7 +1145,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .lastfm-track-artist {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .lastfm-track-date {
@@ -1164,7 +1164,7 @@ body.custom-cursor-enabled .settings-modal * {
     font-size: 17px;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     padding-bottom: 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
@@ -1177,7 +1177,7 @@ body.custom-cursor-enabled .settings-modal * {
 #skills .skills-shell {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
 #skills .skills-search-head {
@@ -1196,7 +1196,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 #skills .skills-search-input {
     min-height: 50px;
-    border-radius: 14px;
+    border-radius: 10px;
 }
 
 #skills .skills-search-count {
@@ -1228,7 +1228,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 #skills .skills-group {
-    border-radius: 18px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(180deg, rgba(10, 12, 18, 0.9) 0%, rgba(8, 10, 14, 0.86) 100%);
     padding: 16px;
@@ -1286,7 +1286,7 @@ body.custom-cursor-enabled .settings-modal * {
 #skills .language-card {
     background: linear-gradient(150deg, rgba(12, 14, 20, 0.84), rgba(10, 12, 18, 0.76));
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 12px 14px;
     display: flex;
     flex-direction: row;
@@ -1318,7 +1318,7 @@ body.custom-cursor-enabled .settings-modal * {
 #skills .language-icon {
     width: 64px;
     height: 64px;
-    border-radius: 14px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1348,7 +1348,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 #skills .language-name {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     color: #ffffff;
     letter-spacing: 0.2px;
@@ -1394,7 +1394,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     #skills .skills-pill {
-        font-size: 12px;
+        font-size: 11px;
         padding: 8px 12px;
     }
 }
@@ -1402,7 +1402,7 @@ body.custom-cursor-enabled .settings-modal * {
 .about-card {
     background: rgba(10, 10, 10, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 20px;
     display: flex;
     align-items: flex-start;
@@ -1439,7 +1439,7 @@ body.custom-cursor-enabled .settings-modal * {
     height: 60px;
     background: rgb(var(--accent) / 0.12);
     border: 2px solid rgb(var(--accent) / 0.3);
-    border-radius: 14px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1468,7 +1468,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .about-content p {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     line-height: 1.6;
     margin: 0;
@@ -1497,7 +1497,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     margin-bottom: 14px;
 }
 
@@ -1518,7 +1518,7 @@ body.custom-cursor-enabled .settings-modal * {
     background: rgba(255, 255, 255, 0.06);
     color: #ffffff;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -1542,7 +1542,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .about-fact-text {
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.65;
     color: #f0f0f0;
     margin: 0;
@@ -1551,7 +1551,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .about-fact-chip {
     align-self: flex-start;
-    font-size: 12px;
+    font-size: 11px;
     color: #d9d9d9;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1627,7 +1627,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .final-text p {
-    font-size: 15px;
+    font-size: 13px;
     color: #cccccc;
     line-height: 1.6;
     margin: 0;
@@ -1636,7 +1636,7 @@ body.custom-cursor-enabled .settings-modal * {
 @media (max-width: 768px) {
     .languages-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 10px;
     }
 
     .language-card {
@@ -1649,7 +1649,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .language-name {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .about-card {
@@ -1670,7 +1670,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .about-content h3 {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .about-content p {
@@ -1684,11 +1684,11 @@ body.custom-cursor-enabled .settings-modal * {
 
     .about-fact-top {
         flex-wrap: wrap;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .about-fact-text {
-        font-size: 14px;
+        font-size: 12px;
         min-height: 0;
     }
 
@@ -1713,13 +1713,13 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .final-text p {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
 @media (max-width: 480px) {
     .skills-section-title {
-        font-size: 16px;
+        font-size: 12px;
         margin-bottom: 20px;
         padding-bottom: 16px;
     }
@@ -1739,12 +1739,12 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .language-name {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .about-card {
         padding: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .about-icon {
@@ -1754,7 +1754,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
 
     .about-content h3 {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .about-content p {
@@ -1812,7 +1812,7 @@ body.custom-cursor-enabled .settings-modal * {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-size: 14px;
+    font-size: 12px;
     color: #888888;
     font-weight: 400;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -1828,7 +1828,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .visitor-icon {
     color: #ffffff;
-    font-size: 16px;
+    font-size: 12px;
     opacity: 0.8;
     animation: eye-blink 4s ease-in-out infinite;
 }
@@ -1836,7 +1836,7 @@ body.custom-cursor-enabled .settings-modal * {
 .visitor-text {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     letter-spacing: 0.3px;
     flex-direction: column;
     line-height: 1.2;
@@ -1851,7 +1851,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .visitor-text span:last-child {
     color: #888888;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1879,11 +1879,11 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .visitor-icon {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .visitor-text span:first-child {
-        font-size: 16px;
+        font-size: 12px;
     }
     
     .visitor-text span:last-child {
@@ -1896,7 +1896,7 @@ body.custom-cursor-enabled .settings-modal * {
         bottom: 12px;
         right: 12px;
         padding: 8px 14px;
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .visitor-icon {
@@ -1904,7 +1904,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .visitor-text span:first-child {
-        font-size: 15px;
+        font-size: 13px;
     }
     
     .visitor-text span:last-child {
@@ -1922,7 +1922,7 @@ body.custom-cursor-enabled .settings-modal * {
     margin-bottom: 16px;
     background: rgba(12, 12, 12, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 16px;
     position: relative;
     overflow: hidden;
@@ -2025,7 +2025,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .music-title {
-    font-size: 15px;
+    font-size: 13px;
     color: #ffffff;
     margin-bottom: 2px;
     font-weight: 600;
@@ -2036,7 +2036,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .music-artist {
-    font-size: 12px;
+    font-size: 11px;
     color: #cccccc;
     font-weight: 400;
     overflow: hidden;
@@ -2056,7 +2056,7 @@ body.custom-cursor-enabled .settings-modal * {
 .music-controls .music-volume-container {
     margin-top: 0;
     gap: 8px;
-    font-size: 12px;
+    font-size: 11px;
     color: #7f7f7f;
 }
 
@@ -2111,9 +2111,9 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .music-control.play-pause {
-    width: 40px;
-    height: 40px;
-    font-size: 15px;
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
     background: linear-gradient(135deg, rgb(var(--accent) / 0.15), rgb(var(--accent) / 0.08));
     border-color: rgb(var(--accent) / 0.3);
 }
@@ -2178,7 +2178,7 @@ body.custom-cursor-enabled .settings-modal * {
     gap: 10px;
     margin-top: 10px;
     color: #8a8a8a;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .music-volume-container input[type="range"] {
@@ -2213,11 +2213,11 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .music-title {
-        font-size: 15px;
+        font-size: 13px;
     }
     
     .music-artist {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .music-controls {
@@ -2232,9 +2232,9 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .music-control.play-pause {
-        width: 40px;
-        height: 40px;
-        font-size: 15px;
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
     }
     
     .music-progress-container {
@@ -2249,7 +2249,7 @@ body.custom-cursor-enabled .settings-modal * {
 @media (max-width: 480px) {
     .music-player-card {
         padding: 14px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
     
     .music-content {
@@ -2258,16 +2258,16 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .music-album-art {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
     
     .music-title {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .music-artist {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .music-controls {
@@ -2278,13 +2278,13 @@ body.custom-cursor-enabled .settings-modal * {
     .music-control {
         width: 32px;
         height: 32px;
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .music-control.play-pause {
         width: 38px;
         height: 38px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
@@ -2301,11 +2301,11 @@ body.custom-cursor-enabled .settings-modal * {
 .music-top {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
 .music-label {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.5);
@@ -2323,7 +2323,7 @@ body.custom-cursor-enabled .settings-modal * {
 .music-main {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .music-title-row {
@@ -2349,7 +2349,7 @@ body.custom-cursor-enabled .settings-modal * {
 .music-album-art {
     width: 72px;
     height: 72px;
-    border-radius: 14px;
+    border-radius: 10px;
 }
 
 .music-title {
@@ -2358,7 +2358,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .music-artist {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .music-controls {
@@ -2370,13 +2370,13 @@ body.custom-cursor-enabled .settings-modal * {
 .music-control {
     width: 38px;
     height: 38px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .music-control.play-pause {
     width: 44px;
     height: 44px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .music-progress-container {
@@ -2386,7 +2386,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .music-time {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.55);
     margin-top: 6px;
 }
@@ -2394,7 +2394,7 @@ body.custom-cursor-enabled .settings-modal * {
 .music-volume-container {
     margin-top: 10px;
     gap: 12px;
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.6);
 }
 
@@ -2417,8 +2417,8 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 14px;
 }
 
 .weather-head-main {
@@ -2434,27 +2434,27 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .weather-subtitle {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.4px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.5);
 }
 
 .weather-updated {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.45);
 }
 
 .weather-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    gap: 10px;
 }
 
 .weather-day {
     background: linear-gradient(165deg, rgba(18, 22, 31, 0.88), rgba(11, 14, 20, 0.84));
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 16px;
     text-align: left;
     transition: all 0.3s ease;
@@ -2475,11 +2475,11 @@ body.custom-cursor-enabled .settings-modal * {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .weather-day-label {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.55);
@@ -2501,7 +2501,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .weather-range,
 .weather-desc {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.62);
     margin-top: 6px;
 }
@@ -2520,7 +2520,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
 }
 
 .favorites-title {
@@ -2537,7 +2537,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .favorites-subtitle {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.45);
@@ -2604,7 +2604,7 @@ body.custom-cursor-enabled .settings-modal * {
 .favorites-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
+    gap: 10px;
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.22s ease, transform 0.22s ease;
@@ -2646,7 +2646,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     flex-direction: column;
     min-height: 240px;
-    border-radius: 18px;
+    border-radius: 10px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
@@ -2694,7 +2694,7 @@ body.custom-cursor-enabled .settings-modal * {
     top: 12px;
     left: 12px;
     z-index: 1;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.1px;
     text-transform: uppercase;
     padding: 6px 10px;
@@ -2813,7 +2813,7 @@ body.custom-cursor-enabled .settings-modal * {
     .weather-card,
     .favorites-card {
         padding: 18px;
-        border-radius: 18px;
+        border-radius: 10px;
     }
 
     .music-album-art {
@@ -2894,7 +2894,7 @@ body.custom-cursor-enabled .settings-modal * {
 @media (max-width: 480px) {
     .contact-item.donate-item {
         padding: 18px;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
 }
 
@@ -2905,7 +2905,7 @@ body.custom-cursor-enabled .settings-modal * {
 .invite-cards-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     margin-top: 16px;
 }
 
@@ -2940,7 +2940,7 @@ body.custom-cursor-enabled .settings-modal * {
 .invite-header {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
 }
 
@@ -2981,7 +2981,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .invite-description {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     font-weight: 400;
     line-height: 1.2;
@@ -2990,7 +2990,7 @@ body.custom-cursor-enabled .settings-modal * {
 .invite-stats {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     font-size: 13px;
     margin-top: 2px;
 }
@@ -2998,7 +2998,7 @@ body.custom-cursor-enabled .settings-modal * {
 .stat {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     color: #aaaaaa;
     font-weight: 500;
 }
@@ -3085,17 +3085,17 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .invite-avatar {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
     
     .invite-name {
-        font-size: 16px;
+        font-size: 12px;
     }
     
     .invite-stats {
         gap: 12px;
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .invite-action {
@@ -3104,7 +3104,7 @@ body.custom-cursor-enabled .settings-modal * {
     
     .join-btn {
         padding: 6px 12px;
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
@@ -3128,7 +3128,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .invite-name {
-        font-size: 15px;
+        font-size: 13px;
     }
     
     .invite-description {
@@ -3137,7 +3137,7 @@ body.custom-cursor-enabled .settings-modal * {
     
     .invite-stats {
         gap: 10px;
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .invite-action {
@@ -3146,7 +3146,7 @@ body.custom-cursor-enabled .settings-modal * {
     
     .join-btn {
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
@@ -3162,14 +3162,14 @@ body.custom-cursor-enabled .settings-modal * {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-size: 14px;
+    font-size: 12px;
     color: #888888;
     font-weight: 400;
 }
 
 .visitor-icon {
     color: #ffffff;
-    font-size: 16px;
+    font-size: 12px;
     opacity: 0.8;
     animation: eye-blink 4s ease-in-out infinite;
 }
@@ -3210,7 +3210,7 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .visitor-icon {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
@@ -3218,7 +3218,7 @@ body.custom-cursor-enabled .settings-modal * {
     .visitor-counter {
         margin-top: 14px;
         padding-top: 14px;
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .visitor-icon {
@@ -3286,7 +3286,7 @@ body.custom-cursor-enabled .settings-modal * {
 
 .wake-text {
     color: #666666;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     letter-spacing: 1px;
     text-transform: lowercase;
@@ -3323,7 +3323,7 @@ body.custom-cursor-enabled .settings-modal * {
     .wakeup-no-music-btn {
         margin-top: 8px;
         padding: 8px 14px;
-        font-size: 12px;
+        font-size: 11px;
         max-width: min(86vw, 320px);
     }
 }
@@ -3444,7 +3444,7 @@ body.custom-cursor-enabled .settings-modal * {
 .nav-link {
     color: #aaaaaa;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     padding: 12px 24px;
     position: relative;
@@ -3601,6 +3601,9 @@ body.custom-cursor-enabled .settings-modal * {
 
 .discord-profile-card {
     padding: 26px 28px;
+    background: linear-gradient(180deg, rgba(8, 10, 18, 0.94) 0%, rgba(4, 5, 10, 0.96) 100%);
+    border: 1px solid rgba(120, 132, 255, 0.2);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .discord-profile-top {
@@ -3609,7 +3612,7 @@ body.custom-cursor-enabled .settings-modal * {
     justify-content: space-between;
     gap: 18px;
     flex-wrap: wrap;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .discord-profile-identity {
@@ -3621,7 +3624,7 @@ body.custom-cursor-enabled .settings-modal * {
 .identity-text {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     text-align: left;
 }
 
@@ -3630,6 +3633,38 @@ body.custom-cursor-enabled .settings-modal * {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.discord-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.discord-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 24px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cdd4ff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.discord-chip.status {
+    border-color: rgba(88, 101, 242, 0.4);
+    background: rgba(88, 101, 242, 0.16);
+}
+
+.discord-chip.device {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .discord-profile-actions {
@@ -3662,16 +3697,16 @@ body.custom-cursor-enabled .settings-modal * {
 .discord-presence-stack {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
 .presence-tile {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px 18px;
-    border-radius: 18px;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(12, 12, 12, 0.78);
     transition: all 0.3s ease;
@@ -3697,19 +3732,19 @@ body.custom-cursor-enabled .settings-modal * {
 
 .presence-primary {
     border-color: rgba(88, 101, 242, 0.45);
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.22), rgba(10, 10, 10, 0.85));
+    background: linear-gradient(135deg, rgba(45, 58, 170, 0.22), rgba(6, 8, 15, 0.96));
     box-shadow: inset 0 0 24px rgba(88, 101, 242, 0.12);
 }
 
 .presence-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 12px;
     color: #cfd4ff;
     flex-shrink: 0;
 }
@@ -3717,11 +3752,11 @@ body.custom-cursor-enabled .settings-modal * {
 .presence-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .presence-label {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.2px;
     color: #9a9a9a;
     text-transform: uppercase;
@@ -3729,7 +3764,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .presence-main {
-    font-size: 15px;
+    font-size: 13px;
     color: #f2f4ff;
     font-weight: 600;
     line-height: 1.35;
@@ -3740,7 +3775,7 @@ body.custom-cursor-enabled .settings-modal * {
     color: #888;
     padding: 18px;
     background: rgba(10, 10, 10, 0.5);
-    border-radius: 14px;
+    border-radius: 10px;
     border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
@@ -3804,12 +3839,12 @@ body.custom-cursor-enabled .settings-modal * {
     font-size: 20px;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     letter-spacing: 0.3px;
 }
 
 .status-text {
-    font-size: 14px;
+    font-size: 12px;
     color: #aaaaaa;
     font-weight: 400;
 }
@@ -3817,14 +3852,14 @@ body.custom-cursor-enabled .settings-modal * {
 .activities-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .activity-card {
-    background: rgba(10, 10, 10, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 20px;
+    background: rgba(6, 8, 15, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
     text-align: left;
     position: relative;
     overflow: hidden;
@@ -3842,52 +3877,140 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .activity-card.vscode {
-    border-color: rgba(0, 122, 204, 0.3);
-    background: linear-gradient(135deg, rgba(0, 122, 204, 0.08) 0%, rgba(10, 10, 10, 0.9) 100%);
+    border-color: rgba(0, 122, 204, 0.35);
+    background: linear-gradient(135deg, rgba(0, 62, 109, 0.24) 0%, rgba(1, 6, 17, 0.98) 100%);
 }
 
 .activity-card.vscode .activity-icon {
     color: #007acc;
 }
 
+.activity-card.rich {
+    padding: 12px 14px;
+}
+
+.activity-card.rich .activity-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #ff5a27;
+    background: linear-gradient(145deg, rgba(255, 132, 52, 0.2), rgba(10, 10, 10, 0.8));
+    border: 1px solid rgba(255, 132, 52, 0.3);
+    flex-shrink: 0;
+}
+
+.activity-copy {
+    min-width: 0;
+}
+
 .activity-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .activity-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #1ed760;
 }
 
 .activity-type {
+    display: block;
     font-size: 12px;
-    color: #888888;
+    color: #8d929d;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 500;
+    font-weight: 600;
+}
+
+.activity-card.vscode .activity-type {
+    color: #8d929d;
 }
 
 .activity-title {
-    font-size: 16px;
+    font-size: 12px;
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-weight: 600;
     line-height: 1.3;
 }
 
 .activity-artist {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     font-weight: 400;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.activity-elapsed {
+    font-size: 11px;
+    color: #9aa3b5;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+}
+
+.activity-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.activity-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e8ecff;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: all 0.2s ease;
+}
+
+.activity-button:hover {
+    border-color: rgba(88, 101, 242, 0.55);
+    background: rgba(88, 101, 242, 0.18);
+}
+
+.presence-primary .presence-label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+.presence-primary .presence-main {
+    font-size: 15px;
+}
+
+.activity-card.vscode .activity-title {
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.activity-card.vscode .activity-artist {
+    font-size: 14px;
+    margin-bottom: 0;
 }
 
 .progress-container {
@@ -3927,7 +4050,7 @@ body.custom-cursor-enabled .settings-modal * {
 .spotify-content {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     margin: 16px 0;
 }
 
@@ -3961,7 +4084,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .spotify-track-info .activity-title {
-    font-size: 16px;
+    font-size: 12px;
     color: #ffffff;
     margin-bottom: 4px;
     font-weight: 600;
@@ -3972,7 +4095,7 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .spotify-track-info .activity-artist {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     font-weight: 400;
     overflow: hidden;
@@ -3986,12 +4109,12 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .spotify-album-art {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
     
     .spotify-track-info .activity-title {
-        font-size: 15px;
+        font-size: 13px;
     }
     
     .spotify-track-info .activity-artist {
@@ -4010,11 +4133,11 @@ body.custom-cursor-enabled .settings-modal * {
     }
     
     .spotify-track-info .activity-title {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .spotify-track-info .activity-artist {
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
@@ -4022,7 +4145,7 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     justify-content: space-between;
     margin-top: 6px;
-    font-size: 12px;
+    font-size: 11px;
     color: #666666;
     font-family: 'Inter', monospace;
 }
@@ -4030,7 +4153,7 @@ body.custom-cursor-enabled .settings-modal * {
 .info-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 30px;
     animation: gridfade 0.8s ease-out 0.4s both;
 }
@@ -4073,7 +4196,7 @@ body.site-notice-active .fixed-nav {
     color: #ffd382;
     border-radius: 8px;
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -4138,7 +4261,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .info-label {
-    font-size: 12px;
+    font-size: 11px;
     color: #777777;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -4147,7 +4270,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .info-value {
-    font-size: 16px;
+    font-size: 12px;
     color: #ffffff;
     font-weight: 500;
 }
@@ -4155,7 +4278,7 @@ body.site-notice-active .fixed-nav {
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 10px;
     margin-bottom: 14px;
     animation: contactfade 0.8s ease-out 0.2s both;
 }
@@ -4177,7 +4300,7 @@ body.site-notice-active .fixed-nav {
     color: inherit;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
@@ -4225,7 +4348,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     width: 44px;
     height: 44px;
-    border-radius: 14px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.05);
     display: inline-flex;
@@ -4241,7 +4364,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .contact-label {
-    font-size: 12px;
+    font-size: 11px;
     color: #8c93a4;
     margin-bottom: 4px;
     font-weight: 600;
@@ -4279,7 +4402,7 @@ body.site-notice-active .fixed-nav {
 #contact .contact-now-btn {
     margin-top: 0;
     min-height: 60px;
-    padding: 16px 18px;
+    padding: 12px 14px;
     border-radius: 16px;
     background: linear-gradient(135deg, rgb(var(--accent) / 0.2), rgb(var(--accent) / 0.08));
     border-color: rgb(var(--accent) / 0.35);
@@ -4298,7 +4421,7 @@ body.site-notice-active .fixed-nav {
 
 #contact .contact-now-btn span {
     text-align: left;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 #contact .contact-secondary-btn {
@@ -4312,7 +4435,7 @@ body.site-notice-active .fixed-nav {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
@@ -4416,12 +4539,12 @@ body.site-notice-active .fixed-nav {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .external-redirect-text {
     color: #cccccc;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .external-redirect-url {
@@ -4444,7 +4567,7 @@ body.site-notice-active .fixed-nav {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
+    font-size: 11px;
     color: #aaaaaa;
 }
 
@@ -4512,7 +4635,7 @@ body.site-notice-active .fixed-nav {
     width: min(560px, calc(100vw - 30px));
     max-height: min(78vh, 720px);
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: linear-gradient(160deg, rgba(13, 15, 22, 0.97) 0%, rgba(10, 12, 16, 0.94) 100%);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
@@ -4532,7 +4655,7 @@ body.site-notice-active .fixed-nav {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color: #ffffff;
 }
@@ -4633,8 +4756,8 @@ body.site-notice-active .fixed-nav {
     position: fixed;
     left: 20px;
     bottom: 20px;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(15, 15, 15, 0.6);
@@ -4736,7 +4859,7 @@ body.site-notice-active .fixed-nav {
     padding: 14px;
     margin-bottom: 0;
     border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 14px;
+    border-radius: 10px;
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
 }
 
@@ -4749,7 +4872,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-section-title {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #8a8a8a;
@@ -4759,7 +4882,7 @@ body.site-notice-active .fixed-nav {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .settings-search-wrap {
@@ -4767,7 +4890,7 @@ body.site-notice-active .fixed-nav {
     align-items: center;
     gap: 8px;
     padding: 0 10px;
-    height: 40px;
+    height: 32px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.04);
@@ -4775,7 +4898,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-search-wrap i {
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .settings-search-wrap:focus-within {
@@ -4797,13 +4920,13 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-reset-all {
-    height: 40px;
+    height: 32px;
     padding: 0 12px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.16);
     background: rgba(255, 255, 255, 0.04);
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -4821,12 +4944,12 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-search-empty {
-    font-size: 12px;
+    font-size: 11px;
     color: #a6a6a6;
     border: 1px dashed rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding: 10px 12px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .settings-search-empty[hidden],
@@ -4847,7 +4970,7 @@ body.site-notice-active .fixed-nav {
     color: #bfbfbf;
     border-radius: 10px;
     padding: 9px 8px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     transition: all 0.2s ease;
 }
@@ -4905,7 +5028,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .section-search-empty {
-    font-size: 12px;
+    font-size: 11px;
     color: #a6a6a6;
     border: 1px dashed rgba(255, 255, 255, 0.2);
     border-radius: 10px;
@@ -4916,7 +5039,7 @@ body.site-notice-active .fixed-nav {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .settings-item[hidden],
@@ -4932,13 +5055,13 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-item-title {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #ffffff;
 }
 
 .settings-item-desc {
-    font-size: 12px;
+    font-size: 11px;
     color: #8c8c8c;
 }
 
@@ -4991,7 +5114,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .settings-shortcuts-intro {
-    font-size: 12px;
+    font-size: 11px;
     color: #a6a6a6;
     line-height: 1.45;
 }
@@ -5042,7 +5165,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     border-radius: 10px;
     padding: 8px 10px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     transition: all 0.2s ease;
 }
@@ -5064,7 +5187,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     border-radius: 10px;
     padding: 10px 12px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -5091,7 +5214,7 @@ body.site-notice-active .fixed-nav {
         bottom: 14px;
         width: 44px;
         height: 44px;
-        border-radius: 14px;
+        border-radius: 10px;
         opacity: 0.8;
     }
 
@@ -5154,7 +5277,7 @@ body.site-notice-active .fixed-nav {
     }
 
     .settings-title {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .settings-item {
@@ -5170,7 +5293,7 @@ body.site-notice-active .fixed-nav {
 
     .settings-categories {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
+        gap: 4px;
     }
 
     .settings-switch {
@@ -5188,7 +5311,7 @@ body.site-notice-active .fixed-nav {
     bottom: max(16px, env(safe-area-inset-bottom));
     width: min(344px, calc(100vw - 30px));
     padding: 12px;
-    border-radius: 18px;
+    border-radius: 10px;
     border: 1px solid rgb(var(--accent) / 0.26);
     background:
         radial-gradient(120% 120% at 100% 0%, rgb(var(--accent) / 0.2) 0%, transparent 50%),
@@ -5212,7 +5335,7 @@ body.site-notice-active .fixed-nav {
 .mini-player-snap-ghost {
     position: fixed;
     z-index: 9997;
-    border-radius: 18px;
+    border-radius: 10px;
     border: 1px dashed rgb(var(--accent) / 0.45);
     background: rgb(var(--accent) / 0.08);
     box-shadow: 0 0 0 1px rgb(var(--accent) / 0.12) inset;
@@ -5292,7 +5415,7 @@ body.site-notice-active .fixed-nav {
     gap: 10px;
     margin-bottom: 10px;
     padding: 8px;
-    border-radius: 14px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
     transition: border-color 0.2s ease, background 0.2s ease;
@@ -5319,7 +5442,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .mini-player-title {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color: #ffffff;
     white-space: nowrap;
@@ -5330,7 +5453,7 @@ body.site-notice-active .fixed-nav {
 
 .mini-player-artist {
     margin-top: 3px;
-    font-size: 12px;
+    font-size: 11px;
     color: #c2c6cf;
     white-space: nowrap;
     overflow: hidden;
@@ -5342,7 +5465,7 @@ body.site-notice-active .fixed-nav {
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.12);
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .mini-player-progress-fill {
@@ -5363,9 +5486,9 @@ body.site-notice-active .fixed-nav {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     color: rgba(255, 255, 255, 0.75);
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .mini-player-volume input[type="range"] {
@@ -5449,7 +5572,7 @@ body.site-notice-active .fixed-nav {
 .mini-music-player.collapsed .mini-player-controls {
     grid-area: controls;
     justify-content: flex-end;
-    gap: 6px;
+    gap: 4px;
 }
 
 .mini-music-player.collapsed .mini-player-control {
@@ -5498,7 +5621,7 @@ body.site-notice-active .fixed-nav {
         width: calc(100vw - 12px);
         right: max(6px, env(safe-area-inset-right));
         bottom: max(6px, env(safe-area-inset-bottom));
-        border-radius: 14px;
+        border-radius: 10px;
     }
 }
 
@@ -5537,7 +5660,7 @@ body.site-notice-active .fixed-nav {
 .project-card {
     background: linear-gradient(155deg, rgba(14, 16, 22, 0.9) 0%, rgba(10, 12, 18, 0.82) 100%);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 20px;
     text-align: left;
     position: relative;
@@ -5573,8 +5696,8 @@ body.site-notice-active .fixed-nav {
 }
 
 .project-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -5608,8 +5731,8 @@ body.site-notice-active .fixed-nav {
 .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: 4px;
+    margin-bottom: 8px;
 }
 
 .project-tag {
@@ -5632,14 +5755,14 @@ body.site-notice-active .fixed-nav {
 .project-action {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     padding: 8px 12px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
     color: #ffffff;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     transition: all 0.3s ease;
 }
@@ -5666,7 +5789,7 @@ body.site-notice-active .fixed-nav {
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(15, 15, 15, 0.7);
     color: #e0e0e0;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.4px;
     text-transform: uppercase;
@@ -5679,7 +5802,7 @@ body.site-notice-active .fixed-nav {
     max-width: 680px;
     text-align: center;
     color: #8f8f8f;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.45;
 }
 
@@ -5749,7 +5872,7 @@ body.site-notice-active .fixed-nav {
 .partners-header-main {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .partners-header-actions {
@@ -5763,7 +5886,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     border-radius: 10px;
     padding: 8px 12px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
 }
@@ -5807,7 +5930,7 @@ body.site-notice-active .fixed-nav {
 
 .partners-viewport {
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 10px;
 }
 
 .partners-track {
@@ -5819,7 +5942,7 @@ body.site-notice-active .fixed-nav {
     min-width: 100%;
     background: linear-gradient(150deg, rgba(16, 18, 24, 0.92) 0%, rgba(11, 12, 18, 0.86) 100%);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 0 22px 18px;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
     transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
@@ -5879,7 +6002,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .partner-logo-fallback {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .partner-brand-meta h4 {
@@ -5910,7 +6033,7 @@ body.site-notice-active .fixed-nav {
     gap: 8px;
     text-decoration: none;
     color: color-mix(in srgb, rgb(var(--accent)) 80%, white);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     padding: 8px 12px;
     border-radius: 9px;
@@ -5928,8 +6051,8 @@ body.site-notice-active .fixed-nav {
 .partners-nav {
     position: absolute;
     top: 50%;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(14, 17, 26, 0.92);
@@ -5988,7 +6111,7 @@ body.site-notice-active .fixed-nav {
         radial-gradient(circle at top right, rgba(23, 105, 255, 0.18), transparent 45%),
         linear-gradient(145deg, rgba(14, 18, 30, 0.95), rgba(10, 12, 20, 0.9));
     border: 1px solid rgba(125, 175, 255, 0.3);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 20px;
     transition: all 0.25s ease;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
@@ -6139,7 +6262,7 @@ body.site-notice-active .fixed-nav {
 .avatars-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 16px;
+    gap: 12px;
     max-width: 600px;
 }
 
@@ -6222,7 +6345,7 @@ body.site-notice-active .fixed-nav {
 
 .preview-date {
     color: #aaaaaa;
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 20px;
     font-weight: 500;
 }
@@ -6233,7 +6356,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     padding: 12px 24px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -6356,7 +6479,7 @@ body.site-notice-active .fixed-nav {
     }
 
     .tagline {
-        font-size: 16px;
+        font-size: 12px;
         line-height: 1.45;
     }
 
@@ -6403,7 +6526,7 @@ body.site-notice-active .fixed-nav {
         flex-direction: row;
         text-align: left;
         align-items: center;
-        padding: 16px 18px;
+        padding: 12px 14px;
         margin-bottom: 0;
     }
 
@@ -6441,7 +6564,7 @@ body.site-notice-active .fixed-nav {
     .social-link {
         padding: 12px;
         gap: 0;
-        min-height: 48px;
+        min-height: 36px;
     }
 
     .social-link span {
@@ -6545,7 +6668,7 @@ body.site-notice-active .fixed-nav {
     .nav-link {
         flex: 1;
         padding: 8px 6px;
-        font-size: 12px;
+        font-size: 11px;
         min-height: 36px;
         display: flex;
         align-items: center;
@@ -6605,7 +6728,7 @@ body.site-notice-active .fixed-nav {
 
     .info-item {
         padding: 14px;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
 
     .discord-card {
@@ -6616,7 +6739,7 @@ body.site-notice-active .fixed-nav {
     .contact-item {
         padding: 14px 16px;
         margin-bottom: 0;
-        border-radius: 14px;
+        border-radius: 10px;
     }
 
     .contact-grid {
@@ -6633,11 +6756,11 @@ body.site-notice-active .fixed-nav {
     #contact .contact-now-btn,
     #contact .contact-secondary-btn {
         min-height: 52px;
-        border-radius: 14px;
+        border-radius: 10px;
     }
 
     .tagline {
-        font-size: 14px;
+        font-size: 12px;
         line-height: 1.5;
     }
 
@@ -6650,7 +6773,7 @@ body.site-notice-active .fixed-nav {
     }
 
     .contact-now-btn span {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .modal-content {
@@ -6803,7 +6926,7 @@ body.site-notice-active .fixed-nav {
     align-items: center;
     justify-content: center;
     color: #9a9a9a;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
 }
@@ -6821,13 +6944,13 @@ body.site-notice-active .fixed-nav {
 
 .footer-content i {
     color: rgb(var(--accent));
-    font-size: 12px;
+    font-size: 11px;
 }
 
 @media (max-width: 768px) {
     .site-footer {
         padding: 14px 12px 22px;
-        font-size: 12px;
+        font-size: 11px;
     }
 }
 
@@ -6839,7 +6962,7 @@ body.site-notice-active .fixed-nav {
 
     .footer-content {
         padding: 8px 12px;
-        gap: 6px;
+        gap: 4px;
     }
 }
 
@@ -6849,15 +6972,15 @@ body.site-notice-active .fixed-nav {
     grid-template-columns: 64px 1fr;
     grid-template-rows: auto auto;
     align-items: start;
-    column-gap: 16px;
-    row-gap: 14px;
+    column-gap: 12px;
+    row-gap: 10px;
     padding: 20px;
     background: linear-gradient(135deg, rgb(var(--accent) / 0.1) 0%, rgb(var(--accent) / 0.05) 100%);
     border: 1px solid rgb(var(--accent) / 0.2);
     border-radius: 16px;
     transition: all 0.3s ease;
     cursor: pointer;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     min-height: 176px;
 }
 
@@ -6985,7 +7108,7 @@ body.site-notice-active .fixed-nav {
 }
 
 .invite-details-modern .invite-description {
-    font-size: 14px;
+    font-size: 12px;
     color: #B5BAC1;
     line-height: 1.4;
     display: -webkit-box;
@@ -7011,7 +7134,7 @@ body.site-notice-active .fixed-nav {
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -7035,7 +7158,7 @@ body.site-notice-active .fixed-nav {
         grid-template-columns: 52px 1fr;
         row-gap: 12px;
         padding: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         min-height: 164px;
     }
 
@@ -7049,7 +7172,7 @@ body.site-notice-active .fixed-nav {
     }
 
     .invite-details-modern .invite-name {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .invite-details-modern .invite-description {
@@ -7074,7 +7197,7 @@ body.site-notice-active .fixed-nav {
 .spotify-history-card {
     background: linear-gradient(155deg, rgba(9, 14, 11, 0.92) 0%, rgba(12, 18, 14, 0.82) 100%);
     border: 1px solid rgba(30, 215, 96, 0.24);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 24px;
     width: 100%;
     box-sizing: border-box;
@@ -7126,13 +7249,13 @@ body.site-notice-active .fixed-nav {
 .history-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .track-item {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     text-decoration: none;
     padding: 10px 4px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -7150,8 +7273,8 @@ body.site-notice-active .fixed-nav {
 }
 
 .album-art {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
     background: #111;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -7167,7 +7290,7 @@ body.site-notice-active .fixed-nav {
 
 .track-name {
     color: #ffffff;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -7176,7 +7299,7 @@ body.site-notice-active .fixed-nav {
 
 .track-artist {
     color: #888;
-    font-size: 12px;
+    font-size: 11px;
     margin-top: 4px;
     white-space: nowrap;
     overflow: hidden;
@@ -7259,8 +7382,13 @@ body.site-notice-active .fixed-nav {
     }
 
     .site-notice-inner {
-        font-size: 12px;
+        font-size: 11px;
         padding: 9px 11px;
     }
 }
+
+
+
+.discord-chip.device i { font-size: 12px; }
+.discord-chip.device { gap: 7px; }
 
