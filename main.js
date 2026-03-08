@@ -8,6 +8,8 @@ let contentData = null;
 let musicFadeFrame = null;
 let activeSettingsCategory = 'sound';
 let nameTypewriterTimeout = null;
+let wakeupOverlayReady = false;
+let revealObserver = null;
 
 // Manual notice toggle for visitors.
 const SITE_NOTICE_CONFIG = {
@@ -509,6 +511,89 @@ function runWhenIdle(callback, timeout = 1200) {
     setTimeout(callback, 220);
 }
 
+function getRevealGroups() {
+    return [
+        '.discord-profile-card',
+        '.spotify-history-card',
+        '.music-player-card',
+        '.weather-card',
+        '.info-grid .info-item',
+        '.about-hero-card',
+        '.about-card-grid > *',
+        '.about-fact-card',
+        '.favorites-card',
+        '.projects-grid > *',
+        '.skills-shell .skills-group',
+        '.skills-shell .language-card',
+        '.contact-grid > *',
+        '.social-links-container > *',
+        '.partners-section',
+        '.partners-track > *',
+        '.site-footer'
+    ];
+}
+
+function primeRevealTargets() {
+    getRevealGroups().forEach((selector) => {
+        const elements = Array.from(document.querySelectorAll(selector));
+        elements.forEach((element, index) => {
+            if (!(element instanceof HTMLElement)) return;
+            if (element.dataset.revealReady === 'true') return;
+            element.dataset.reveal = 'true';
+            element.dataset.revealReady = 'true';
+            element.style.setProperty('--reveal-delay', `${Math.min(index, 7) * 70}ms`);
+        });
+    });
+}
+
+function initScrollReveal(forceRefresh = false) {
+    primeRevealTargets();
+
+    const targets = Array.from(document.querySelectorAll('[data-reveal="true"]'));
+    if (!targets.length) return;
+
+    const disableReveal = settings.reduceMotion || settings.performanceMode || !('IntersectionObserver' in window);
+    if (disableReveal) {
+        targets.forEach((element) => {
+            if (element instanceof HTMLElement) {
+                element.classList.add('is-visible');
+            }
+        });
+        if (revealObserver) {
+            revealObserver.disconnect();
+            revealObserver = null;
+        }
+        return;
+    }
+
+    if (forceRefresh && revealObserver) {
+        revealObserver.disconnect();
+        revealObserver = null;
+    }
+
+    if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const element = entry.target;
+                if (element instanceof HTMLElement) {
+                    element.classList.add('is-visible');
+                }
+                revealObserver?.unobserve(element);
+            });
+        }, {
+            rootMargin: '0px 0px -12% 0px',
+            threshold: 0.12
+        });
+    }
+
+    targets.forEach((element) => {
+        if (!(element instanceof HTMLElement)) return;
+        if (element.classList.contains('is-visible')) return;
+        revealObserver.observe(element);
+    });
+}
+
 function optimizeStaticMediaLoading() {
     const images = Array.from(document.querySelectorAll('img'));
     images.forEach((img, index) => {
@@ -734,6 +819,8 @@ function renderProjectsSection() {
             </article>
         `;
     }).join('');
+
+    initScrollReveal(true);
 }
 
 function initProjectsSearch() {
@@ -1071,6 +1158,7 @@ function applySettings() {
     if (partnersCarouselState?.refreshAutoplay) {
         partnersCarouselState.refreshAutoplay();
     }
+    initScrollReveal(true);
 }
 
 function initSiteNotice() {
@@ -2564,6 +2652,7 @@ function renderPartnersSlides(track) {
     PARTNERS.forEach((partner) => {
         track.appendChild(createPartnerSlide(partner));
     });
+    initScrollReveal(true);
 }
 
 function initPartnersCarousel() {
@@ -2925,6 +3014,7 @@ const cursorsys = {
 
 function hideWakeupOverlay(playMusic = true) {
     const overlay = document.getElementById('wakeup-overlay');
+    if (overlay && !wakeupOverlayReady) return;
     if (playMusic && !isMusicPlaying) {
         // Try to start music inside the same user gesture to avoid autoplay blocking.
         startMusicOnWakeup();
@@ -2992,6 +3082,21 @@ function checkIfReadyToWakeup() {
         };
         document.addEventListener('keydown', keyHandler);
     }
+}
+
+function revealWakeupOverlay() {
+    const overlay = document.getElementById('wakeup-overlay');
+    const status = document.getElementById('wakeup-status');
+    if (!overlay) return;
+
+    wakeupOverlayReady = true;
+    if (status) {
+        status.textContent = 'Ready when you are';
+    }
+
+    requestAnimationFrame(() => {
+        overlay.classList.add('is-ready');
+    });
 }
 
 function makestar() {
@@ -3066,6 +3171,7 @@ function showpage(page) {
     updateDocumentTitle(page);
     updateMiniMusicPlayerVisibility();
     updateGlobalPartnersVisibility();
+    initScrollReveal(true);
 }
 
 function syncMiniPlayerVolumeRanges() {
@@ -3788,6 +3894,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initSettingsCategories();
     initShortcutSettings();
     applySettings();
+    initScrollReveal(true);
     updateGlobalPartnersVisibility();
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
@@ -3973,4 +4080,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         e.preventDefault();
         openExternalRedirect(url.href, link.getAttribute('target'));
     });
+
+    setTimeout(revealWakeupOverlay, 450);
 });

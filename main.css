@@ -3320,7 +3320,9 @@ body.custom-cursor-enabled .settings-modal * {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(88, 101, 242, 0.16), transparent 26%),
+        linear-gradient(180deg, rgba(4, 6, 12, 0.98), rgba(0, 0, 0, 0.995));
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -3342,7 +3344,82 @@ body.custom-cursor-enabled .settings-modal * {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 22px;
+    width: min(92vw, 360px);
+    padding: 28px 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(10, 12, 18, 0.72), rgba(6, 7, 12, 0.58));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px) saturate(125%);
+}
+
+.wakeup-loading,
+.wakeup-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.wakeup-entry {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+}
+
+.wakeup-overlay.is-ready .wakeup-loading {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    position: absolute;
+}
+
+.wakeup-overlay.is-ready .wakeup-entry {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.loading-orb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(144, 162, 255, 0.95));
+    box-shadow: 0 0 0 0 rgba(144, 162, 255, 0.36);
+    animation: wakeup-pulse 1.9s ease-in-out infinite;
+}
+
+.loading-ring {
+    width: 68px;
+    height: 68px;
+    margin-top: -55px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top-color: rgba(255, 255, 255, 0.44);
+    animation: spin 1.4s linear infinite;
+}
+
+.loading-copy {
+    display: grid;
+    gap: 6px;
+    text-align: center;
+}
+
+.loading-kicker {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.loading-status {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .pulse-dot {
@@ -3354,18 +3431,16 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 .wake-text {
-    color: #666666;
+    color: rgba(255, 255, 255, 0.54);
     font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: lowercase;
-    opacity: 0;
-    animation: wake-text-fade 2s ease-in-out infinite;
-    animation-delay: 0.3s;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: wake-text-fade 2.2s ease-in-out infinite;
 }
 
 .wakeup-no-music-btn {
-    margin-top: 10px;
+    margin-top: 6px;
     padding: 10px 18px;
     border-radius: 999px;
     border: 1px solid rgb(var(--accent) / 0.45);
@@ -3389,6 +3464,12 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 @media (max-width: 768px) {
+    .wakeup-content {
+        width: min(92vw, 320px);
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
     .wakeup-no-music-btn {
         margin-top: 8px;
         padding: 8px 14px;
@@ -3398,6 +3479,22 @@ body.custom-cursor-enabled .settings-modal * {
 }
 
 @media (max-width: 480px) {
+    .wakeup-content {
+        width: min(92vw, 290px);
+        padding: 20px 16px;
+        gap: 18px;
+    }
+
+    .loading-ring {
+        width: 60px;
+        height: 60px;
+        margin-top: -49px;
+    }
+
+    .loading-status {
+        font-size: 13px;
+    }
+
     .wakeup-no-music-btn {
         padding: 7px 12px;
         font-size: 11px;
@@ -4849,8 +4946,8 @@ body.site-notice-active .fixed-nav {
 .settings-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(18px);
+    background: rgba(4, 6, 12, 0.72);
+    backdrop-filter: blur(10px) saturate(110%);
     z-index: 10002;
     display: none;
     align-items: flex-start;
@@ -4871,11 +4968,11 @@ body.site-notice-active .fixed-nav {
     max-width: 560px;
     max-height: calc(100dvh - 48px);
     overflow-y: auto;
-    background: rgba(15, 15, 15, 0.95);
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.92), rgba(10, 11, 16, 0.9));
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.44);
     animation: modalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -10166,5 +10263,81 @@ body.cursor-disabled #customCursor {
 
     .settings-modal {
         padding: 14px 12px 16px;
+    }
+}
+
+.contact-overlay,
+.external-redirect-overlay,
+.playlist-overlay,
+.project-overlay,
+.settings-overlay {
+    background: rgba(4, 6, 12, 0.72);
+    backdrop-filter: blur(10px) saturate(110%);
+}
+
+.contact-modal,
+.external-redirect-modal,
+.playlist-modal,
+.project-modal,
+.settings-modal {
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-modal,
+.external-redirect-modal,
+.settings-modal {
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.92), rgba(10, 11, 16, 0.9));
+}
+
+.playlist-modal,
+.project-modal {
+    background: linear-gradient(180deg, rgba(11, 14, 24, 0.95), rgba(7, 9, 16, 0.92));
+}
+
+@media (max-width: 768px) {
+    .contact-overlay,
+    .external-redirect-overlay,
+    .playlist-overlay,
+    .project-overlay,
+    .settings-overlay {
+        backdrop-filter: blur(8px) saturate(105%);
+    }
+
+    .contact-modal,
+    .external-redirect-modal,
+    .playlist-modal,
+    .project-modal,
+    .settings-modal {
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+    }
+}
+
+[data-reveal="true"] {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0) scale(0.985);
+    transition:
+        opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+}
+
+[data-reveal="true"].is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+body.reduce-motion [data-reveal="true"],
+body.performance-mode [data-reveal="true"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
+@media (max-width: 768px) {
+    [data-reveal="true"] {
+        transform: translate3d(0, 16px, 0) scale(0.99);
+        transition-duration: 0.46s;
     }
 }

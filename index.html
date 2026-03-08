@@ -60,11 +60,21 @@
     <div id="customCursor"></div>
     <div id="wakeup-overlay" class="wakeup-overlay">
         <div class="wakeup-content">
-            <div class="pulse-dot"></div>
-            <div class="wake-text">click</div>
-            <button id="wakeup-no-music-btn" class="wakeup-no-music-btn" type="button">
-                press here to enter without background music
-            </button>
+            <div class="wakeup-loading" aria-live="polite">
+                <div class="loading-orb" aria-hidden="true"></div>
+                <div class="loading-ring" aria-hidden="true"></div>
+                <div class="loading-copy">
+                    <div class="loading-kicker">Loading</div>
+                    <div class="loading-status" id="wakeup-status">Preparing experience...</div>
+                </div>
+            </div>
+            <div class="wakeup-entry">
+                <div class="pulse-dot"></div>
+                <div class="wake-text">click to enter</div>
+                <button id="wakeup-no-music-btn" class="wakeup-no-music-btn" type="button">
+                    press here to enter without background music
+                </button>
+            </div>
         </div>
     </div>
 
