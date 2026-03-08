@@ -39,7 +39,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="styles/00-base.css">
+<link rel="stylesheet" href="styles/10-sections-a.css">
+<link rel="stylesheet" href="styles/20-sections-b.css">
+<link rel="stylesheet" href="styles/30-shell-and-overlays.css">
+<link rel="stylesheet" href="styles/40-components.css">
+<link rel="stylesheet" href="styles/50-pages-and-responsive.css">
+<link rel="stylesheet" href="styles/99-mobile-fixes.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -372,6 +378,17 @@
             <div class="header">
                 <h1 class="name">about</h1>
                 <p class="tagline">Who I am and what I bring to every project</p>
+            </div>
+
+            <div class="about-availability">
+                <div class="open-work" id="work-status" data-open-label="Available" data-closed-label="Not available" aria-live="polite">
+                    <span class="status-dot" id="work-status-dot"></span>
+                    <span id="work-status-text">Available</span>
+                </div>
+                <p class="open-work-note">
+                    Working hours: Mon-Fri 15:00-19:00, Sat 09:00-19:00. This does not guarantee an instant reply,
+                    but these windows have the highest chance of response.
+                </p>
             </div>
 
             <section class="about-shell" aria-label="About overview">
@@ -746,15 +763,6 @@
             </div>
 
             <div class="projects-grid" id="projects-grid"></div>
-
-            <div class="open-work" id="work-status" data-open-label="Available" data-closed-label="Not available" aria-live="polite">
-                <span class="status-dot" id="work-status-dot"></span>
-                <span id="work-status-text">Available</span>
-            </div>
-            <p class="open-work-note">
-                Working hours: Mon-Fri 15:00-19:00, Sat 09:00-19:00. This does not guarantee an instant reply,
-                but these windows have the highest chance of response.
-            </p>
         </div>
     </div>
 
@@ -1168,16 +1176,6 @@
                 </div>
                 <div class="settings-item">
                     <div class="settings-info">
-                        <div class="settings-item-title">Show partners section</div>
-                        <div class="settings-item-desc">Permanently show or hide partners on all pages except contact</div>
-                    </div>
-                    <label class="settings-switch">
-                        <input type="checkbox" id="setting-show-partners">
-                        <span class="settings-slider"></span>
-                    </label>
-                </div>
-                <div class="settings-item">
-                    <div class="settings-info">
                         <div class="settings-item-title">Performance mode</div>
                         <div class="settings-item-desc">Reduce expensive visuals and keep the site smooth on weaker devices</div>
                     </div>
@@ -1274,30 +1272,20 @@
                     <div id="mini-player-artist" class="mini-player-artist">Local Track</div>
                 </div>
             </div>
-            <div class="mini-player-controls">
-                <button class="mini-player-control" type="button" onclick="previousTrack()" aria-label="Previous track">
-                    <i class="fas fa-step-backward"></i>
-                </button>
-                <button id="mini-player-play-btn" class="mini-player-control mini-player-play" type="button" onclick="togglePlayPause()" aria-label="Play or pause">
-                    <i class="fas fa-play"></i>
-                </button>
-                <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
-                    <i class="fas fa-step-forward"></i>
-                </button>
-            </div>
         </div>
-        <div class="mini-player-toolbar">
-            <label class="mini-player-volume mini-player-volume-compact" aria-label="Mini player volume">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" id="mini-player-volume-range-compact" min="0" max="100" value="60" aria-label="Mini player compact volume">
-            </label>
+        <div class="mini-player-controls">
+            <button class="mini-player-control" type="button" onclick="previousTrack()" aria-label="Previous track">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button id="mini-player-play-btn" class="mini-player-control mini-player-play" type="button" onclick="togglePlayPause()" aria-label="Play or pause">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
+                <i class="fas fa-step-forward"></i>
+            </button>
         </div>
         <div class="mini-player-progress">
             <div id="mini-player-progress-fill" class="mini-player-progress-fill"></div>
-        </div>
-        <div class="mini-player-volume">
-            <i class="fas fa-volume-up"></i>
-            <input type="range" id="mini-player-volume-range" min="0" max="100" value="60" aria-label="Mini player volume">
         </div>
     </div>
 
@@ -1364,40 +1352,18 @@
         </div>
     </div>
 
-    <section id="global-partners" class="global-partners-shell" aria-label="Partners">
-        <div class="partners-section">
-            <div class="partners-header">
-                <div class="partners-header-main">
-                    <h3>Partners</h3>
-                    <p class="partners-description">A compact list of collaborators and open slots for future work.</p>
-                </div>
-                <div class="partners-header-actions">
-                    <button class="partners-visibility-btn" id="partners-hide-btn" type="button" aria-controls="partners-track" aria-expanded="true">Hide section</button>
-                </div>
-            </div>
-            <div class="partners-carousel" id="partners-carousel" tabindex="0">
-                <button class="partners-nav prev" id="partners-prev" type="button" aria-label="Previous partner">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="partners-viewport">
-                    <div class="partners-track" id="partners-track" role="list"></div>
-                </div>
-                <button class="partners-nav next" id="partners-next" type="button" aria-label="Next partner">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="partners-dots" id="partners-dots" aria-label="Partner slides"></div>
-        </div>
-    </section>
-
     <footer class="site-footer">
         <div class="footer-content">
-            <span>Made with</span>
-            <i class="fas fa-heart"></i>
-            <span>by Nozer</span>
+            <span class="footer-copy">Made with</span>
+            <i class="fas fa-heart" aria-hidden="true"></i>
+            <span class="footer-copy">by Nozer</span>
         </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="scripts/00-config.js"></script>
+    <script src="scripts/10-ui-core.js"></script>
+    <script src="scripts/20-music.js"></script>
+    <script src="scripts/30-widgets.js"></script>
+    <script src="scripts/40-presence-and-boot.js"></script>
 </body>
 </html>

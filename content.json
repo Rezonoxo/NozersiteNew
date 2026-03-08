@@ -281,30 +281,6 @@
       "image": "icons/cover8.png"
     }
   ],
-  "partners": [
-    {
-      "name": "winterboard.pl",
-      "role": "Promotional Partner",
-      "description": "WinterBoard helps Discord server owners promote their communities and attract new members.",
-      "linkUrl": "https://winterboard.pl/",
-      "linkLabel": "Visit partner",
-      "logoUrl": "icons/partners/winterboard-logo.png",
-      "logoAlt": "winterboard.pl logo",
-      "fallbackIconClass": "fas fa-store",
-      "bannerUrl": "icons/partners/winterboardBaner.png"
-    },
-    {
-      "name": "Your Brand Here",
-      "role": "Become a Partner",
-      "description": "This slot is open. Promote your brand here by becoming an official partner.",
-      "linkUrl": "https://nozer.site/",
-      "linkLabel": "Become partner",
-      "logoUrl": "icons/icon.png",
-      "logoAlt": "Partner placeholder logo",
-      "fallbackIconClass": "fas fa-handshake",
-      "bannerUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80"
-    }
-  ],
   "workStatus": {
     "openLabel": "Available",
     "closedLabel": "Not available"
