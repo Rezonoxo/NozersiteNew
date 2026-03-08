@@ -1248,23 +1248,39 @@
         <div class="mini-player-header">
             <span class="mini-player-label">Now Playing</span>
             <div class="mini-player-header-actions">
-                <button id="mini-player-playlist" class="mini-player-header-btn" type="button" aria-label="Open playlist">
+                <button id="mini-player-playlist" class="mini-player-header-btn mini-player-queue-btn" type="button" aria-label="Open playlist">
                     <i class="fas fa-list-ul"></i>
                 </button>
-                <button id="mini-player-minimize" class="mini-player-header-btn" type="button" aria-label="Minimize mini player">
-                    <i class="fas fa-compress-alt"></i>
-                </button>
-                <button id="mini-player-close" class="mini-player-header-btn" type="button" aria-label="Disable mini player">
+                <button id="mini-player-close" class="mini-player-header-btn close" type="button" aria-label="Close mini player">
                     <i class="fas fa-xmark"></i>
                 </button>
             </div>
         </div>
-        <div class="mini-player-main">
-            <img id="mini-player-art" class="mini-player-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art" decoding="async">
-            <div class="mini-player-meta">
-                <div id="mini-player-title" class="mini-player-title">#habibati</div>
-                <div id="mini-player-artist" class="mini-player-artist">Local Track</div>
+        <div class="mini-player-body">
+            <div class="mini-player-main">
+                <img id="mini-player-art" class="mini-player-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Album Art" decoding="async">
+                <div class="mini-player-meta">
+                    <div id="mini-player-title" class="mini-player-title">#habibati</div>
+                    <div id="mini-player-artist" class="mini-player-artist">Local Track</div>
+                </div>
             </div>
+            <div class="mini-player-controls">
+                <button class="mini-player-control" type="button" onclick="previousTrack()" aria-label="Previous track">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button id="mini-player-play-btn" class="mini-player-control mini-player-play" type="button" onclick="togglePlayPause()" aria-label="Play or pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mini-player-toolbar">
+            <label class="mini-player-volume mini-player-volume-compact" aria-label="Mini player volume">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="mini-player-volume-range-compact" min="0" max="100" value="60" aria-label="Mini player compact volume">
+            </label>
         </div>
         <div class="mini-player-progress">
             <div id="mini-player-progress-fill" class="mini-player-progress-fill"></div>
@@ -1272,17 +1288,6 @@
         <div class="mini-player-volume">
             <i class="fas fa-volume-up"></i>
             <input type="range" id="mini-player-volume-range" min="0" max="100" value="60" aria-label="Mini player volume">
-        </div>
-        <div class="mini-player-controls">
-            <button class="mini-player-control" type="button" onclick="previousTrack()" aria-label="Previous track">
-                <i class="fas fa-step-backward"></i>
-            </button>
-            <button id="mini-player-play-btn" class="mini-player-control mini-player-play" type="button" onclick="togglePlayPause()" aria-label="Play or pause">
-                <i class="fas fa-play"></i>
-            </button>
-            <button class="mini-player-control" type="button" onclick="nextTrack()" aria-label="Next track">
-                <i class="fas fa-step-forward"></i>
-            </button>
         </div>
     </div>
 
@@ -1371,6 +1376,7 @@
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
+            <div class="partners-dots" id="partners-dots" aria-label="Partner slides"></div>
         </div>
     </section>
 

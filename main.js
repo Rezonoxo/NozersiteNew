@@ -131,6 +131,7 @@ let musicAudio = null;
 let isMusicPlaying = false;
 let miniMusicObserver = null;
 let isMainPlayerVisible = true;
+let miniPlayerDismissed = false;
 let aboutFactIndex = -1;
 let partnersCarouselState = null;
 let partnersSectionCollapsed = false;
@@ -1007,13 +1008,10 @@ function applyAudioSettings() {
     musicAudio.volume = getTargetMusicVolume();
 
     const volumeRange = document.getElementById('music-volume-range');
-    const miniVolumeRange = document.getElementById('mini-player-volume-range');
     if (volumeRange) {
         volumeRange.value = Math.round(settings.volume * 100);
     }
-    if (miniVolumeRange) {
-        miniVolumeRange.value = Math.round(settings.volume * 100);
-    }
+    syncMiniPlayerVolumeRanges();
 }
 
 function syncSettingsUI() {
@@ -1648,6 +1646,7 @@ function loadTrack(trackIndex, options = {}) {
     currentMusicTrack = trackIndex;
     const track = musicTracks[trackIndex];
     if (!track || !musicAudio) return;
+    miniPlayerDismissed = false;
     
     musicAudio.src = track.file;
     document.getElementById('music-title').textContent = track.name;
@@ -1827,41 +1826,23 @@ function updateMiniMusicPlayerVisibility() {
     const miniPlayer = document.getElementById('mini-music-player');
     if (!miniPlayer) return;
 
-    const shouldShow = settings.floatingPlayerEnabled && (!isMainPlayerVisible || currentpage !== 'home');
+    const hasPlayableTrack = !!(musicAudio && musicTracks.length && musicAudio.src);
+    const shouldShow = settings.floatingPlayerEnabled && !miniPlayerDismissed && hasPlayableTrack && (currentpage !== 'home' || !isMainPlayerVisible);
     miniPlayer.classList.toggle('visible', shouldShow);
+    document.body.classList.toggle('mini-player-visible', shouldShow);
 }
 
 function initMiniMusicPlayer() {
     const miniPlayer = document.getElementById('mini-music-player');
     if (!miniPlayer) return;
 
-    const minimizeBtn = document.getElementById('mini-player-minimize');
     const closeBtn = document.getElementById('mini-player-close');
-    const setMiniCollapsedState = (collapsed) => {
-        miniPlayer.classList.toggle('collapsed', collapsed);
-        if (minimizeBtn) {
-            const icon = minimizeBtn.querySelector('i');
-            if (icon) {
-                icon.className = collapsed ? 'fas fa-expand-alt' : 'fas fa-compress-alt';
-            }
-        }
-    };
-
-    setMiniCollapsedState(!!settings.miniPlayerCollapsed);
-
-    if (minimizeBtn) {
-        minimizeBtn.addEventListener('click', () => {
-            settings.miniPlayerCollapsed = !settings.miniPlayerCollapsed;
-            setMiniCollapsedState(settings.miniPlayerCollapsed);
-            saveSettings();
-        });
-    }
+    miniPlayer.classList.toggle('collapsed', !!settings.miniPlayerCollapsed);
 
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
-            settings.floatingPlayerEnabled = false;
-            saveSettings();
-            applySettings();
+            miniPlayerDismissed = true;
+            updateMiniMusicPlayerVisibility();
         });
     }
 
@@ -1870,22 +1851,38 @@ function initMiniMusicPlayer() {
         miniMain.addEventListener('click', togglePlayPause);
     }
 
+    miniPlayer.querySelectorAll('button, input, a').forEach((element) => {
+        element.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    });
+
     const miniVolumeRange = document.getElementById('mini-player-volume-range');
+    const miniVolumeRangeCompact = document.getElementById('mini-player-volume-range-compact');
+    const handleVolumeInput = (event) => {
+        const value = Number(event.target.value);
+        settings.volume = Math.max(0, Math.min(1, value / 100));
+        saveSettings();
+        applyAudioSettings();
+    };
+
     if (miniVolumeRange) {
         miniVolumeRange.value = Math.round(settings.volume * 100);
-        miniVolumeRange.addEventListener('input', (e) => {
-            const value = Number(e.target.value);
-            settings.volume = Math.max(0, Math.min(1, value / 100));
-            saveSettings();
-            applyAudioSettings();
-        });
+        miniVolumeRange.addEventListener('input', handleVolumeInput);
+    }
+
+    if (miniVolumeRangeCompact) {
+        miniVolumeRangeCompact.value = Math.round(settings.volume * 100);
+        miniVolumeRangeCompact.addEventListener('input', handleVolumeInput);
     }
 
     syncMiniMusicPlayerMeta();
     updatePlayPauseButton();
     updateMusicProgress();
     keepMiniPlayerInViewport({ resetOnMobile: true });
-    initMiniMusicPlayerDrag();
+    if (window.matchMedia('(min-width: 769px) and (pointer: fine)').matches) {
+        initMiniMusicPlayerDrag();
+    }
     updateMiniMusicPlayerVisibility();
 }
 
@@ -2574,50 +2571,158 @@ function initPartnersCarousel() {
     const carousel = document.getElementById('partners-carousel');
     const prevBtn = document.getElementById('partners-prev');
     const nextBtn = document.getElementById('partners-next');
-    if (!track || !carousel) return;
+    const dots = document.getElementById('partners-dots');
+    if (!track || !carousel || !prevBtn || !nextBtn) return;
 
-    renderPartnersSlides(track);
-    const slides = Array.from(track.querySelectorAll('.partner-slide'));
-    if (!slides.length) return;
-
-    // on small screens we switch to a simple grid instead of a JS carousel
-    const isMobileView = window.matchMedia('(max-width: 768px)').matches;
-    if (isMobileView) {
-        if (prevBtn) prevBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'none';
-        // allow CSS grid/scroll to handle layout, no further logic needed
-        return;
+    if (partnersCarouselState?.destroy) {
+        partnersCarouselState.destroy();
     }
 
-    if (!prevBtn || !nextBtn) return;
+    renderPartnersSlides(track);
+    const baseSlides = Array.from(track.querySelectorAll('.partner-slide'));
+    if (!baseSlides.length) return;
+
     const hideBtn = document.getElementById('partners-hide-btn');
     let currentIndex = 0;
+    let visualIndex = 1;
+    let originals = [];
+    let autoplayInterval = null;
+    const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
+    const autoplayDelay = () => (isMobileView() ? 5200 : 3600);
+    const pauseAutoplay = () => {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
+    };
 
-    const render = () => {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        prevBtn.disabled = slides.length <= 1;
-        nextBtn.disabled = slides.length <= 1;
+    const renderDots = () => {
+        if (!dots) return;
+        dots.innerHTML = '';
+        originals.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = `partners-dot${index === currentIndex ? ' active' : ''}`;
+            dot.setAttribute('aria-label', `Go to partner ${index + 1}`);
+            dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+            dot.addEventListener('click', () => goTo(index));
+            dots.appendChild(dot);
+        });
+    };
+
+    const setTrackPosition = (index, { immediate = false } = {}) => {
+        track.style.transition = immediate ? 'none' : 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
+        track.style.transform = `translateX(-${index * 100}%)`;
+    };
+
+    const rebuildLoop = () => {
+        pauseAutoplay();
+        track.innerHTML = '';
+        renderPartnersSlides(track);
+        originals = Array.from(track.querySelectorAll('.partner-slide'));
+        if (!originals.length) return;
+
+        if (originals.length > 1) {
+            const firstClone = originals[0].cloneNode(true);
+            const lastClone = originals[originals.length - 1].cloneNode(true);
+            firstClone.setAttribute('aria-hidden', 'true');
+            lastClone.setAttribute('aria-hidden', 'true');
+            track.insertBefore(lastClone, originals[0]);
+            track.appendChild(firstClone);
+            visualIndex = currentIndex + 1;
+        } else {
+            visualIndex = 0;
+        }
+
+        renderDots();
+        setTrackPosition(visualIndex, { immediate: true });
+        prevBtn.disabled = originals.length <= 1;
+        nextBtn.disabled = originals.length <= 1;
+        carousel.classList.toggle('is-single', originals.length <= 1);
+        refreshAutoplay();
+    };
+
+    const startAutoplay = () => {
+        if (autoplayInterval || originals.length <= 1 || partnersSectionCollapsed || currentpage === 'contact' || !settings.partnersVisible) return;
+        autoplayInterval = setInterval(() => {
+            goTo(currentIndex + 1);
+        }, autoplayDelay());
+    };
+
+    const refreshAutoplay = () => {
+        pauseAutoplay();
+        startAutoplay();
     };
 
     const goTo = (index) => {
-        const lastIndex = slides.length - 1;
-        if (index < 0) currentIndex = lastIndex;
-        else if (index > lastIndex) currentIndex = 0;
-        else currentIndex = index;
-        render();
+        if (!originals.length) return;
+        const total = originals.length;
+        const normalizedIndex = ((index % total) + total) % total;
+        const direction = index > currentIndex ? 1 : index < currentIndex ? -1 : 0;
+        currentIndex = normalizedIndex;
+        renderDots();
+
+        if (total === 1) {
+            visualIndex = 0;
+            setTrackPosition(visualIndex);
+            return;
+        }
+
+        if (direction > 0 && normalizedIndex === 0 && index >= total) {
+            visualIndex = total + 1;
+        } else if (direction < 0 && normalizedIndex === total - 1 && index < 0) {
+            visualIndex = 0;
+        } else {
+            visualIndex = normalizedIndex + 1;
+        }
+
+        setTrackPosition(visualIndex);
+        refreshAutoplay();
     };
 
-    prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+    const handleTransitionEnd = () => {
+        if (originals.length <= 1) return;
+        const total = originals.length;
+        if (visualIndex === 0) {
+            visualIndex = total;
+            setTrackPosition(visualIndex, { immediate: true });
+        } else if (visualIndex === total + 1) {
+            visualIndex = 1;
+            setTrackPosition(visualIndex, { immediate: true });
+        }
+    };
 
-    carousel.addEventListener('keydown', (event) => {
+    const onPrevClick = () => goTo(currentIndex - 1);
+    const onNextClick = () => goTo(currentIndex + 1);
+    const onKeydown = (event) => {
         if (event.key === 'ArrowLeft') {
+            event.preventDefault();
             goTo(currentIndex - 1);
         }
         if (event.key === 'ArrowRight') {
+            event.preventDefault();
             goTo(currentIndex + 1);
         }
-    });
+    };
+    const onPointerEnter = () => pauseAutoplay();
+    const onPointerLeave = () => startAutoplay();
+    const onVisibilityChange = () => {
+        if (document.hidden) {
+            pauseAutoplay();
+        } else {
+            startAutoplay();
+        }
+    };
+    const onResize = () => rebuildLoop();
+
+    prevBtn.addEventListener('click', onPrevClick);
+    nextBtn.addEventListener('click', onNextClick);
+    carousel.addEventListener('keydown', onKeydown);
+    carousel.addEventListener('mouseenter', onPointerEnter);
+    carousel.addEventListener('mouseleave', onPointerLeave);
+    track.addEventListener('transitionend', handleTransitionEnd);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('resize', onResize);
 
     if (hideBtn) {
         hideBtn.addEventListener('click', () => {
@@ -2629,11 +2734,23 @@ function initPartnersCarousel() {
     }
 
     partnersCarouselState = {
-        refreshAutoplay: () => render(),
-        stopAutoplay: () => {}
+        refreshAutoplay,
+        stopAutoplay: pauseAutoplay,
+        startAutoplay,
+        destroy: () => {
+            pauseAutoplay();
+            prevBtn.removeEventListener('click', onPrevClick);
+            nextBtn.removeEventListener('click', onNextClick);
+            carousel.removeEventListener('keydown', onKeydown);
+            carousel.removeEventListener('mouseenter', onPointerEnter);
+            carousel.removeEventListener('mouseleave', onPointerLeave);
+            track.removeEventListener('transitionend', handleTransitionEnd);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+            window.removeEventListener('resize', onResize);
+        }
     };
 
-    render();
+    rebuildLoop();
 }
 
 function updateGlobalPartnersVisibility() {
@@ -2943,15 +3060,25 @@ function showpage(page) {
     currentpage = page;
     if (page !== 'home') {
         isMainPlayerVisible = false;
+    } else {
+        miniPlayerDismissed = false;
     }
     updateDocumentTitle(page);
     updateMiniMusicPlayerVisibility();
     updateGlobalPartnersVisibility();
 }
 
+function syncMiniPlayerVolumeRanges() {
+    const value = Math.round(settings.volume * 100);
+    const miniVolumeRange = document.getElementById('mini-player-volume-range');
+    const miniVolumeRangeCompact = document.getElementById('mini-player-volume-range-compact');
+    if (miniVolumeRange) miniVolumeRange.value = value;
+    if (miniVolumeRangeCompact) miniVolumeRangeCompact.value = value;
+}
+
 // Discord Profile Fetching
 const DISCORD_USER_ID = '690653953238499369';
-const DISCORD_USERNAME = 'lastanswtcf'; // Twoj username Discord jako fallback
+const DISCORD_USERNAME = 'rezonoxo'; // Twoj username Discord jako fallback
 
 const DISCORD_STATUS_TEXT = {
     online: 'Online',
@@ -3748,6 +3875,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (floatingPlayerToggle) {
         floatingPlayerToggle.addEventListener('change', (e) => {
             settings.floatingPlayerEnabled = e.target.checked;
+            if (e.target.checked) {
+                miniPlayerDismissed = false;
+            }
             saveSettings();
             applySettings();
         });

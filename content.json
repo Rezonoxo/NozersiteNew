@@ -19,7 +19,10 @@
   "names": [
     "Nozer",
     "Wiktor",
-    "Heaven"
+    "Heaven",
+    "Nozercode",
+    "Rezonoxo",
+    "Rezon"
   ],
   "pageTitles": {
     "base": "Nozer.site",
@@ -236,10 +239,10 @@
       "image": "icons/cover3.jpg"
     },
     {
-      "name": "#habibati",
-      "artist": "Poshlaya Molly, HOFMANNITA",
-      "file": "audio/MT1.mp3",
-      "image": "https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg"
+      "name": "Кто Ты",
+      "artist": "daryana",
+      "file": "audio/MT1.ogg",
+      "image": "icons/cover1.jpg"
     },
     {
       "name": "Chupa Chups",
