@@ -69,14 +69,36 @@
     </div>
 
     <div class="starfield" id="starfield"></div>
-    <nav class="fixed-nav">
+    <nav class="fixed-nav" aria-label="Primary navigation">
         <div class="nav-container">
-            <button class="nav-link active" onclick="showpage('home')">home</button>
-            <button class="nav-link" onclick="showpage('about')">about</button>
-            <button class="nav-link" onclick="showpage('projects')">projects</button>
-            <button class="nav-link" onclick="showpage('skills')">skills</button>
-            <button class="nav-link" onclick="showpage('contact')">contact</button>
+            <button class="nav-link active" data-page="home" onclick="showpage('home')">home</button>
+            <button class="nav-link" data-page="about" onclick="showpage('about')">about</button>
+            <button class="nav-link" data-page="projects" onclick="showpage('projects')">projects</button>
+            <button class="nav-link" data-page="skills" onclick="showpage('skills')">skills</button>
+            <button class="nav-link" data-page="contact" onclick="showpage('contact')">contact</button>
         </div>
+    </nav>
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <button class="mobile-nav-link active" data-page="home" onclick="showpage('home')">
+            <i class="fas fa-house"></i>
+            <span>Home</span>
+        </button>
+        <button class="mobile-nav-link" data-page="about" onclick="showpage('about')">
+            <i class="fas fa-user"></i>
+            <span>About</span>
+        </button>
+        <button class="mobile-nav-link" data-page="projects" onclick="showpage('projects')">
+            <i class="fas fa-layer-group"></i>
+            <span>Projects</span>
+        </button>
+        <button class="mobile-nav-link" data-page="skills" onclick="showpage('skills')">
+            <i class="fas fa-code"></i>
+            <span>Skills</span>
+        </button>
+        <button class="mobile-nav-link" data-page="contact" onclick="showpage('contact')">
+            <i class="fas fa-paper-plane"></i>
+            <span>Contact</span>
+        </button>
     </nav>
     <div id="site-notice" class="site-notice" role="status" aria-live="polite" hidden>
         <div class="site-notice-inner">
@@ -137,33 +159,6 @@
                 </div>
             </div>
 
-            <div class="discord-card">
-                <div class="invite-card-modern server-invite server-cyan">
-                    <div class="invite-icon-modern">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <div class="invite-details-modern">
-                        <div class="invite-name" id="invite-1-name">Heaven Community Roblox</div>
-                        <div class="invite-description" id="invite-1-description">Official Discord server for the Heaven Community Roblox members.</div>
-                    </div>
-                    <div class="invite-action-modern">
-                        <button class="join-btn-modern" id="invite-1-button" onclick="safeOpenExternal('https://discord.com/invite/MWM3MrBcP3')">JOIN SERVER</button>
-                    </div>
-                </div>
-
-                <div class="invite-card-modern server-invite server-green">
-                    <div class="invite-icon-modern">
-                        <i class="fas fa-cubes"></i>
-                    </div> 
-                    <div class="invite-details-modern">
-                        <div class="invite-name" id="invite-2-name">Heaven Community Roblox Group</div>
-                        <div class="invite-description" id="invite-2-description">My main roblox group with games and shop made with our team.</div>
-                    </div>
-                    <div class="invite-action-modern">
-                        <button class="join-btn-modern" id="invite-2-button" onclick="safeOpenExternal('https://www.roblox.com/share/g/369646540')">VISIT GROUP</button>
-                    </div>
-                </div>
-            </div>
 <div class="spotify-history-card">
     <div class="history-header">
         <div class="header-main">
@@ -249,7 +244,10 @@
             <div class="music-player-card now-playing-card">
                 <div class="music-player">
                     <div class="music-top">
-                        <div class="music-label">Now Playing</div>
+                        <div class="music-head-meta">
+                            <div class="music-label">Now Playing</div>
+                            <div class="music-slot-indicator" id="music-slot-indicator">1/8</div>
+                        </div>
                         <div class="music-top-row">
                             <div class="music-main">
                                 <div class="music-album-container" onclick="togglePlayPause()" style="cursor: pointer;">
@@ -312,8 +310,10 @@
                                 <i class="fas fa-cloud"></i>
                             </div>
                         </div>
-                        <div class="weather-temp" id="weather-temp-current">--°</div>
+                        <div class="weather-temp" id="weather-temp-current">--°C</div>
                         <div class="weather-desc" id="weather-desc-current">--</div>
+                        <div class="weather-range" id="weather-current-range">H: --°C / L: --°C</div>
+                        <div class="weather-note" id="weather-feels-like">Feels like --°C</div>
                     </div>
                     <div class="weather-day">
                         <div class="weather-day-top">
@@ -322,8 +322,9 @@
                                 <i class="fas fa-cloud"></i>
                             </div>
                         </div>
-                        <div class="weather-temp" id="weather-day-1-temp">--°</div>
-                        <div class="weather-range" id="weather-day-1-range">--° / --°</div>
+                        <div class="weather-temp" id="weather-day-1-temp">--°C</div>
+                        <div class="weather-range" id="weather-day-1-range">--°C / --°C</div>
+                        <div class="weather-note" id="weather-day-1-note">Rain chance --%</div>
                     </div>
                     <div class="weather-day">
                         <div class="weather-day-top">
@@ -332,8 +333,9 @@
                                 <i class="fas fa-cloud"></i>
                             </div>
                         </div>
-                        <div class="weather-temp" id="weather-day-2-temp">--°</div>
-                        <div class="weather-range" id="weather-day-2-range">--° / --°</div>
+                        <div class="weather-temp" id="weather-day-2-temp">--°C</div>
+                        <div class="weather-range" id="weather-day-2-range">--°C / --°C</div>
+                        <div class="weather-note" id="weather-day-2-note">Rain chance --%</div>
                     </div>
                 </div>
             </div>
@@ -362,56 +364,134 @@
                 <p class="tagline">Who I am and what I bring to every project</p>
             </div>
 
-            <div class="discord-card">
-                <div class="skills-section-title">
-                    <i class="fas fa-user"></i>
-                    <span>About Me</span>
+            <section class="about-shell" aria-label="About overview">
+                <!-- search bar moved to top for better visibility -->
+                <div class="section-search-wrap about-search-wrap">
+                    <label class="section-search" for="about-search">
+                        <i class="fas fa-magnifying-glass"></i>
+                        <input id="about-search" type="search" placeholder="Search focus areas, background, workflow...">
+                    </label>
+                    <div id="about-search-empty" class="section-search-empty" hidden>No about cards match this search.</div>
                 </div>
 
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-user-circle"></i>
+                <aside class="about-hero-card">
+                    <div class="about-hero-top">
+                        <span class="about-hero-badge">Personal Profile</span>
+                        <div class="about-hero-avatar">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
                     </div>
-                    <div class="about-content">
-                        <h3>Who I Am</h3>
-                        <p>I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others. The start of my business under the name 'Nozercode' began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS. Since then, I've been constantly evolving.</p>
+                    <h2>Designer, developer, and Roblox creator focused on clean work that feels premium.</h2>
+                    <p>I build digital experiences with clear structure, polished visuals, and practical value. My work spans web interfaces, branding, automation, and game-related projects.</p>
+                    <div class="about-hero-pills">
+                        <span>Web Development</span>
+                        <span>Brand Design</span>
+                        <span>Roblox</span>
+                        <span>Creative Direction</span>
                     </div>
-                </div>
+                    <div class="about-hero-stats">
+                        <div class="about-stat">
+                            <strong>3+ years</strong>
+                            <span>building online</span>
+                        </div>
+                        <div class="about-stat">
+                            <strong>Multi-discipline</strong>
+                            <span>design + code</span>
+                        </div>
+                    </div>
+                </aside>
 
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3>My Mission</h3>
-                        <p>I challenge myself every day to learn something new and create projects I can be proud of. I focus on creating inventive work that helps me grow professionally and attract clients who value creativity.</p>
-                    </div>
-                </div>
+                <div class="about-main-panel">
 
-                <div class="about-card">
-                    <div class="about-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3>Roblox Development</h3>
-                        <p>In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
-                    </div>
-                </div>
+                    <div class="about-card-grid">
+                        <article class="about-panel-card" data-about-card data-about-card-index="0" data-about-search="who i am background developer designer content creator html css photopea">
+                            <div class="about-panel-head">
+                                <div class="about-panel-icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div>
+                                    <h3>Who I Am</h3>
+                                    <p class="about-panel-kicker">Background</p>
+                                </div>
+                            </div>
+                            <p class="about-panel-text">I'm Wiktor, an 18 year old graphic designer, developer and content creator with a passion for creating innovative projects to serve others. The start of my business under the name 'Nozercode' began 3 years ago with the creation of simple graphics in Photopea and websites using HTML and CSS. Since then, I've been constantly evolving.</p>
+                            <div class="about-panel-tags">
+                                <span>Designer</span>
+                                <span>Developer</span>
+                                <span>Creator</span>
+                            </div>
+                        </article>
 
-                <div class="about-fact-card" id="about-fact-card">
-                    <div class="about-fact-top">
-                        <span class="about-fact-badge">Random Fact</span>
-                        <button class="about-fact-btn" id="about-fact-btn" type="button">
-                            <i class="fas fa-shuffle"></i>
-                            Shuffle
-                        </button>
-                    </div>
-                    <div class="about-fact-body">
-                        <p class="about-fact-text" id="about-fact-text">Click shuffle to reveal a fact about me.</p>
-                        <span class="about-fact-chip" id="about-fact-chip">About</span>
+                        <article class="about-panel-card" data-about-card data-about-card-index="1" data-about-search="mission growth practical creative client value learning">
+                            <div class="about-panel-head">
+                                <div class="about-panel-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div>
+                                    <h3>My Mission</h3>
+                                    <p class="about-panel-kicker">Approach</p>
+                                </div>
+                            </div>
+                            <p class="about-panel-text">I challenge myself every day to learn something new and create projects I can be proud of. I focus on creating inventive work that helps me grow professionally and attract clients who value creativity.</p>
+                            <div class="about-panel-tags">
+                                <span>Creative</span>
+                                <span>Practical</span>
+                                <span>Client-ready</span>
+                            </div>
+                        </article>
+
+                        <article class="about-panel-card" data-about-card data-about-card-index="2" data-about-search="roblox development games models group team shop lua">
+                            <div class="about-panel-head">
+                                <div class="about-panel-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div>
+                                    <h3>Roblox Development</h3>
+                                    <p class="about-panel-kicker">Games and models</p>
+                                </div>
+                            </div>
+                            <p class="about-panel-text">In addition to coding, graphics and content creator, I specialise in creating games and models for Roblox. I run my own group on which I also sell my creations.</p>
+                            <div class="about-panel-tags">
+                                <span>Lua</span>
+                                <span>Models</span>
+                                <span>Game Systems</span>
+                            </div>
+                        </article>
+
+                        <article class="about-panel-card about-growth-card" data-about-card data-about-search="always learning growth workflow new technologies frameworks">
+                            <div class="about-panel-head">
+                                <div class="about-panel-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h3>Always Learning, Always Growing</h3>
+                                    <p class="about-panel-kicker">Mindset</p>
+                                </div>
+                            </div>
+                            <p class="about-panel-text">My journey is far from over. I'm constantly exploring new technologies, mastering new frameworks, and taking on challenging projects that expand my skillset.</p>
+                            <div class="about-panel-tags">
+                                <span>Curiosity</span>
+                                <span>Iteration</span>
+                                <span>Improvement</span>
+                            </div>
+                        </article>
+
+                        <div class="about-fact-card" id="about-fact-card">
+                            <div class="about-fact-top">
+                                <span class="about-fact-badge">Random Fact</span>
+                                <button class="about-fact-btn" id="about-fact-btn" type="button">
+                                    <i class="fas fa-shuffle"></i>
+                                    Shuffle
+                                </button>
+                            </div>
+                            <div class="about-fact-body">
+                                <p class="about-fact-text" id="about-fact-text">Click shuffle to reveal a fact about me.</p>
+                                <span class="about-fact-chip" id="about-fact-chip">About</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div class="favorites-card" id="favorites-card">
                 <div class="favorites-header">
@@ -633,17 +713,6 @@
                 </div>
             </div>
 
-            <div class="discord-card skills-final-card">
-                <div class="final-card-content">
-                    <div class="final-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="final-text">
-                        <h3>Always Learning, Always Growing</h3>
-                        <p>My journey is far from over. I'm constantly exploring new technologies, mastering new frameworks, and taking on challenging projects that expand my skillset.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -655,8 +724,8 @@
             </div>
 
             <div class="projects-intro">
-                <h2>Development Portfolio</h2>
-                <p>You can find many of my recent web development work on GitHub.</p>
+                <h2>Portfolio</h2>
+                <p>A curated list of projects, tools, visual work, and experiments.</p>
             </div>
             <div class="section-search-wrap">
                 <label class="section-search" for="projects-search">
@@ -666,154 +735,7 @@
                 <div id="projects-search-empty" class="section-search-empty" hidden>No projects match this search.</div>
             </div>
 
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-pink">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="project-title">lyute ai</div>
-                    </div>
-                    <p class="project-desc">
-                        The dedicated AI assistant for my shop, designed to handle inquiries, speed up support,
-                        and provide smarter customer interactions.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">TypeScript</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Website <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-cyan">
-                            <i class="fas fa-wand-magic-sparkles"></i>
-                        </div>
-                        <div class="project-title">spotnif</div>
-                    </div>
-                    <p class="project-desc">
-                        A versatile tool that generates the Lanyard API for Spotify presence, designed as a
-                        sleek and dynamic visualizer.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">JavaScript</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Website <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-blue">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <div class="project-title">imagify</div>
-                    </div>
-                    <p class="project-desc">
-                        A polished image editor built for creators who want quick, clean results with minimal effort.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">JavaScript</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Website <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-purple">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="project-title">seent</div>
-                    </div>
-                    <p class="project-desc">
-                        Community-powered Discord bot focused on reminders, announcements, and server utilities.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">discord.py</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Website <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-green">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="project-title">void discord bot</div>
-                    </div>
-                    <p class="project-desc">
-                        Multi-purpose Discord bot with moderation, logging, and community tools.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">discord.py</span>
-                        <span class="project-tag">SENAPI</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Website <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon accent-orange">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <div class="project-title">lyute @bshop</div>
-                    </div>
-                    <p class="project-desc">
-                        A digital storefront for my community, support, and collaboration space.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">B2B</span>
-                        <span class="project-tag">Shop</span>
-                    </div>
-                    <div class="project-actions">
-                        <a class="project-action" href="#" target="_blank" rel="noopener noreferrer">
-                            Join <i class="fas fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <section class="behance-showcase" aria-label="Behance graphics">
-                <div class="behance-header">
-                    <h3>Graphic Portfolio</h3>
-                    <p>My latest visual projects are published on Behance.</p>
-                </div>
-                <article class="behance-card behance-card-single">
-                    <div class="behance-card-top">
-                        <span class="behance-pill">Behance</span>
-                        <i class="fab fa-behance"></i>
-                    </div>
-                    <h4>Nozercode on Behance</h4>
-                    <p>Branding, social media visuals, and concept work collected in one clean portfolio.</p>
-                    <a href="https://www.behance.net/nozercode" target="_blank" rel="noopener noreferrer">Open portfolio <i class="fas fa-arrow-up-right-from-square"></i></a>
-                </article>
-            </section>
+            <div class="projects-grid" id="projects-grid"></div>
 
             <div class="open-work" id="work-status" data-open-label="Available" data-closed-label="Not available" aria-live="polite">
                 <span class="status-dot" id="work-status-dot"></span>
@@ -1040,6 +962,10 @@
                     <a href="https://github.com/rezonoxo" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i>
                         <span>GitHub</span>
+                    </a>
+                    <a href="https://www.roblox.com/pl/users/837322121/profile" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-cubes"></i>
+                        <span>Roblox</span>
                     </a>
                     <a href="https://behance.net/nozercode" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-behance"></i>
@@ -1363,13 +1289,63 @@
     <div id="playlist-overlay" class="playlist-overlay" aria-hidden="true">
         <div class="playlist-modal" role="dialog" aria-modal="true" aria-labelledby="playlist-title" tabindex="-1">
             <div class="playlist-header">
-                <div class="playlist-title" id="playlist-title">
-                    <i class="fas fa-list-ul"></i>
-                    Playlist
+                <div>
+                    <div class="playlist-kicker">Audio Queue</div>
+                    <div class="playlist-title" id="playlist-title">
+                        <i class="fas fa-list-ul"></i>
+                        Playlist
+                    </div>
                 </div>
                 <button class="playlist-close" type="button" aria-label="Close playlist" onclick="closePlaylistOverlay()">&times;</button>
             </div>
+            <div class="playlist-summary">
+                <div class="playlist-summary-main">
+                    <div class="playlist-summary-art-wrap">
+                        <img id="playlist-summary-art" class="playlist-summary-art" src="https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg" alt="Current track cover" decoding="async">
+                    </div>
+                    <div class="playlist-summary-copy">
+                        <div class="playlist-summary-label">Selected track</div>
+                        <strong id="playlist-summary-title">#habibati</strong>
+                        <span id="playlist-summary-artist">Local Track</span>
+                    </div>
+                </div>
+                <div class="playlist-summary-count" id="playlist-summary-count">1 of 8</div>
+            </div>
             <div id="playlist-list" class="playlist-list"></div>
+        </div>
+    </div>
+
+    <div id="project-overlay" class="project-overlay" aria-hidden="true">
+        <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" tabindex="-1">
+            <div class="project-modal-banner" id="project-modal-banner"></div>
+            <div class="project-modal-inner">
+                <div class="project-modal-head">
+                    <span class="project-modal-kicker">Project Details</span>
+                    <button class="project-modal-close" type="button" aria-label="Close project details" onclick="closeProjectDetails()">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="project-modal-body">
+                    <div class="project-modal-intro">
+                        <h2 id="project-modal-title">Project</h2>
+                        <p id="project-modal-subtitle">Project subtitle</p>
+                    </div>
+                    <div class="project-modal-metrics" id="project-modal-metrics"></div>
+                    <p class="project-modal-description" id="project-modal-description"></p>
+                    <div class="project-modal-section">
+                        <div class="project-modal-section-title">Languages / Tech Used</div>
+                        <div class="project-modal-tags" id="project-modal-tags"></div>
+                    </div>
+                    <div class="project-modal-section">
+                        <div class="project-modal-section-title">Highlights</div>
+                        <div class="project-modal-highlights" id="project-modal-highlights"></div>
+                    </div>
+                    <div class="project-modal-section">
+                        <div class="project-modal-section-title">Project Links</div>
+                        <div class="project-modal-links" id="project-modal-links"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1378,10 +1354,10 @@
             <div class="partners-header">
                 <div class="partners-header-main">
                     <h3>Partners</h3>
-                    <p class="partners-description">Trusted collaborators and brands I build with in development and visual work.</p>
+                    <p class="partners-description">A compact list of collaborators and open slots for future work.</p>
                 </div>
                 <div class="partners-header-actions">
-                    <button class="partners-visibility-btn" id="partners-hide-btn" type="button" aria-controls="partners-carousel" aria-expanded="true">Hide section</button>
+                    <button class="partners-visibility-btn" id="partners-hide-btn" type="button" aria-controls="partners-track" aria-expanded="true">Hide section</button>
                 </div>
             </div>
             <div class="partners-carousel" id="partners-carousel" tabindex="0">
@@ -1389,13 +1365,12 @@
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="partners-viewport">
-                    <div class="partners-track" id="partners-track"></div>
+                    <div class="partners-track" id="partners-track" role="list"></div>
                 </div>
                 <button class="partners-nav next" id="partners-next" type="button" aria-label="Next partner">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-            <div class="partners-dots" id="partners-dots" aria-label="Partner slides"></div>
         </div>
     </section>
 
@@ -1410,5 +1385,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
-

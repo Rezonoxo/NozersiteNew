@@ -6,20 +6,7 @@
   },
   "home": {
     "taglinePrefix": "Hey, I'm:",
-    "invites": [
-      {
-        "name": "Heaven Community Roblox",
-        "description": "Official Discord server for Heaven Community Roblox members.",
-        "buttonLabel": "Join Server",
-        "url": "https://discord.com/invite/MWM3MrBcP3"
-      },
-      {
-        "name": "Heaven Community Roblox Group",
-        "description": "My main Roblox group with games and a team shop.",
-        "buttonLabel": "Visit Group",
-        "url": "https://www.roblox.com/share/g/369646540"
-      }
-    ],
+    "invites": [],
     "info": {
       "location": "Poland",
       "timezone": "GMT+1"

@@ -159,6 +159,134 @@ let PARTNERS = [
         bannerUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80'
     }
 ];
+let PROJECTS = [
+    {
+        id: 'lyute-ai',
+        title: 'lyute ai',
+        subtitle: 'AI assistant for shop support and customer guidance',
+        summary: 'The dedicated AI assistant for my shop, designed to handle inquiries, reduce response time, and keep conversations structured for customers.',
+        banner: 'linear-gradient(135deg, rgba(255, 123, 172, 0.82), rgba(75, 27, 95, 0.88) 52%, rgba(9, 14, 32, 0.94))',
+        metrics: [
+            { label: 'Build Time', value: 'active' },
+            { label: 'Role', value: 'full creator' },
+            { label: 'Category', value: 'AI support' }
+        ],
+        tech: ['HTML', 'CSS', 'JavaScript', 'TypeScript'],
+        highlights: ['Fast answer flow for recurring questions', 'Designed to reduce manual support load', 'Brand-aligned UI and conversation structure'],
+        links: [
+            { label: 'Website', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'spotnif',
+        title: 'spotnif',
+        subtitle: 'Spotify presence visualizer powered by Lanyard data',
+        summary: 'A versatile tool that generates a Lanyard-based Spotify presence card with a cleaner visual system and a more dynamic presentation layer.',
+        banner: 'linear-gradient(135deg, rgba(81, 219, 255, 0.84), rgba(20, 67, 116, 0.9) 50%, rgba(6, 13, 28, 0.96))',
+        metrics: [
+            { label: 'Build Time', value: 'rapid' },
+            { label: 'Role', value: 'frontend dev' },
+            { label: 'Category', value: 'music widget' }
+        ],
+        tech: ['HTML', 'CSS', 'JavaScript', 'Lanyard API'],
+        highlights: ['Presence-focused interface', 'Optimized for embed-style layouts', 'Built around real-time music activity'],
+        links: [
+            { label: 'Website', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'imagify',
+        title: 'imagify',
+        subtitle: 'Image editor concept for creators who want speed',
+        summary: 'A polished image editor built for creators who want quick, clean results with minimal friction and a straightforward editing flow.',
+        banner: 'linear-gradient(135deg, rgba(59, 130, 246, 0.82), rgba(18, 45, 88, 0.9) 52%, rgba(7, 11, 22, 0.96))',
+        metrics: [
+            { label: 'Build Time', value: 'concept' },
+            { label: 'Role', value: 'product + ui' },
+            { label: 'Category', value: 'creative tool' }
+        ],
+        tech: ['HTML', 'CSS', 'JavaScript'],
+        highlights: ['Clean interface for quick edits', 'Creator-focused workflow', 'Strong emphasis on ease of use'],
+        links: [
+            { label: 'Website', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'seent',
+        title: 'seent',
+        subtitle: 'Community-oriented Discord utility bot',
+        summary: 'A Discord bot focused on reminders, lightweight announcements, and helpful automations for online communities that need structure without clutter.',
+        banner: 'linear-gradient(135deg, rgba(170, 110, 255, 0.84), rgba(61, 35, 105, 0.9) 50%, rgba(10, 12, 26, 0.96))',
+        metrics: [
+            { label: 'Build Time', value: 'stable' },
+            { label: 'Role', value: 'backend dev' },
+            { label: 'Category', value: 'discord bot' }
+        ],
+        tech: ['discord.py', 'Python'],
+        highlights: ['Reminder and utility modules', 'Designed for community moderation support', 'Keeps server workflows lightweight'],
+        links: [
+            { label: 'Website', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'void-discord-bot',
+        title: 'void discord bot',
+        subtitle: 'Moderation, logging, and server tools in one system',
+        summary: 'A multi-purpose Discord bot that combines moderation, logging, and server utilities into one manageable toolkit for admins.',
+        banner: 'linear-gradient(135deg, rgba(67, 181, 129, 0.82), rgba(24, 73, 56, 0.9) 52%, rgba(6, 16, 18, 0.96))',
+        metrics: [
+            { label: 'Build Time', value: 'ongoing' },
+            { label: 'Role', value: 'system dev' },
+            { label: 'Category', value: 'automation' }
+        ],
+        tech: ['discord.py', 'Python', 'SENAPI'],
+        highlights: ['Moderation and event logging', 'Server-side tooling for daily admin work', 'Built to centralize multiple utility flows'],
+        links: [
+            { label: 'Website', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'lyute-bshop',
+        title: 'lyute @bshop',
+        subtitle: 'Storefront and collaboration space for the community',
+        summary: 'A digital storefront for my community, support flow, and collaboration space, designed to feel more structured than a typical simple link hub.',
+        banner: 'linear-gradient(135deg, rgba(255, 170, 80, 0.84), rgba(108, 59, 18, 0.9) 50%, rgba(18, 12, 6, 0.96))',
+        metrics: [
+            { label: 'Build Time', value: 'active' },
+            { label: 'Role', value: 'owner' },
+            { label: 'Category', value: 'storefront' }
+        ],
+        tech: ['B2B', 'Shop', 'Community'],
+        highlights: ['Community-first storefront layout', 'Built for support and sales together', 'Simple journey from discovery to contact'],
+        links: [
+            { label: 'Join', url: null },
+            { label: 'Source', url: null }
+        ]
+    },
+    {
+        id: 'behance-portfolio',
+        title: 'nozercode on behance',
+        subtitle: 'Branding, social visuals, and graphic portfolio',
+        summary: 'A collection of branding work, concept visuals, social media graphics, and presentation pieces published in one portfolio space.',
+        banner: 'linear-gradient(135deg, rgba(61, 133, 255, 0.84), rgba(20, 49, 101, 0.9) 52%, rgba(8, 11, 24, 0.96))',
+        metrics: [
+            { label: 'Type', value: 'visual work' },
+            { label: 'Role', value: 'designer' },
+            { label: 'Platform', value: 'behance' }
+        ],
+        tech: ['Branding', 'Social Media', 'Concept Work', 'Behance'],
+        highlights: ['Central place for graphic projects', 'Used as public portfolio for visual work', 'Keeps design output separate but inside the main project list'],
+        links: [
+            { label: 'Portfolio', url: 'https://www.behance.net/nozercode' },
+            { label: 'Source', url: null }
+        ]
+    }
+];
 let aboutFacts = [
     { text: 'In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.', tag: 'Achievement' },
     { text: 'I have already traveled to more than eight countries.', tag: 'Travel' },
@@ -253,6 +381,10 @@ function applyContentConfig(data) {
         PARTNERS = data.partners.slice();
     }
 
+    if (Array.isArray(data.projects) && data.projects.length) {
+        PROJECTS = data.projects.slice();
+    }
+
     if (Array.isArray(data.randomFacts) && data.randomFacts.length) {
         aboutFacts = data.randomFacts.slice();
     }
@@ -303,22 +435,22 @@ function applyContentConfig(data) {
     }
 
     if (Array.isArray(data.about?.cards)) {
-        const cardContentEls = Array.from(document.querySelectorAll('#about .about-card .about-content'));
+        const cardContentEls = Array.from(document.querySelectorAll('#about [data-about-card-index]'));
         data.about.cards.forEach((card, index) => {
             const target = cardContentEls[index];
             if (!target) return;
             const titleEl = target.querySelector('h3');
-            const textEl = target.querySelector('p');
+            const textEl = target.querySelector('.about-panel-text');
             if (titleEl && card.title) titleEl.textContent = card.title;
             if (textEl && card.text) textEl.textContent = card.text;
         });
     }
 
     if (data.about?.finalCard) {
-        const finalCard = document.querySelector('.skills-final-card .final-text');
+        const finalCard = document.querySelector('.about-growth-card');
         if (finalCard) {
             const titleEl = finalCard.querySelector('h3');
-            const textEl = finalCard.querySelector('p');
+            const textEl = finalCard.querySelector('.about-panel-text');
             if (titleEl && data.about.finalCard.title) titleEl.textContent = data.about.finalCard.title;
             if (textEl && data.about.finalCard.text) textEl.textContent = data.about.finalCard.text;
         }
@@ -568,6 +700,41 @@ function initSettingsCategories() {
     updateSectionsVisibility();
 }
 
+function renderProjectsSection() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) return;
+
+    grid.innerHTML = PROJECTS.map((project) => {
+        const tagsHtml = (project.tech || []).slice(0, 4).map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('');
+        const searchBlob = [
+            project.title,
+            project.subtitle,
+            project.summary,
+            ...(project.tech || []),
+            ...(project.highlights || [])
+        ].join(' ').toLowerCase();
+
+        return `
+            <article class="project-card project-showcase-card simple-project-card" data-project-id="${escapeHtml(project.id)}" data-project-search="${escapeHtml(searchBlob)}">
+                <div class="project-banner" style="background:${escapeHtml(project.banner)}">
+                    <span class="project-banner-pill">${escapeHtml((project.tech || [])[0] || 'project')}</span>
+                </div>
+                <div class="project-card-body">
+                    <h3 class="project-title">${escapeHtml(project.title)}</h3>
+                    <p class="project-subtitle">${escapeHtml(project.subtitle)}</p>
+                    <p class="project-desc">${escapeHtml(project.summary)}</p>
+                    <div class="project-tags">${tagsHtml}</div>
+                    <div class="project-actions">
+                        <button class="project-action project-action-primary" type="button" onclick="openProjectDetails('${escapeHtml(project.id)}')">
+                            View Project Details <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
+        `;
+    }).join('');
+}
+
 function initProjectsSearch() {
     const input = document.getElementById('projects-search');
     const emptyState = document.getElementById('projects-search-empty');
@@ -579,10 +746,7 @@ function initProjectsSearch() {
         let visibleCount = 0;
 
         cards.forEach((card) => {
-            const title = card.querySelector('.project-title')?.textContent || '';
-            const desc = card.querySelector('.project-desc')?.textContent || '';
-            const tags = Array.from(card.querySelectorAll('.project-tag')).map((tag) => tag.textContent || '').join(' ');
-            const haystack = `${title} ${desc} ${tags}`.toLowerCase();
+            const haystack = card.getAttribute('data-project-search') || '';
             const match = !query || haystack.includes(query);
             card.hidden = !match;
             if (match) visibleCount += 1;
@@ -594,6 +758,114 @@ function initProjectsSearch() {
     };
 
     input.addEventListener('input', applyFilter);
+    applyFilter();
+}
+
+function initAboutSearch() {
+    const input = document.getElementById('about-search');
+    const emptyState = document.getElementById('about-search-empty');
+    const cards = Array.from(document.querySelectorAll('#about [data-about-card]'));
+    if (!input || !cards.length) return;
+
+    const applyFilter = () => {
+        const query = input.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+            const title = card.querySelector('h3')?.textContent || '';
+            const text = card.querySelector('.about-panel-text')?.textContent || '';
+            const tags = Array.from(card.querySelectorAll('.about-panel-tags span')).map((tag) => tag.textContent || '').join(' ');
+            const searchBlob = `${card.getAttribute('data-about-search') || ''} ${title} ${text} ${tags}`.toLowerCase();
+            const match = !query || searchBlob.includes(query);
+            card.hidden = !match;
+            if (match) visibleCount += 1;
+        });
+
+        if (emptyState) {
+            emptyState.hidden = !query || visibleCount > 0;
+        }
+    };
+
+    input.addEventListener('input', applyFilter);
+    applyFilter();
+}
+
+function getProjectById(projectId) {
+    return PROJECTS.find((project) => project.id === projectId) || null;
+}
+
+function renderProjectDetails(project) {
+    const bannerEl = document.getElementById('project-modal-banner');
+    const titleEl = document.getElementById('project-modal-title');
+    const subtitleEl = document.getElementById('project-modal-subtitle');
+    const metricsEl = document.getElementById('project-modal-metrics');
+    const descriptionEl = document.getElementById('project-modal-description');
+    const tagsEl = document.getElementById('project-modal-tags');
+    const highlightsEl = document.getElementById('project-modal-highlights');
+    const linksEl = document.getElementById('project-modal-links');
+    if (!project || !bannerEl || !titleEl || !subtitleEl || !metricsEl || !descriptionEl || !tagsEl || !highlightsEl || !linksEl) return;
+
+    bannerEl.style.background = project.banner || 'linear-gradient(135deg, rgba(70, 90, 255, 0.75), rgba(8, 12, 24, 0.94))';
+    titleEl.textContent = project.title || 'Project';
+    subtitleEl.textContent = project.subtitle || '';
+    descriptionEl.textContent = project.summary || '';
+
+    metricsEl.innerHTML = (project.metrics || []).map((metric) => `
+        <span class="project-modal-metric">
+            <small>${escapeHtml(metric.label)}</small>
+            <strong>${escapeHtml(metric.value)}</strong>
+        </span>
+    `).join('');
+
+    tagsEl.innerHTML = (project.tech || []).map((tag) => `<span class="project-modal-tag">${escapeHtml(tag)}</span>`).join('');
+    highlightsEl.innerHTML = (project.highlights || []).map((highlight) => `
+        <div class="project-modal-highlight">
+            <i class="fas fa-check"></i>
+            <span>${escapeHtml(highlight)}</span>
+        </div>
+    `).join('');
+
+    linksEl.innerHTML = (project.links || []).map((link) => {
+        if (!link.url) {
+            return `
+                <span class="project-modal-link disabled">
+                    <span>${escapeHtml(link.label)}</span>
+                    <small>Private</small>
+                </span>
+            `;
+        }
+
+        return `
+            <a class="project-modal-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
+                <span>${escapeHtml(link.label)}</span>
+                <i class="fas fa-arrow-up-right-from-square"></i>
+            </a>
+        `;
+    }).join('');
+}
+
+function openProjectDetails(projectId) {
+    const project = getProjectById(projectId);
+    const overlay = document.getElementById('project-overlay');
+    const modal = overlay ? overlay.querySelector('.project-modal') : null;
+    if (!project || !overlay || !modal) return;
+    renderProjectDetails(project);
+    activateModal(overlay, modal, '.project-modal-close');
+}
+
+function closeProjectDetails() {
+    const overlay = document.getElementById('project-overlay');
+    if (overlay) deactivateModal(overlay);
+}
+
+function initProjectDetailsOverlay() {
+    const overlay = document.getElementById('project-overlay');
+    if (!overlay) return;
+    overlay.addEventListener('click', (event) => {
+        if (event.target === overlay) {
+            closeProjectDetails();
+        }
+    });
 }
 
 function initSkillsSearch() {
@@ -824,13 +1096,37 @@ function initSiteNotice() {
 
 function startStarfield() {
     if (starIntervalId) return;
-    starIntervalId = setInterval(makestar, 200);
+    starIntervalId = setInterval(makestar, 160);
 }
 
 function stopStarfield() {
     if (!starIntervalId) return;
     clearInterval(starIntervalId);
     starIntervalId = null;
+}
+
+function seedAmbientStars() {
+    const starfield = document.getElementById('starfield');
+    if (!starfield || starfield.dataset.seeded === 'true') return;
+
+    for (let i = 0; i < 55; i += 1) {
+        const star = document.createElement('div');
+        star.className = 'star ambient';
+        const variant = Math.random();
+        if (variant < 0.34) star.classList.add('small');
+        else if (variant < 0.78) star.classList.add('medium');
+        else star.classList.add('large');
+        if (Math.random() < 0.55) star.classList.add('twinkle');
+        else star.classList.add('float');
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.setProperty('--drift-x', `${(Math.random() - 0.5) * 18}px`);
+        star.style.setProperty('--drift-y', `${(Math.random() - 0.5) * 18}px`);
+        star.style.animationDelay = `${Math.random() * 4}s`;
+        starfield.appendChild(star);
+    }
+
+    starfield.dataset.seeded = 'true';
 }
 
 function getFocusableElements(container) {
@@ -1364,6 +1660,7 @@ function loadTrack(trackIndex, options = {}) {
     }
     updatePlayPauseButton();
     updateMusicProgress();
+    updateMusicTrackIndicators();
     renderPlaylistItems();
 }
 
@@ -1393,6 +1690,8 @@ function updatePlayPauseButton() {
             miniIcon.className = isMusicPlaying ? 'fas fa-pause' : 'fas fa-play';
         }
     }
+
+    renderPlaylistItems();
 }
 
 async function nextTrack() {
@@ -1427,6 +1726,16 @@ function updateMusicProgress() {
     if (durationEl) durationEl.textContent = formatMusicTime(duration);
 }
 
+function updateMusicTrackIndicators() {
+    const totalTracks = musicTracks.length || 0;
+    const currentTrackNumber = totalTracks ? currentMusicTrack + 1 : 0;
+    const slotEl = document.getElementById('music-slot-indicator');
+    const playlistCountEl = document.getElementById('playlist-summary-count');
+
+    if (slotEl) slotEl.textContent = `${currentTrackNumber}/${totalTracks}`;
+    if (playlistCountEl) playlistCountEl.textContent = `${currentTrackNumber} of ${totalTracks}`;
+}
+
 function syncMiniMusicPlayerMeta() {
     const track = musicTracks[currentMusicTrack];
     if (!track) return;
@@ -1434,10 +1743,17 @@ function syncMiniMusicPlayerMeta() {
     const titleEl = document.getElementById('mini-player-title');
     const artistEl = document.getElementById('mini-player-artist');
     const artEl = document.getElementById('mini-player-art');
+    const playlistTitleEl = document.getElementById('playlist-summary-title');
+    const playlistArtistEl = document.getElementById('playlist-summary-artist');
+    const playlistArtEl = document.getElementById('playlist-summary-art');
 
     if (titleEl) titleEl.textContent = track.name;
     if (artistEl) artistEl.textContent = track.artist;
     if (artEl) artEl.src = track.image;
+    if (playlistTitleEl) playlistTitleEl.textContent = track.name;
+    if (playlistArtistEl) playlistArtistEl.textContent = track.artist;
+    if (playlistArtEl) playlistArtEl.src = track.image;
+    updateMusicTrackIndicators();
     renderPlaylistItems();
 }
 
@@ -1451,12 +1767,13 @@ function renderPlaylistItems() {
         button.type = 'button';
         button.className = `playlist-item ${index === currentMusicTrack ? 'active' : ''}`;
         button.innerHTML = `
+            <span class="playlist-item-order">${index + 1}</span>
             <img src="${escapeHtml(track.image)}" alt="${escapeHtml(track.name)}" loading="lazy" decoding="async">
             <span class="playlist-item-meta">
                 <strong>${escapeHtml(track.name)}</strong>
                 <small>${escapeHtml(track.artist)}</small>
             </span>
-            <span class="playlist-item-state">${index === currentMusicTrack ? 'Now' : ''}</span>
+            <span class="playlist-item-state">${index === currentMusicTrack ? (isMusicPlaying ? 'Playing' : 'Selected') : 'Queue'}</span>
         `;
         button.addEventListener('click', async () => {
             if (index === currentMusicTrack && isMusicPlaying) {
@@ -1470,6 +1787,7 @@ function renderPlaylistItems() {
         });
         list.appendChild(button);
     });
+    updateMusicTrackIndicators();
 }
 
 function openPlaylistOverlay() {
@@ -1606,6 +1924,7 @@ function initMiniMusicPlayerDrag() {
     const miniPlayer = document.getElementById('mini-music-player');
     const dragHandle = miniPlayer ? miniPlayer.querySelector('.mini-player-header') : null;
     if (!miniPlayer || !dragHandle) return;
+    // keep dragging limited to fine-pointer desktop devices to avoid interfering with touch
     if (!window.matchMedia('(min-width: 769px) and (pointer: fine)').matches) return;
 
     let isDragging = false;
@@ -1683,8 +2002,9 @@ function initMiniMusicPlayerDrag() {
         ghost.style.left = `${Math.round(nearestDock.x)}px`;
         ghost.style.top = `${Math.round(nearestDock.y)}px`;
         ghost.classList.add('visible');
-        ghost.classList.toggle('strong', nearestDist <= 92);
-        ghost.style.opacity = nearestDist <= 170 ? '1' : '0.45';
+        // make the snap ghost more forgiving on close approach
+        ghost.classList.toggle('strong', nearestDist <= 120);
+        ghost.style.opacity = nearestDist <= 200 ? '1' : '0.45';
     };
 
     const snapIfCloseEnough = () => {
@@ -1695,7 +2015,8 @@ function initMiniMusicPlayerDrag() {
         const dockCenterX = nearestDock.x + rect.width / 2;
         const dockCenterY = nearestDock.y + rect.height / 2;
         const distance = Math.hypot(currentCenterX - dockCenterX, currentCenterY - dockCenterY);
-        if (distance > 96) return false;
+        // slightly larger threshold so the player snaps more eagerly
+        if (distance > 120) return false;
         miniPlayer.style.left = `${Math.round(nearestDock.x)}px`;
         miniPlayer.style.top = `${Math.round(nearestDock.y)}px`;
         miniPlayer.style.right = 'auto';
@@ -1947,7 +2268,7 @@ function initWeatherWidget() {
 
     const lat = 50.0413;
     const lon = 21.999;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=3`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=3`;
 
     async function fetchWeather() {
         try {
@@ -1956,23 +2277,38 @@ function initWeatherWidget() {
             const data = await response.json();
 
             const currentTemp = Math.round(data.current.temperature_2m);
+            const apparentTemp = Math.round(data.current.apparent_temperature);
             const currentCode = data.current.weather_code;
             const currentLabel = updateWeatherIcon('weather-icon-current', currentCode);
             const currentTempEl = document.getElementById('weather-temp-current');
             const currentDescEl = document.getElementById('weather-desc-current');
+            const currentRangeEl = document.getElementById('weather-current-range');
+            const currentFeelsEl = document.getElementById('weather-feels-like');
+            const todayHigh = Math.round(data.daily.temperature_2m_max[0]);
+            const todayLow = Math.round(data.daily.temperature_2m_min[0]);
 
-            if (currentTempEl) currentTempEl.textContent = `${currentTemp}°`;
+            if (currentTempEl) currentTempEl.textContent = `${currentTemp}°C`;
             if (currentDescEl) currentDescEl.textContent = currentLabel || '--';
+            if (currentRangeEl) currentRangeEl.textContent = `H: ${todayHigh}°C / L: ${todayLow}°C`;
+            if (currentFeelsEl) currentFeelsEl.textContent = `Feels like ${apparentTemp}°C`;
 
             for (let i = 1; i <= 2; i++) {
                 const dayCode = data.daily.weather_code[i];
                 updateWeatherIcon(`weather-day-${i}-icon`, dayCode);
                 const maxTemp = Math.round(data.daily.temperature_2m_max[i]);
                 const minTemp = Math.round(data.daily.temperature_2m_min[i]);
+                const rainChance = Math.round(data.daily.precipitation_probability_max?.[i] ?? 0);
                 const tempEl = document.getElementById(`weather-day-${i}-temp`);
                 const rangeEl = document.getElementById(`weather-day-${i}-range`);
-                if (tempEl) tempEl.textContent = `${maxTemp}°`;
-                if (rangeEl) rangeEl.textContent = `${minTemp}° / ${maxTemp}°`;
+                const noteEl = document.getElementById(`weather-day-${i}-note`);
+                const labelEl = document.getElementById(`weather-day-${i}-label`);
+                if (tempEl) tempEl.textContent = `${maxTemp}°C`;
+                if (rangeEl) rangeEl.textContent = `${minTemp}°C / ${maxTemp}°C`;
+                if (noteEl) noteEl.textContent = `Rain chance ${rainChance}%`;
+                if (labelEl && Array.isArray(data.daily.time)) {
+                    const dayDate = new Date(data.daily.time[i]);
+                    labelEl.textContent = dayDate.toLocaleDateString('en-GB', { weekday: 'short' });
+                }
             }
 
             const updatedEl = document.getElementById('weather-updated');
@@ -2175,11 +2511,6 @@ function createPartnerSlide(partner) {
     const slide = document.createElement('article');
     slide.className = 'partner-slide';
 
-    const banner = document.createElement('div');
-    banner.className = 'partner-banner';
-    banner.setAttribute('aria-hidden', 'true');
-    banner.style.backgroundImage = `url('${sanitizeAssetUrl(partner.bannerUrl)}')`;
-
     const brand = document.createElement('div');
     brand.className = 'partner-brand';
 
@@ -2226,16 +2557,8 @@ function createPartnerSlide(partner) {
     externalIcon.className = 'fas fa-arrow-up-right-from-square';
     link.appendChild(externalIcon);
 
-    const safeBanner = sanitizeAssetUrl(partner.bannerUrl);
-    if (safeBanner.startsWith('http')) {
-        const checkImage = new Image();
-        checkImage.onerror = () => {
-            banner.style.backgroundImage = `url('${FALLBACK_PARTNER_BANNER}')`;
-        };
-        checkImage.src = safeBanner;
-    }
-
-    slide.append(banner, brand, copy, link);
+    slide.setAttribute('role', 'listitem');
+    slide.append(brand, copy, link);
     return slide;
 }
 
@@ -2247,91 +2570,52 @@ function renderPartnersSlides(track) {
 }
 
 function initPartnersCarousel() {
-    const carousel = document.getElementById('partners-carousel');
     const track = document.getElementById('partners-track');
+    const carousel = document.getElementById('partners-carousel');
     const prevBtn = document.getElementById('partners-prev');
     const nextBtn = document.getElementById('partners-next');
-    const dotsWrap = document.getElementById('partners-dots');
-    if (!carousel || !track || !prevBtn || !nextBtn || !dotsWrap) return;
+    if (!track || !carousel) return;
 
     renderPartnersSlides(track);
     const slides = Array.from(track.querySelectorAll('.partner-slide'));
     if (!slides.length) return;
 
-    let currentIndex = 0;
-    let autoplayId = null;
-    const hideBtn = document.getElementById('partners-hide-btn');
-    dotsWrap.innerHTML = '';
-
-    const dots = slides.map((_, index) => {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'partners-dot';
-        dot.setAttribute('aria-label', `Go to partner ${index + 1}`);
-        dot.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
-        dot.addEventListener('click', () => {
-            goTo(index);
-            restartAutoplay();
-        });
-        dotsWrap.appendChild(dot);
-        return dot;
-    });
-
-    function render() {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((dot, index) => {
-            const active = index === currentIndex;
-            dot.classList.toggle('active', active);
-            dot.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
+    // on small screens we switch to a simple grid instead of a JS carousel
+    const isMobileView = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobileView) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        // allow CSS grid/scroll to handle layout, no further logic needed
+        return;
     }
 
-    function goTo(index) {
+    if (!prevBtn || !nextBtn) return;
+    const hideBtn = document.getElementById('partners-hide-btn');
+    let currentIndex = 0;
+
+    const render = () => {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        prevBtn.disabled = slides.length <= 1;
+        nextBtn.disabled = slides.length <= 1;
+    };
+
+    const goTo = (index) => {
         const lastIndex = slides.length - 1;
         if (index < 0) currentIndex = lastIndex;
         else if (index > lastIndex) currentIndex = 0;
         else currentIndex = index;
         render();
-    }
+    };
 
-    function stopAutoplay() {
-        if (!autoplayId) return;
-        clearInterval(autoplayId);
-        autoplayId = null;
-    }
+    prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
 
-    function startAutoplay() {
-        stopAutoplay();
-        if (settings.reduceMotion) return;
-        autoplayId = setInterval(() => goTo(currentIndex + 1), 5500);
-    }
-
-    function restartAutoplay() {
-        startAutoplay();
-    }
-
-    prevBtn.addEventListener('click', () => {
-        goTo(currentIndex - 1);
-        restartAutoplay();
-    });
-
-    nextBtn.addEventListener('click', () => {
-        goTo(currentIndex + 1);
-        restartAutoplay();
-    });
-
-    carousel.addEventListener('mouseenter', stopAutoplay);
-    carousel.addEventListener('mouseleave', startAutoplay);
-    carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
-    carousel.addEventListener('touchend', startAutoplay, { passive: true });
     carousel.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowLeft') {
             goTo(currentIndex - 1);
-            restartAutoplay();
         }
         if (event.key === 'ArrowRight') {
             goTo(currentIndex + 1);
-            restartAutoplay();
         }
     });
 
@@ -2345,18 +2629,11 @@ function initPartnersCarousel() {
     }
 
     partnersCarouselState = {
-        refreshAutoplay: () => {
-            if (partnersSectionCollapsed || currentpage === 'contact' || !settings.partnersVisible) {
-                stopAutoplay();
-                return;
-            }
-            startAutoplay();
-        },
-        stopAutoplay
+        refreshAutoplay: () => render(),
+        stopAutoplay: () => {}
     };
 
     render();
-    startAutoplay();
 }
 
 function updateGlobalPartnersVisibility() {
@@ -2588,12 +2865,15 @@ function checkIfReadyToWakeup() {
         if (noMusicBtn) {
             noMusicBtn.addEventListener('click', enterWithoutMusic);
         }
-        document.addEventListener('keydown', (e) => {
+        // add listener once and remove itself after execution to avoid blocking spaces later
+        const keyHandler = (e) => {
             if (e.key === ' ' || e.key === 'Enter') {
                 e.preventDefault();
                 hideWakeupOverlay();
+                document.removeEventListener('keydown', keyHandler);
             }
-        });
+        };
+        document.addEventListener('keydown', keyHandler);
     }
 }
 
@@ -2613,15 +2893,28 @@ function makestar() {
         star.classList.add('large');
     }
 
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 3 + 's';
+    const behavior = Math.random();
+    const lifetime = behavior < 0.55 ? 5200 : 7600;
+
+    if (behavior < 0.55) {
+        star.classList.add('twinkle');
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 2.5}s`;
+    } else {
+        star.classList.add('float');
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.setProperty('--drift-x', `${(Math.random() - 0.5) * 28}px`);
+        star.style.setProperty('--drift-y', `${(Math.random() - 0.5) * 28}px`);
+        star.style.animationDelay = `${Math.random() * 2.5}s`;
+    }
 
     starfield.appendChild(star);
 
     setTimeout(() => {
         star.remove();
-    }, 3000);
+    }, lifetime);
 }
 
 function showpage(page) {
@@ -2634,12 +2927,16 @@ function showpage(page) {
         }
     });
 
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
     navLinks.forEach(link => {
-        if (link.onclick.toString().includes(page)) {
+        const targetPage = link.dataset.page || '';
+        const isActive = targetPage === page || link.onclick.toString().includes(page);
+        if (isActive) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
         } else {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
         }
     });
 
@@ -2765,16 +3062,6 @@ function readIdleSince(user) {
     if (typeof rawIdle === 'number') {
         return rawIdle > 1e12 ? rawIdle : rawIdle * 1000;
     }
-    if (typeof rawIdle === 'string' && rawIdle.trim() !== '') {
-        const numeric = Number(rawIdle);
-        if (Number.isFinite(numeric)) {
-            return numeric > 1e12 ? numeric : numeric * 1000;
-        }
-        const parsed = Date.parse(rawIdle);
-        if (Number.isFinite(parsed)) {
-            return parsed;
-        }
-    }
     return null;
 }
 
@@ -2849,8 +3136,8 @@ function renderDiscordProfile(user) {
         const apiIdleSince = readIdleSince(user);
         if (apiIdleSince) {
             discordIdleSince = apiIdleSince;
-        } else {
-            discordIdleSince = null;
+        } else if (!discordIdleSince) {
+            discordIdleSince = Date.now();
         }
     } else {
         discordIdleSince = null;
@@ -3344,6 +3631,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             cancelExternalRedirect();
             closeSettings();
             closePlaylistOverlay();
+            closeProjectDetails();
             return;
         }
 
@@ -3352,13 +3640,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     loadContactCooldown();
     cursorsys.init();
+    seedAmbientStars();
     initNameChanger();
+    renderProjectsSection();
     initMusicPlayer();
     initFavoritesWidget();
     initProjectsSearch();
+    initAboutSearch();
     initSkillsSearch();
     initWorkAvailabilityStatus();
     initAboutFacts();
+    initProjectDetailsOverlay();
     runWhenIdle(() => {
         initWeatherWidget();
         initPartnersCarousel();
@@ -3552,6 +3844,3 @@ document.addEventListener('DOMContentLoaded', async function() {
         openExternalRedirect(url.href, link.getAttribute('target'));
     });
 });
-
-
-
