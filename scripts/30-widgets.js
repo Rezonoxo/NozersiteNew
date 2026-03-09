@@ -574,6 +574,67 @@ function makestar() {
     }, lifetime);
 }
 
+// TOC (Table of Contents) Observer for TOS page
+let tocObserver = null;
+
+function initTOCObserver() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    if (!tocLinks.length) return;
+
+    // Disconnect previous observer if exists
+    if (tocObserver) {
+        tocObserver.disconnect();
+    }
+
+    // Create Intersection Observer to track which section is in view
+    tocObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.id;
+                const link = document.querySelector(`.toc-link[href="#${id}"]`);
+                
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    tocLinks.forEach(l => l.classList.remove('toc-active'));
+                    // Add active class to current section's link
+                    if (link) {
+                        link.classList.add('toc-active');
+                        // Scroll the TOC sidebar to show active link
+                        link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            });
+        },
+        {
+            rootMargin: '-120px 0px -80% 0px',
+            threshold: 0
+        }
+    );
+
+    // Observe all section elements
+    document.querySelectorAll('#tos [id^="tos-"]').forEach((section) => {
+        tocObserver.observe(section);
+    });
+
+    // Handle smooth scrolling for TOC links
+    tocLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Remove active class from all and add to clicked
+                tocLinks.forEach(l => l.classList.remove('toc-active'));
+                link.classList.add('toc-active');
+                
+                // Smooth scroll to section
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+}
+
 function showpage(page) {
     const pages = document.querySelectorAll('.container');
     pages.forEach(p => {
@@ -606,6 +667,14 @@ function showpage(page) {
     updateDocumentTitle(page);
     updateMiniMusicPlayerVisibility();
     initScrollReveal(true);
+    
+    // Initialize TOC observer for TOS page
+    if (page === 'tos') {
+        setTimeout(() => {
+            initTOCObserver();
+        }, 100);
+    }
+    
     if (page === 'home') {
         runWhenIdle(() => {
             ensureHomeWidgetsReady();
