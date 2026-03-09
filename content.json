@@ -1,4 +1,4 @@
-{
+﻿{
   "siteNotice": {
     "enabled": true,
     "dismissible": true,
@@ -231,54 +231,134 @@
       }
     ]
   },
-  "musicTracks": [
+  "projects": [
     {
-      "name": "Ride or Die, Pt. 2",
-      "artist": "Sevdaliza, Tokischa & Villano Antillano",
-      "file": "audio/MT3.mp3",
-      "image": "icons/cover3.jpg"
+      "id": "project-template-1",
+      "title": "Project Title One",
+      "subtitle": "Short one-line summary of the project",
+      "summary": "Replace this text with a clear description of what the project does, who it is for, and what makes it worth showing in the portfolio.",
+      "banner": "linear-gradient(135deg, rgba(255, 120, 92, 0.84), rgba(122, 46, 28, 0.9) 50%, rgba(20, 11, 8, 0.96))",
+      "metrics": [
+        { "label": "Status", "value": "template" },
+        { "label": "Role", "value": "your role" },
+        { "label": "Category", "value": "project type" }
+      ],
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "highlights": [
+        "Add the first strong selling point here",
+        "Add the second standout detail here",
+        "Add the third reason this project matters"
+      ],
+      "links": [
+        { "label": "Website", "url": null },
+        { "label": "Source", "url": null }
+      ]
     },
     {
-      "name": "Кто Ты",
-      "artist": "daryana",
-      "file": "audio/MT1.ogg",
-      "image": "icons/cover1.jpg"
+      "id": "project-template-2",
+      "title": "Project Title Two",
+      "subtitle": "Another short subtitle for the card",
+      "summary": "Use this second template for another project idea, product concept, client work, or tool you want to feature later.",
+      "banner": "linear-gradient(135deg, rgba(80, 184, 255, 0.84), rgba(18, 64, 108, 0.9) 50%, rgba(6, 14, 24, 0.96))",
+      "metrics": [
+        { "label": "Status", "value": "template" },
+        { "label": "Role", "value": "your role" },
+        { "label": "Category", "value": "project type" }
+      ],
+      "tech": ["Framework", "API", "Tooling"],
+      "highlights": [
+        "Describe one important feature or result",
+        "Describe one visual or technical strength",
+        "Describe one user or business benefit"
+      ],
+      "links": [
+        { "label": "Website", "url": null },
+        { "label": "Source", "url": null }
+      ]
+    },
+    {
+      "id": "project-template-3",
+      "title": "Project Title Three",
+      "subtitle": "Template card ready for future content",
+      "summary": "Keep this as a spare entry for a future project, experimental build, bot, website, storefront, or design case study.",
+      "banner": "linear-gradient(135deg, rgba(119, 96, 255, 0.84), rgba(46, 29, 110, 0.9) 50%, rgba(10, 10, 24, 0.96))",
+      "metrics": [
+        { "label": "Status", "value": "template" },
+        { "label": "Role", "value": "your role" },
+        { "label": "Category", "value": "project type" }
+      ],
+      "tech": ["Design", "Frontend", "Backend"],
+      "highlights": [
+        "Replace with a real capability or outcome",
+        "Replace with a concrete implementation detail",
+        "Replace with a reason to click the project"
+      ],
+      "links": [
+        { "label": "Website", "url": null },
+        { "label": "Source", "url": null }
+      ]
+    }
+  ],
+  "musicTracks": [
+    {
+      "name": "$WERVIN",
+      "artist": "purge!",
+      "file": "audio/$WERVIN.ogg",
+      "image": "icons/$WERVIN.png"
     },
     {
       "name": "Chupa Chups",
       "artist": "Eldzhey, Poshlaya Molly",
-      "file": "audio/MT2.mp3",
-      "image": "icons/cover2.jpg"
+      "file": "audio/Chupa Chups.ogg",
+      "image": "icons/Chupa Chups.jpg"
     },
     {
-      "name": "Hellish Lullaby",
-      "artist": "Poshlaya Molly",
-      "file": "audio/MT4.mp3",
-      "image": "icons/cover4.jpg"
+      "name": "Circles",
+      "artist": "Post Malone",
+      "file": "audio/Circles.ogg",
+      "image": "icons/circles.jpg"
     },
     {
-      "name": "Strip Club",
-      "artist": "Poshlaya Molly",
-      "file": "audio/MT5.mp3",
-      "image": "icons/cover5.jpg"
+      "name": "Dla zasady",
+      "artist": "Nita",
+      "file": "audio/Dla zasady.ogg",
+      "image": "icons/Dla zasady.jpg"
     },
     {
-      "name": "LOYALTY",
-      "artist": "Daniel Di Angelo",
-      "file": "audio/MT6.mp3",
-      "image": "icons/cover6.png"
+      "name": "Espresso",
+      "artist": "Sabrina Carpenter",
+      "file": "audio/Espresso.ogg",
+      "image": "icons/Espresso.jpg"
     },
     {
       "name": "Headlock",
       "artist": "Imogen Heap",
-      "file": "audio/MT7.mp3",
-      "image": "icons/cover7.png"
+      "file": "audio/Headlock.ogg",
+      "image": "icons/Headlock.png"
     },
     {
-      "name": "$WERVIN",
-      "artist": "purge!",
-      "file": "audio/MT8.mp3",
-      "image": "icons/cover8.png"
+      "name": "Kto Tbi",
+      "artist": "daryana",
+      "file": "audio/Kto Tbi.ogg",
+      "image": "icons/Kto Tbi.jpg"
+    },
+    {
+      "name": "LOYALTY",
+      "artist": "Daniel Di Angelo",
+      "file": "audio/Loyalty.ogg",
+      "image": "icons/Loyalty.png"
+    },
+    {
+      "name": "Popstars",
+      "artist": "Kill Eva, Мэйби Бэйби",
+      "file": "audio/Popstars.ogg",
+      "image": "icons/Popstars.jpg"
+    },
+    {
+      "name": "Strip Club",
+      "artist": "Poshlaya Molly",
+      "file": "audio/Strip Club.ogg",
+      "image": "icons/Strip Club.jpg"
     }
   ],
   "workStatus": {

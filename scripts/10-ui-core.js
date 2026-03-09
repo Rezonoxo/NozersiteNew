@@ -814,7 +814,12 @@ async function submitContactForm(event) {
 
     try {
         const data = { name, email, message };
-        const response = await fetch('https://formspree.io/f/mdaenbbj', {
+        const endpoint = window.APP_API_CONFIG?.formspree?.endpoint;
+        if (!endpoint) {
+            throw new Error('Missing Formspree endpoint');
+        }
+
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

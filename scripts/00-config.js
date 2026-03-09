@@ -1,4 +1,4 @@
-let currentpage = 'home';
+﻿let currentpage = 'home';
 let contactCooldownExpiry = 0;
 let pendingRedirectUrl = null;
 let pendingRedirectTarget = null;
@@ -68,7 +68,7 @@ const defaultSettings = {
 let settings = loadSettings();
 settings.shortcuts = { ...DEFAULT_SHORTCUTS, ...(settings.shortcuts || {}) };
 
-let names = ['Nozer', 'Wiktor', 'Heaven'];
+let names = ['Nozer'];
 let pageTitles = {
     base: 'Nozer',
     home: 'Home',
@@ -79,57 +79,7 @@ let pageTitles = {
 };
 let currentNameIndex = 0;
 
-let musicTracks = [
-    {
-        name: 'Ride or Die, Pt. 2',
-        artist: 'Sevdaliza, Tokischa & Villano Antillano',
-        file: 'audio/MT3.mp3',
-        image: 'icons/cover3.jpg'
-    },
-    {
-        name: '#habibati',
-        artist: 'Poshlaya Molly, HOFMANNITA',
-        file: 'audio/MT1.mp3',
-        image: 'https://i.pinimg.com/474x/95/e8/27/95e8270466b1aae5199ff8bdc2a7d214.jpg'
-    },
-    {
-        name: 'Đ§ŃĐżĐ° Đ§ŃĐżŃ',
-        artist: 'Eldzhey, Poshlaya Molly',
-        file: 'audio/MT2.mp3',
-        image: 'icons/cover2.jpg'
-    },
-    {
-        name: 'ĐĐ´ŃĐşĐ°ŃŹ ĐşĐľĐ»Ń‹Đ±ĐµĐ»ŃŚĐ˝Đ°ŃŹ',
-        artist: 'Poshlaya Molly',
-        file: 'audio/MT4.mp3',
-        image: 'icons/cover4.jpg'
-    },
-    {
-        name: 'ĐˇŃ‚Ń€Đ¸Đż ĐşĐ»Đ°Đ±',
-        artist: 'Poshlaya Molly',
-        file: 'audio/MT5.mp3',
-        image: 'icons/cover5.jpg'
-    },
-    {
-        name: 'LOYALTY',
-        artist: 'Daniel Di Angelo',
-        file: 'audio/MT6.mp3',
-        image: 'icons/cover6.png'
-    },
-    {
-        name: 'Headlock',
-        artist: 'Imogen Heap',
-        file: 'audio/MT7.mp3',
-        image: 'icons/cover7.png'
-    },
-    {
-        name: '$WERVIN',
-        artist: 'purge!',
-        file: 'audio/MT8.mp3',
-        image: 'icons/cover8.png'
-    }
-];
-
+let musicTracks = [];
 let currentMusicTrack = 0;
 let musicAudio = null;
 let isMusicPlaying = false;
@@ -137,143 +87,8 @@ let miniMusicObserver = null;
 let isMainPlayerVisible = true;
 let miniPlayerDismissed = false;
 let aboutFactIndex = -1;
-let PROJECTS = [
-    {
-        id: 'lyute-ai',
-        title: 'lyute ai',
-        subtitle: 'AI assistant for shop support and customer guidance',
-        summary: 'The dedicated AI assistant for my shop, designed to handle inquiries, reduce response time, and keep conversations structured for customers.',
-        banner: 'linear-gradient(135deg, rgba(255, 123, 172, 0.82), rgba(75, 27, 95, 0.88) 52%, rgba(9, 14, 32, 0.94))',
-        metrics: [
-            { label: 'Build Time', value: 'active' },
-            { label: 'Role', value: 'full creator' },
-            { label: 'Category', value: 'AI support' }
-        ],
-        tech: ['HTML', 'CSS', 'JavaScript', 'TypeScript'],
-        highlights: ['Fast answer flow for recurring questions', 'Designed to reduce manual support load', 'Brand-aligned UI and conversation structure'],
-        links: [
-            { label: 'Website', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'spotnif',
-        title: 'spotnif',
-        subtitle: 'Spotify presence visualizer powered by Lanyard data',
-        summary: 'A versatile tool that generates a Lanyard-based Spotify presence card with a cleaner visual system and a more dynamic presentation layer.',
-        banner: 'linear-gradient(135deg, rgba(81, 219, 255, 0.84), rgba(20, 67, 116, 0.9) 50%, rgba(6, 13, 28, 0.96))',
-        metrics: [
-            { label: 'Build Time', value: 'rapid' },
-            { label: 'Role', value: 'frontend dev' },
-            { label: 'Category', value: 'music widget' }
-        ],
-        tech: ['HTML', 'CSS', 'JavaScript', 'Lanyard API'],
-        highlights: ['Presence-focused interface', 'Optimized for embed-style layouts', 'Built around real-time music activity'],
-        links: [
-            { label: 'Website', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'imagify',
-        title: 'imagify',
-        subtitle: 'Image editor concept for creators who want speed',
-        summary: 'A polished image editor built for creators who want quick, clean results with minimal friction and a straightforward editing flow.',
-        banner: 'linear-gradient(135deg, rgba(59, 130, 246, 0.82), rgba(18, 45, 88, 0.9) 52%, rgba(7, 11, 22, 0.96))',
-        metrics: [
-            { label: 'Build Time', value: 'concept' },
-            { label: 'Role', value: 'product + ui' },
-            { label: 'Category', value: 'creative tool' }
-        ],
-        tech: ['HTML', 'CSS', 'JavaScript'],
-        highlights: ['Clean interface for quick edits', 'Creator-focused workflow', 'Strong emphasis on ease of use'],
-        links: [
-            { label: 'Website', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'seent',
-        title: 'seent',
-        subtitle: 'Community-oriented Discord utility bot',
-        summary: 'A Discord bot focused on reminders, lightweight announcements, and helpful automations for online communities that need structure without clutter.',
-        banner: 'linear-gradient(135deg, rgba(170, 110, 255, 0.84), rgba(61, 35, 105, 0.9) 50%, rgba(10, 12, 26, 0.96))',
-        metrics: [
-            { label: 'Build Time', value: 'stable' },
-            { label: 'Role', value: 'backend dev' },
-            { label: 'Category', value: 'discord bot' }
-        ],
-        tech: ['discord.py', 'Python'],
-        highlights: ['Reminder and utility modules', 'Designed for community moderation support', 'Keeps server workflows lightweight'],
-        links: [
-            { label: 'Website', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'void-discord-bot',
-        title: 'void discord bot',
-        subtitle: 'Moderation, logging, and server tools in one system',
-        summary: 'A multi-purpose Discord bot that combines moderation, logging, and server utilities into one manageable toolkit for admins.',
-        banner: 'linear-gradient(135deg, rgba(67, 181, 129, 0.82), rgba(24, 73, 56, 0.9) 52%, rgba(6, 16, 18, 0.96))',
-        metrics: [
-            { label: 'Build Time', value: 'ongoing' },
-            { label: 'Role', value: 'system dev' },
-            { label: 'Category', value: 'automation' }
-        ],
-        tech: ['discord.py', 'Python', 'SENAPI'],
-        highlights: ['Moderation and event logging', 'Server-side tooling for daily admin work', 'Built to centralize multiple utility flows'],
-        links: [
-            { label: 'Website', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'lyute-bshop',
-        title: 'lyute @bshop',
-        subtitle: 'Storefront and collaboration space for the community',
-        summary: 'A digital storefront for my community, support flow, and collaboration space, designed to feel more structured than a typical simple link hub.',
-        banner: 'linear-gradient(135deg, rgba(255, 170, 80, 0.84), rgba(108, 59, 18, 0.9) 50%, rgba(18, 12, 6, 0.96))',
-        metrics: [
-            { label: 'Build Time', value: 'active' },
-            { label: 'Role', value: 'owner' },
-            { label: 'Category', value: 'storefront' }
-        ],
-        tech: ['B2B', 'Shop', 'Community'],
-        highlights: ['Community-first storefront layout', 'Built for support and sales together', 'Simple journey from discovery to contact'],
-        links: [
-            { label: 'Join', url: null },
-            { label: 'Source', url: null }
-        ]
-    },
-    {
-        id: 'behance-portfolio',
-        title: 'nozercode on behance',
-        subtitle: 'Branding, social visuals, and graphic portfolio',
-        summary: 'A collection of branding work, concept visuals, social media graphics, and presentation pieces published in one portfolio space.',
-        banner: 'linear-gradient(135deg, rgba(61, 133, 255, 0.84), rgba(20, 49, 101, 0.9) 52%, rgba(8, 11, 24, 0.96))',
-        metrics: [
-            { label: 'Type', value: 'visual work' },
-            { label: 'Role', value: 'designer' },
-            { label: 'Platform', value: 'behance' }
-        ],
-        tech: ['Branding', 'Social Media', 'Concept Work', 'Behance'],
-        highlights: ['Central place for graphic projects', 'Used as public portfolio for visual work', 'Keeps design output separate but inside the main project list'],
-        links: [
-            { label: 'Portfolio', url: 'https://www.behance.net/nozercode' },
-            { label: 'Source', url: null }
-        ]
-    }
-];
-let aboutFacts = [
-    { text: 'In 2025, I won the biggest graphic design contest at my local school, earning prizes worth over USD 1,000.', tag: 'Achievement' },
-    { text: 'I have already traveled to more than eight countries.', tag: 'Travel' },
-    { text: 'I have two pets: a cockatiel parrot and a crested gecko.', tag: 'Pets' },
-    { text: 'I reached Rysy peak in Slovakia and also climbed other mountain peaks in Poland and Slovakia.', tag: 'Mountains' },
-    { text: 'I participated in the Erasmus+ program in Malaga, Spain.', tag: 'Erasmus+' },
-    { text: 'I can move my left ear and crack three fingers on my hands.', tag: 'Fun Skill' },
-    { text: 'I love playing Roblox, especially meeting new people on voice chat.', tag: 'Roblox' }
-];
+let PROJECTS = [];
+let aboutFacts = [];
 
 function loadSettings() {
     try {
@@ -718,4 +533,5 @@ function handleGlobalShortcut(event) {
     event.preventDefault();
     return executeShortcutAction(action);
 }
+
 

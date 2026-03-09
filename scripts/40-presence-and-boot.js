@@ -1,6 +1,8 @@
 // Discord Profile Fetching
-const DISCORD_USER_ID = '690653953238499369';
-const DISCORD_USERNAME = 'rezonoxo'; // Twoj username Discord jako fallback
+const DISCORD_USER_ID = window.APP_API_CONFIG?.lanyard?.userId || '690653953238499369';
+const DISCORD_USERNAME = window.APP_API_CONFIG?.lanyard?.username || 'rezonoxo'; // Twoj username Discord jako fallback
+const LANYARD_REST_URL = window.APP_API_CONFIG?.lanyard?.restUrl || 'https://api.lanyard.rest/v1/users/';
+const LANYARD_SOCKET_URL = window.APP_API_CONFIG?.lanyard?.socketUrl || 'wss://api.lanyard.rest/socket';
 
 const DISCORD_STATUS_TEXT = {
     online: 'Online',
@@ -357,7 +359,7 @@ function renderDiscordProfile(user) {
 
 async function fetchDiscordProfile() {
     try {
-        const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+        const response = await fetch(`${LANYARD_REST_URL}${DISCORD_USER_ID}`);
         if (!response.ok || response.status === 404) {
             loadFallbackProfile();
             return;
@@ -398,7 +400,7 @@ function connectLanyardSocket() {
     }
 
     try {
-        lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+        lanyardSocket = new WebSocket(LANYARD_SOCKET_URL);
     } catch (_) {
         lanyardSocket = null;
         return;

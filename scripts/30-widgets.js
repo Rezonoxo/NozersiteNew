@@ -49,9 +49,11 @@ function initWeatherWidget() {
     const card = document.getElementById('weather-card');
     if (!card) return;
 
-    const lat = 50.0413;
-    const lon = 21.999;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=3`;
+    const weatherConfig = window.APP_API_CONFIG?.weather || {};
+    const lat = weatherConfig.latitude ?? 50.0413;
+    const lon = weatherConfig.longitude ?? 21.999;
+    const baseUrl = weatherConfig.baseUrl || 'https://api.open-meteo.com/v1/forecast';
+    const url = `${baseUrl}?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=3`;
 
     async function fetchWeather() {
         try {
@@ -107,7 +109,7 @@ function initWeatherWidget() {
     }
 
     fetchWeather();
-    setInterval(fetchWeather, 30 * 60 * 1000);
+    setInterval(fetchWeather, weatherConfig.refreshMs || (30 * 60 * 1000));
 }
 
 function initFavoritesWidget() {
@@ -231,7 +233,7 @@ function formatCounterValue(value) {
     return numeric.toLocaleString('en-US');
 }
 
-const VIEW_COUNTER_ENDPOINTS = [
+const VIEW_COUNTER_ENDPOINTS = window.APP_API_CONFIG?.counter?.endpoints || [
     'https://api.countapi.xyz'
 ];
 const VIEW_COUNTER_FALLBACK_KEY = 'nozersite_home_views_local_fallback_v1';
@@ -274,8 +276,8 @@ async function initHomeViewCounter() {
     const viewEl = document.getElementById('home-view-count');
     if (!viewEl) return;
 
-    const namespace = 'nozersite';
-    const key = 'home-views-v1';
+    const namespace = window.APP_API_CONFIG?.counter?.namespace || 'nozersite';
+    const key = window.APP_API_CONFIG?.counter?.key || 'home-views-v1';
 
     try {
         const data = await countApiHit(namespace, key);

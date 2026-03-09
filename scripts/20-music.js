@@ -170,11 +170,16 @@ async function switchTrack(trackIndex) {
     }
 }
 
+function getRandomInitialTrackIndex() {
+    if (!Array.isArray(musicTracks) || musicTracks.length === 0) return 0;
+    return Math.floor(Math.random() * musicTracks.length);
+}
+
 function initMusicPlayer() {
     musicAudio = document.getElementById('music-audio');
     if (!musicAudio) return;
     
-    loadTrack(0);
+    loadTrack(getRandomInitialTrackIndex());
     initMiniMusicPlayer();
     initPlaylistOverlay();
     initMusicPlayerVisibilityObserver();

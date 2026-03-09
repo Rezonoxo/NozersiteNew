@@ -61,6 +61,7 @@
   "jobTitle": "Developer and Designer"
 }
 </script>
+<script src="scripts/05-api-config.js"></script>
 </head>
 <body>
     <div id="customCursor"></div>
@@ -194,10 +195,13 @@
 </div>
 <script>
     async function updateRecentTracks() {
-        const USERNAME = 'Nozercode';
-        const API_KEY = 'a3c1383c7bfe82bf015f78d6ae03c837';
+        const config = window.APP_API_CONFIG?.lastfm;
+        if (!config?.username || !config?.apiKey || !config?.baseUrl) {
+            document.getElementById('spotify-list').innerHTML = '<div class="loading-text">CONFIG ERROR</div>';
+            return;
+        }
 
-        const URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
+        const URL = `${config.baseUrl}?method=user.getrecenttracks&user=${encodeURIComponent(config.username)}&api_key=${encodeURIComponent(config.apiKey)}&format=json&limit=${encodeURIComponent(config.recentTracksLimit || 4)}`;
 
         try {
             const response = await fetch(URL);
@@ -255,7 +259,7 @@
     // Initial fetch
     updateRecentTracks();
     // Refresh every 30 seconds
-    setInterval(updateRecentTracks, 30000);
+    setInterval(updateRecentTracks, window.APP_API_CONFIG?.lastfm?.refreshMs || 30000);
 </script>
             <div class="music-player-card now-playing-card">
                 <div class="music-player">
